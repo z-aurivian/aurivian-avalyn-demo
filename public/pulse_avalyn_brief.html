@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avalyn · Pulse Intelligence · July 20, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:     #F5F0E9;
+  --paper:     #EDE8DC;
+  --paper-dk:  #E4DECE;
+  --ink:       #1A1612;
+  --ink-mid:   #3D3530;
+  --ink-lt:    #7A6E65;
+  --rule:      #D4CEC4;
+  --teal:      #0D6E6E;
+  --teal-lt:   #1A8B9B;
+  --amber:     #B5540A;
+  --amber-lt:  #E8780F;
+  --rose:      #8B2635;
+  --sage:      #4A6741;
+  --purple:    #5B3F7E;
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+  --font-mono:  'DM Mono', 'IBM Plex Mono', monospace;
+  --font-sans:  'DM Sans', 'Inter', -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--cream);
+  color: var(--ink);
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+#noise {
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none; opacity: 0.03;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--teal); }
+
+/* ── SHELL ─────────────────────────────────── */
+#shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 52px 1fr;
+  grid-template-areas: "topbar topbar" "sidebar main";
+  height: 100vh;
+  overflow: hidden;
+  transition: grid-template-columns 0.22s ease;
+}
+#shell.collapsed { grid-template-columns: 0px 1fr; }
+#shell.signal-open { grid-template-rows: 34px 52px 1fr; grid-template-areas: "signal signal" "topbar topbar" "sidebar main"; }
+
+/* ── SIGNAL BANNER ─────────────────────────── */
+#signal-banner {
+  grid-area: signal; display: none;
+  align-items: center; gap: 10px; padding: 0 16px;
+  background: var(--ink); color: var(--cream);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.02em;
+}
+#shell.signal-open #signal-banner { display: flex; }
+.signal-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber-lt); animation: pulse-dot 1.6s ease-in-out infinite; flex-shrink: 0; }
+.signal-text { flex: 1; opacity: 0.92; }
+.signal-text strong { color: var(--amber-lt); font-weight: 500; }
+.signal-dismiss { background: none; border: none; color: rgba(245,240,232,0.5); cursor: pointer; font-size: 14px; line-height: 1; padding: 4px; }
+.signal-dismiss:hover { color: var(--cream); }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── TOPBAR ────────────────────────────────── */
+#topbar {
+  grid-area: topbar;
+  background: rgba(245,240,232,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+}
+.topbar-left  { display: flex; align-items: center; gap: 10px; }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.topbar-wordmark { font-family: var(--font-serif); font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -0.01em; display: flex; align-items: center; gap: 7px; }
+.wordmark-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); animation: pulse-dot 2s ease-in-out infinite; }
+#topbarCenter { font-family: var(--font-mono); font-size: 10px; color: var(--ink-lt); letter-spacing: 0.08em; text-transform: uppercase; }
+.chip { font-size: 9.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; background: rgba(13,110,110,0.10); border: 1px solid rgba(13,110,110,0.30); color: var(--teal); font-family: var(--font-mono); }
+.topbar-date { font-size: 10px; color: var(--ink-lt); letter-spacing: 0.03em; }
+
+/* ── SIDEBAR TOGGLE ────────────────────────── */
+#sidebar-toggle {
+  position: fixed; left: 228px; top: 50%; transform: translateY(-50%);
+  width: 14px; height: 36px;
+  background: var(--paper); border: 1px solid var(--rule); border-left: none;
+  border-radius: 0 4px 4px 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--ink-lt);
+  z-index: 200; transition: left 0.22s ease;
+}
+#shell.collapsed #sidebar-toggle { left: 0px; }
+
+/* ── SIDEBAR ───────────────────────────────── */
+#sidebar { grid-area: sidebar; background: var(--paper); border-right: 1px solid var(--rule); overflow-y: auto; overflow-x: hidden; transition: opacity 0.2s ease; position: sticky; top: 0; align-self: start; height: 100%; }
+#shell.collapsed #sidebar { opacity: 0; pointer-events: none; }
+.sidebar-inner { padding: 12px 0; min-width: 240px; }
+.sidebar-section-label { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-lt); padding: 0 14px 6px; margin-top: 10px; }
+.brief-card { padding: 9px 14px; cursor: pointer; border-left: 2px solid transparent; transition: background 0.13s; position: relative; }
+.brief-card:hover { background: rgba(13,110,110,0.04); }
+.brief-card.active { border-left-color: var(--teal); background: rgba(13,110,110,0.06); }
+.brief-card-title { font-size: 11px; font-weight: 500; color: var(--ink-mid); line-height: 1.4; margin-bottom: 2px; }
+.brief-card.active .brief-card-title { color: var(--ink); }
+.brief-card-meta { font-size: 9px; color: var(--ink-lt); letter-spacing: 0.02em; }
+.new-dot { width: 5px; height: 5px; background: var(--teal); border-radius: 50%; position: absolute; top: 9px; right: 12px; animation: pulse-dot 2.5s ease-in-out infinite; }
+.sidebar-rule { height: 1px; background: var(--rule); margin: 10px 14px; }
+.nav-item { display: flex; align-items: center; gap: 8px; padding: 8px 14px; cursor: pointer; font-size: 11px; font-weight: 500; color: var(--ink-lt); transition: background 0.13s, color 0.13s; text-decoration: none; }
+.nav-item:hover { background: rgba(13,110,110,0.04); color: var(--ink); }
+.nav-item.active { color: var(--teal); background: rgba(13,110,110,0.06); border-left: 2px solid var(--teal); }
+.nav-icon { font-size: 12px; width: 14px; text-align: center; opacity: 0.7; }
+.nav-item.active .nav-icon { opacity: 1; }
+
+/* ── MAIN ──────────────────────────────────── */
+#main { grid-area: main; overflow-y: auto; background: var(--cream); }
+.view { display: none; }
+.view.active { display: block; }
+.brief-content { display: none; }
+.brief-content.active { display: block; }
+
+/* ── BRIEF ARTICLE ─────────────────────────── */
+.brief-eyebrow { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.tag { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+.tag-outline { border: 1px solid var(--teal); color: var(--teal); }
+.tag-product { background: rgba(13,110,110,0.10); border: 1px solid rgba(13,110,110,0.30); color: var(--teal); }
+.tag-alert   { background: rgba(181,84,10,0.10); border: 1px solid rgba(181,84,10,0.30); color: var(--amber); }
+.eyebrow-date { margin-left: auto; font-size: 10px; color: var(--ink-lt); }
+
+.brief-headline { font-family: var(--font-serif); font-size: 26px; font-weight: 700; color: var(--ink); line-height: 1.4; letter-spacing: -0.01em; margin-bottom: 14px; }
+.brief-headline em { color: var(--teal); font-style: italic; }
+.brief-lede { font-family: var(--font-serif); font-size: 14px; font-weight: 400; color: var(--ink-mid); line-height: 1.85; max-width: 66ch; margin-bottom: 16px; }
+
+.brief-meta { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; padding: 12px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 22px; }
+.meta-item { display: flex; flex-direction: column; gap: 2px; }
+.meta-label { font-size: 8px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-lt); }
+.meta-value { font-size: 12px; font-weight: 600; color: var(--teal); }
+.meta-value.warn { color: var(--amber); }
+.meta-value.dim  { color: var(--ink-mid); font-weight: 400; }
+
+.summary-box { background: var(--ink); border-radius: 8px; padding: 18px 20px; margin-bottom: 30px; position: relative; overflow: hidden; }
+.summary-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal-lt), var(--amber-lt), var(--rose)); }
+.summary-label { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-lt); margin-bottom: 10px; font-family: var(--font-mono); }
+.summary-body { font-size: 13px; line-height: 1.8; color: rgba(245,240,232,0.9); }
+.summary-body strong { color: var(--cream); font-weight: 600; }
+
+.section-rule { height: 1px; background: var(--rule); margin: 30px 0; }
+.brief-section { opacity: 0; transform: translateY(12px); animation: rise 0.4s ease forwards; }
+@keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+.community-marker { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+.cm-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.cm-rule { width: 1px; height: 14px; background: var(--rule); }
+.cm-label { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+
+.signal-pill { display: inline-block; font-family: var(--font-mono); font-size: 8.5px; font-weight: 600; letter-spacing: 0.05em; padding: 3px 8px; border-radius: 3px; border: 1px solid; margin-bottom: 12px; }
+.sp-teal   { background: rgba(13,110,110,0.08);  border-color: rgba(13,110,110,0.35);  color: var(--teal); }
+.sp-sage   { background: rgba(74,103,65,0.08);   border-color: rgba(74,103,65,0.35);   color: var(--sage); }
+.sp-amber  { background: rgba(181,84,10,0.08);   border-color: rgba(181,84,10,0.35);   color: var(--amber); }
+.sp-rose   { background: rgba(139,38,53,0.08);   border-color: rgba(139,38,53,0.35);   color: var(--rose); }
+
+.section-h2 { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.45; margin-bottom: 12px; }
+.section-h2 em { font-style: italic; }
+.section-h2.c-teal em  { color: var(--teal); }
+.section-h2.c-sage em  { color: var(--sage); }
+.section-h2.c-amber em { color: var(--amber); }
+.section-h2.c-rose em  { color: var(--rose); }
+
+.section-body { font-size: 13px; line-height: 1.85; color: var(--ink-mid); margin-bottom: 14px; }
+
+.pull-quote { border-left: 3px solid var(--teal); background: var(--paper); padding: 14px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+.pull-quote.c-sage  { border-left-color: var(--sage); }
+.pull-quote.c-amber { border-left-color: var(--amber); }
+.pull-quote.c-rose  { border-left-color: var(--rose); }
+.pull-quote-text { font-family: var(--font-serif); font-style: italic; font-size: 13px; line-height: 1.7; color: var(--ink); margin-bottom: 6px; }
+.pull-quote-cite { font-size: 9px; color: var(--ink-lt); letter-spacing: 0.04em; }
+
+.fvq { margin-top: 14px; padding: 13px 15px; background: rgba(181,84,10,0.05); border: 1px dashed rgba(181,84,10,0.3); border-radius: 6px; }
+.fvq-label { font-size: 8px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; font-family: var(--font-mono); }
+.fvq-text { font-size: 12px; line-height: 1.7; color: var(--ink-mid); }
+
+.action-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.act-btn { font-family: var(--font-sans); font-size: 10px; font-weight: 500; letter-spacing: 0.02em; padding: 6px 12px; border-radius: 5px; cursor: pointer; border: 1px solid; transition: background 0.13s; }
+.act-defend   { background: rgba(13,110,110,0.08); border-color: var(--teal); color: var(--teal); }
+.act-defend:hover   { background: rgba(13,110,110,0.15); }
+.act-forecast { background: rgba(91,63,126,0.08); border-color: var(--purple); color: var(--purple); }
+.act-forecast:hover { background: rgba(91,63,126,0.15); }
+.act-flag     { background: var(--paper); border-color: var(--rule); color: var(--ink-mid); }
+.act-flag:hover     { border-color: var(--ink-lt); }
+
+/* Comparison table */
+.comp-matrix { width: 100%; border-collapse: collapse; font-size: 11px; margin: 14px 0; }
+.comp-matrix th { font-size: 9px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-lt); padding: 6px 10px; background: var(--paper-dk); border: 1px solid var(--rule); text-align: left; }
+.comp-matrix td { padding: 7px 10px; border: 1px solid var(--rule); color: var(--ink-mid); vertical-align: middle; }
+.comp-matrix tr.hl td { background: rgba(13,110,110,0.05); font-weight: 500; color: var(--ink); }
+.chk { color: var(--teal); font-weight: 700; }
+.crs { color: var(--rose); font-weight: 700; }
+
+.sources { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+.source-chip { font-size: 9px; font-weight: 500; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink-lt); }
+
+/* Bottom line */
+.bottom-line { background: var(--paper); border: 1px solid var(--rule); border-top: 3px solid var(--teal); border-radius: 8px; padding: 20px 22px; margin-top: 30px; }
+.bottom-line-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.bottom-line-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); font-family: var(--font-mono); }
+.bottom-line-items { display: flex; flex-direction: column; gap: 12px; }
+.bottom-line-item { display: flex; gap: 12px; align-items: flex-start; }
+.bl-num { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--teal); flex-shrink: 0; padding-top: 2px; }
+.bl-text { font-size: 12.5px; line-height: 1.75; color: var(--ink-mid); }
+.bl-text strong { color: var(--ink); }
+
+.brief-footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--rule); display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-sources { font-size: 9px; color: var(--ink-lt); line-height: 1.6; margin-bottom: 6px; max-width: 60ch; }
+.footer-disc { font-size: 9px; color: rgba(122,110,101,0.7); font-style: italic; }
+.footer-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.footer-btn { font-family: var(--font-sans); font-size: 10px; font-weight: 500; padding: 7px 13px; border-radius: 5px; cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink-mid); }
+.footer-btn:hover { border-color: var(--teal); color: var(--teal); }
+.footer-btn.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+.footer-btn.primary:hover { background: var(--teal-lt); }
+
+/* ── SIDE PANEL ────────────────────────────── */
+#side-panel-overlay { position: fixed; inset: 0; background: rgba(26,22,18,0.25); z-index: 899; opacity: 0; pointer-events: none; transition: opacity 0.22s ease; }
+#side-panel-overlay.open { opacity: 1; pointer-events: auto; }
+#side-panel {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 92vw;
+  background: var(--cream); border-left: 1px solid var(--rule);
+  transform: translateX(100%); transition: transform 0.26s ease;
+  z-index: 900; overflow-y: auto; box-shadow: -8px 0 30px rgba(26,22,18,0.12);
+}
+#side-panel.open { transform: translateX(0); }
+.panel-header { position: sticky; top: 0; background: rgba(245,240,232,0.97); backdrop-filter: blur(8px); padding: 18px 22px; border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; z-index: 2; }
+.panel-title { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-lt); }
+.panel-close { background: none; border: none; font-size: 18px; color: var(--ink-lt); cursor: pointer; padding: 2px 6px; line-height: 1; }
+.panel-close:hover { color: var(--ink); }
+.panel-body { padding: 22px; }
+.panel-claim { font-family: var(--font-serif); font-size: 15px; line-height: 1.6; color: var(--ink); margin-bottom: 20px; font-weight: 700; }
+
+.pblock { display: flex; gap: 12px; margin-bottom: 18px; }
+.pblock-icon { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; }
+.pi-claim { background: var(--teal); }
+.pi-evidence { background: var(--amber); }
+.pi-voices { background: var(--sage); }
+.pi-confidence { background: var(--purple); }
+.pblock-content { flex: 1; }
+.pblock-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-lt); margin-bottom: 4px; }
+.pblock-body { font-size: 12px; line-height: 1.7; color: var(--ink-mid); }
+
+.confidence-bar-wrap { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.confidence-bar-bg { flex: 1; height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.confidence-bar-fill { height: 100%; width: 0%; background: var(--purple); border-radius: 3px; transition: width 1s ease; }
+.confidence-pct { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--purple); min-width: 30px; text-align: right; }
+
+.scenario-card { border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; background: var(--paper); }
+.scenario-card.primary { border: 1px solid var(--purple); border-left: 3px solid var(--purple); background: rgba(91,63,126,0.04); }
+.scenario-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.scenario-label { font-size: 12px; font-weight: 600; color: var(--ink); }
+.prob-chip { font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 10px; flex-shrink: 0; }
+.prob-high { background: rgba(91,63,126,0.12); color: var(--purple); }
+.prob-med  { background: rgba(13,110,110,0.10); color: var(--teal); }
+.prob-low  { background: var(--rule); color: var(--ink-lt); }
+.scenario-body { font-size: 12px; line-height: 1.7; color: var(--ink-mid); }
+.scenario-analogy { font-size: 11px; font-style: italic; color: var(--ink-lt); margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--rule); }
+.caveat-box { margin-top: 16px; background: rgba(181,84,10,0.06); border: 1px solid rgba(181,84,10,0.25); border-radius: 6px; padding: 13px 15px; }
+.caveat-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 5px; }
+.caveat-body { font-size: 11.5px; line-height: 1.65; color: var(--ink-mid); }
+
+/* ── SIGNAL VELOCITY VIEW ──────────────────── */
+#view-velocity-inner { padding: 28px 32px 80px; max-width: 900px; }
+.vel-header { margin-bottom: 24px; }
+.vel-title { font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.vel-sub { font-size: 12px; color: var(--ink-lt); line-height: 1.6; }
+
+.vel-alert { background: rgba(139,38,53,0.06); border: 1px solid rgba(139,38,53,0.25); border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; }
+.vel-alert-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rose); margin-bottom: 6px; font-family: var(--font-mono); }
+.vel-alert-body { font-size: 12px; line-height: 1.7; color: var(--ink-mid); }
+
+.vel-card { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; margin-bottom: 12px; }
+.vel-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.vel-signal { font-family: var(--font-serif); font-size: 13px; font-weight: 700; color: var(--ink); flex: 1; line-height: 1.4; }
+.vel-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 3px; flex-shrink: 0; margin-top: 2px; font-family: var(--font-mono); }
+.badge-accel  { background: rgba(181,84,10,0.10); color: var(--amber); border: 1px solid rgba(181,84,10,0.3); }
+.badge-new    { background: rgba(139,38,53,0.10); color: var(--rose); border: 1px solid rgba(139,38,53,0.25); }
+.badge-stable { background: rgba(13,110,110,0.08); color: var(--teal); border: 1px solid rgba(13,110,110,0.25); }
+.badge-decel  { background: var(--rule); color: var(--ink-lt); border: 1px solid var(--rule); }
+
+.vel-bars { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.vel-bar-wrap { display: flex; align-items: center; gap: 10px; }
+.vel-label { font-size: 9px; color: var(--ink-lt); min-width: 92px; text-transform: uppercase; letter-spacing: 0.04em; font-family: var(--font-mono); }
+.vel-bar-bg { flex: 1; height: 5px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.vel-bar { height: 100%; border-radius: 3px; width: 0%; transition: width 1s ease; }
+.vbar-provider    { background: var(--teal); }
+.vbar-payer       { background: var(--amber); }
+.vbar-competitive { background: var(--rose); }
+.vbar-patient     { background: var(--sage); }
+.vel-delta { font-family: var(--font-mono); font-size: 9.5px; font-weight: 600; min-width: 34px; text-align: right; }
+.vel-delta.up   { color: var(--sage); }
+.vel-delta.new  { color: var(--rose); }
+.vel-delta.stable { color: var(--teal); }
+.vel-delta.down { color: var(--ink-lt); }
+.vel-note { font-size: 11.5px; color: var(--ink-mid); line-height: 1.7; }
+
+.spark-row { display: flex; align-items: flex-end; gap: 2px; height: 24px; margin-bottom: 10px; }
+.spark-bar { flex: 1; background: var(--teal); opacity: 0.35; border-radius: 1px; min-height: 2px; }
+
+/* ── NARRATIVE MAP VIEW ─────────────────────── */
+#view-narrative-inner { padding: 28px 32px 80px; max-width: 1000px; }
+.narr-header { margin-bottom: 20px; }
+.narr-title { font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.narr-sub { font-size: 12px; color: var(--ink-lt); line-height: 1.6; }
+
+.topic-pills { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 22px; }
+.topic-pill { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; padding: 8px 14px; border-radius: 20px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink-mid); cursor: pointer; transition: background 0.13s, border-color 0.13s; }
+.topic-pill:hover { border-color: var(--teal); }
+.topic-pill.active { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+
+.tension-box { display: flex; align-items: flex-start; gap: 12px; background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; margin-bottom: 22px; }
+.tension-icon { font-size: 18px; flex-shrink: 0; }
+.tension-text { font-size: 13px; line-height: 1.75; color: var(--ink-mid); flex: 1; }
+.tension-text em { color: var(--teal); font-style: italic; }
+.tension-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; flex-shrink: 0; }
+.badge-diverging { background: rgba(139,38,53,0.10); color: var(--rose); border: 1px solid rgba(139,38,53,0.25); }
+.badge-converging { background: rgba(13,110,110,0.08); color: var(--teal); border: 1px solid rgba(13,110,110,0.25); }
+.badge-stable-b { background: var(--rule); color: var(--ink-lt); border: 1px solid var(--rule); }
+.badge-watch { background: rgba(181,84,10,0.10); color: var(--amber); border: 1px solid rgba(181,84,10,0.3); }
+
+.narr-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 780px) { .narr-cards { grid-template-columns: 1fr; } }
+.narr-card { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; border-top: 3px solid var(--rule); }
+.narr-card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.narr-card-name { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--font-mono); }
+.status-chip { font-size: 8.5px; font-weight: 700; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 3px; }
+.status-questioning { background: rgba(181,84,10,0.10); color: var(--amber); border: 1px solid rgba(181,84,10,0.3); }
+.status-voicing { background: rgba(74,103,65,0.10); color: var(--sage); border: 1px solid rgba(74,103,65,0.3); }
+.status-monitoring { background: rgba(13,110,110,0.08); color: var(--teal); border: 1px solid rgba(13,110,110,0.25); }
+.status-advancing { background: rgba(139,38,53,0.10); color: var(--rose); border: 1px solid rgba(139,38,53,0.25); }
+.narr-card-headline { font-family: var(--font-serif); font-size: 13px; font-weight: 700; line-height: 1.5; color: var(--ink); margin-bottom: 8px; }
+.narr-card-headline em { font-style: italic; }
+.narr-card-body { font-size: 11.5px; line-height: 1.65; color: var(--ink-mid); margin-bottom: 10px; }
+.narr-card-quote { font-family: var(--font-serif); font-style: italic; font-size: 11px; line-height: 1.6; color: var(--ink-mid); padding-left: 10px; border-left: 2px solid var(--rule); margin-bottom: 8px; }
+.narr-card-tension { font-size: 10px; display: flex; align-items: center; gap: 5px; }
+
+/* ── PLATFORM INTEGRATION VIEW ──────────────── */
+#view-integration-inner { padding: 60px 32px; display: flex; align-items: center; justify-content: center; height: calc(100vh - 52px); text-align: center; }
+.integration-placeholder { max-width: 420px; }
+.integration-icon { font-size: 40px; color: var(--rule); margin-bottom: 16px; }
+.integration-title { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink-mid); margin-bottom: 8px; }
+.integration-sub { font-size: 12px; color: var(--ink-lt); line-height: 1.7; }
+</style>
+</head>
+<body>
+<svg id="noise" xmlns="http://www.w3.org/2000/svg">
+  <filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+</svg>
+
+<div id="shell" class="signal-open">
+
+<!-- SIGNAL BANNER -->
+<div id="signal-banner">
+  <span class="signal-dot"></span>
+  <span class="signal-text">Signal update: <strong>United Therapeutics' TETON-1/TETON-2 Phase 3 win is reshaping how ILD KOLs talk about inhaled delivery for pulmonary fibrosis</strong> — before MIST has read out. Updated 22 min ago.</span>
+  <button class="signal-dismiss" onclick="dismissSignal()">&#215;</button>
+</div>
+
+<!-- TOPBAR -->
+<header id="topbar">
+  <div class="topbar-left">
+    <div class="topbar-wordmark"><span class="wordmark-dot"></span>Pulse</div>
+  </div>
+  <span id="topbarCenter">Morning Brief</span>
+  <div class="topbar-right">
+    <span class="chip">Avalyn Pharmaceuticals</span>
+    <span class="chip">AP01 &middot; AP02</span>
+    <span class="topbar-date">Jul 20, 2026 &middot; 7:00 AM ET</span>
+  </div>
+</header>
+
+<!-- SIDEBAR TOGGLE -->
+<button id="sidebar-toggle" onclick="toggleSidebar()">&#8249;</button>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-inner">
+
+    <div class="sidebar-section-label">This Week</div>
+
+    <div class="brief-card active" onclick="switchBrief(this, 'inhaled-thesis')">
+      <span class="new-dot"></span>
+      <div class="brief-card-title">The Inhaled-for-PF Precedent Question</div>
+      <div class="brief-card-meta">AP01 &middot; AP02 &middot; Elevated Urgency</div>
+    </div>
+
+    <div class="brief-card" onclick="switchBrief(this, 'teton')">
+      <span class="new-dot"></span>
+      <div class="brief-card-title">TETON-1/TETON-2 Meet Primary Endpoint</div>
+      <div class="brief-card-meta">United Therapeutics &middot; Competitive</div>
+    </div>
+
+    <div class="brief-card" onclick="switchBrief(this, 'mist')">
+      <div class="brief-card-title">Nerandomilast Approval Raises the Bar</div>
+      <div class="brief-card-meta">AP01 &middot; MIST Timeline &middot; Watch</div>
+    </div>
+
+    <div class="sidebar-rule"></div>
+
+    <div class="sidebar-section-label">Intelligence</div>
+    <div class="nav-item active" id="nav-brief" onclick="showView('brief', this, 'Morning Brief')"><span class="nav-icon">&#9632;</span> Morning Brief</div>
+    <div class="nav-item" id="nav-narrative" onclick="showView('narrative', this, 'Narrative Map')"><span class="nav-icon">&#9685;</span> Narrative Map</div>
+    <div class="nav-item" id="nav-velocity" onclick="showView('velocity', this, 'Signal Velocity')"><span class="nav-icon">&#8599;</span> Signal Velocity</div>
+    <div class="nav-item" id="nav-integration" onclick="showView('integration', this, 'Platform Integration')"><span class="nav-icon">&#9675;</span> Platform Integration</div>
+
+    <div class="sidebar-rule"></div>
+
+    <div class="sidebar-section-label">Platform</div>
+    <a class="nav-item" href="/" target="_blank" rel="noopener noreferrer"><span class="nav-icon">&#8599;</span> Link to Aurivian</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- ══ VIEW: MORNING BRIEF ══════════════════════ -->
+  <div id="view-brief" class="view active">
+
+  <!-- ── BRIEF 1: The Inhaled-for-PF Precedent Question ── -->
+  <div id="brief-inhaled-thesis" class="brief-content active" style="max-width:800px;margin:0 auto;padding:28px 36px 90px;">
+
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-product">AP01 &middot; AP02 &middot; Inhaled Antifibrotics</span>
+      <span class="eyebrow-date">July 20, 2026 &middot; 7:00 AM ET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      Avalyn's inhaled-antifibrotic thesis is still unproven at Phase 3. United Therapeutics just proved inhaled delivery works for pulmonary fibrosis — <em>for a different drug entirely. Does that de-risk Avalyn's story, or raise the bar it now has to clear alone?</em>
+    </h1>
+
+    <p class="brief-lede">MIST (AP01, Phase 2b) completed enrollment in June with topline FVC data not expected until the second half of 2027. AURA-IPF (AP02) dosed its first patient in March. In the meantime, United Therapeutics' TETON-1 and TETON-2 — inhaled treprostinil, a prostacyclin, not an antifibrotic — both met their primary FVC endpoint in IPF. Pulmonologists now have a live example that inhaled delivery can move the needle in progressive fibrosis. Whether that reads as validating precedent or as a bar Avalyn hasn't cleared yet is being decided in KOL conversations right now, well before MIST has anything to show.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">Product Focus</span><span class="meta-value">AP01 (inhaled pirfenidone) &middot; AP02 (inhaled nintedanib)</span></div>
+      <div class="meta-item"><span class="meta-label">Indication</span><span class="meta-value dim">IPF &middot; PPF &middot; CTD-ILD / SSc-ILD</span></div>
+      <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-value warn">&#9679; Elevated &middot; Pre-Data Narrative Window</span></div>
+      <div class="meta-item"><span class="meta-label">Next Readout</span><span class="meta-value dim">MIST Topline &middot; H2 2027</span></div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-label">&#9679; Pulse Summary &middot; 4 Active Signals</div>
+      <p class="summary-body"><strong>The central tension:</strong> TETON's Phase 3 win is the first proof that a Phase 3, placebo-controlled trial of an inhaled therapy can move FVC in progressive pulmonary fibrosis — but it is a prostacyclin, not an antifibrotic, and the mechanism gap is exactly the kind of nuance that gets lost the further a narrative travels from an academic ILD center. AP01/AP02 still have to prove their own thesis at Phase 2b before any of that borrowed credibility converts into something real.</p>
+    </div>
+
+    <!-- PROVIDERS -->
+    <div class="brief-section" style="animation-delay:0.05s">
+      <div class="community-marker"><span class="cm-dot" style="background:var(--teal)"></span><span class="cm-rule"></span><span class="cm-label" style="color:var(--teal)">Providers</span></div>
+      <span class="signal-pill sp-teal">&#8593; Critical Window &middot; TETON Readout</span>
+      <h2 class="section-h2 c-teal">Cautious optimism on ATLAS's dose-response signal is colliding with a credibility question <em>TETON just sharpened.</em></h2>
+      <p class="section-body">ATLAS, AP01's earlier Phase 1b trial (published in <em>Thorax</em>, 2023), showed near-stabilized FVC through 48 weeks at the 100mg BID dose versus continued decline at the lower dose — a real dose-response signal, though uncontrolled and without a placebo arm. MIST (Phase 2b, 375 patients) has now completed enrollment with FVC-at-week-52 topline expected in the second half of 2027; AURA-IPF (AP02, Phase 2) dosed its first patient in March. Against that still-early evidence base, TETON-1 and TETON-2 — United Therapeutics' inhaled treprostinil program — both met their primary FVC endpoint in IPF in a Phase 3, placebo-controlled design, published in NEJM.</p>
+      <p class="section-body">What this means: TETON proves the lung is a credible target for a PF-modifying inhaled therapy at Phase 3 scale — but for a prostacyclin acting on pulmonary vasculature, not an antifibrotic acting on fibrotic tissue remodeling. The KOL most likely to either draw the wrong equivalence or sharpen the right distinction is Dr. Steven Nathan (Inova Fairfax), TETON's principal investigator, who per Aurivian's own KOL tracking currently reads as skeptical and trending away on AP02 specifically — the ILD voice with the most first-hand reason to know exactly how different these two mechanisms are. Meanwhile Dr. Ganesh Raghu (guideline chair), Dr. Toby Maher, and Dr. Luca Richeldi are treating MIST, not TETON, as the actual test of Avalyn's thesis.</p>
+      <div class="pull-quote c-teal">
+        <p class="pull-quote-text">"TETON tells us patients will tolerate a nebulized therapy for a fibrosing lung disease long enough for it to matter. It doesn't tell us pirfenidone survives that trip through the airway the same way a prostacyclin does. Those are two different pharmacology questions wearing the same delivery device."</p>
+        <span class="pull-quote-cite">ILD specialist &middot; academic medical center, US &middot; June 2026</span>
+      </div>
+      <table class="comp-matrix">
+        <thead><tr><th>Parameter</th><th>TETON (inhaled treprostinil)</th><th>AP01 / AP02 (inhaled pirfenidone / nintedanib)</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>Drug class</td><td>Prostacyclin (vasodilator)</td><td>Antifibrotic (pirfenidone / nintedanib)</td></tr>
+          <tr><td>Trial phase / status</td><td class="chk">Phase 3 &middot; primary endpoint met ✓</td><td>Phase 2b (MIST) &middot; topline H2 2027</td></tr>
+          <tr><td>Mechanism precedent for inhaled route</td><td class="chk">Established (Tyvaso) ✓</td><td>Reformulation of approved orals ✓</td></tr>
+          <tr class="hl"><td>Systemic exposure claim</td><td>Not the primary rationale</td><td>~15&ndash;68&times; lower vs. oral (company-reported)</td></tr>
+        </tbody>
+      </table>
+      <div class="sources">
+        <span class="source-chip">ATLAS Ph1b &mdash; Thorax 2023</span>
+        <span class="source-chip">MIST NCT06329401</span>
+        <span class="source-chip">TETON-1/TETON-2 &mdash; NEJM</span>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">When referring physicians or patients ask a Tier-1 ILD specialist about "the new inhaled fibrosis drug," do they distinguish AP01/AP02 from Tyvaso DPI/TETON on their own — and if not, is that conflation currently helping or hurting how the specialist is framing MIST's odds?</p>
+      </div>
+      <div class="action-bar">
+        <button class="act-btn act-defend" onclick="openPanel('defend','providers')">Defend This</button>
+        <button class="act-btn act-forecast" onclick="openPanel('forecast','providers')">What Does This Foretell?</button>
+        <button class="act-btn act-flag" onclick="void(0)">Flag for Field Medical</button>
+        <button class="act-btn act-flag" onclick="void(0)">Draft Talking Points</button>
+      </div>
+    </div>
+
+    <div class="section-rule"></div>
+
+    <!-- PATIENTS -->
+    <div class="brief-section" style="animation-delay:0.10s">
+      <div class="community-marker"><span class="cm-dot" style="background:var(--sage)"></span><span class="cm-rule"></span><span class="cm-label" style="color:var(--sage)">Patients</span></div>
+      <span class="signal-pill sp-sage">&#9679; New Narrative</span>
+      <h2 class="section-h2 c-sage">Adherence fatigue with oral antifibrotics is real. <em>Patient advocates have heard "better tolerated" before, and it hasn't always held up.</em></h2>
+      <p class="section-body">Oral antifibrotic tolerability burden is well documented: pirfenidone discontinuation runs 14.6% versus 9.6% on placebo, driven substantially by nausea (36%) and photosensitive rash (30%); nintedanib carries a 62&ndash;76% diarrhea rate and a 21% discontinuation rate versus 15% on placebo. IPF and SSc-ILD patient advocacy communities are increasingly vocal about this day-to-day burden as a quality-of-life issue distinct from the disease itself, not just a side note to it.</p>
+      <p class="section-body">What's at stake: the inhaled-route pitch is that lower systemic exposure (per Avalyn's own company-reported PK figures) should translate into a materially lighter side-effect burden. But this patient community has recent memory of other "better tolerated" candidates that did not pan out — FibroGen's pamrevlumab failed Phase 3 in 2023, and Pliant's bexotegrast was discontinued in June 2025 after a safety signal. Any tolerability message aimed at patients needs to be earned with data at readout, not asserted ahead of it.</p>
+      <div class="pull-quote c-sage">
+        <p class="pull-quote-text">"We've been told 'this one will be easier on your body' before. I'm not against hope — I'm against hope with no data behind it yet. Show us the Phase 2 numbers and I'll believe it."</p>
+        <span class="pull-quote-cite">IPF patient advocate &middot; patient support community moderator, US &middot; May 2026</span>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">In an SSc-ILD-focused clinic's patient population, is nebulizer time-and-frequency itself viewed as a lesser burden than the GI/dermatologic side effects of oral therapy — or does "one more daily therapy ritual" meet real resistance regardless of tolerability gains?</p>
+      </div>
+      <div class="action-bar">
+        <button class="act-btn act-defend" onclick="openPanel('defend','patients')">Defend This</button>
+        <button class="act-btn act-forecast" onclick="openPanel('forecast','patients')">What Does This Foretell?</button>
+        <button class="act-btn act-flag" onclick="void(0)">Flag for Patient Advocacy</button>
+      </div>
+    </div>
+
+    <div class="section-rule"></div>
+
+    <!-- PAYERS -->
+    <div class="brief-section" style="animation-delay:0.15s">
+      <div class="community-marker"><span class="cm-dot" style="background:var(--amber)"></span><span class="cm-rule"></span><span class="cm-label" style="color:var(--amber)">Payers</span></div>
+      <span class="signal-pill sp-amber">&rarr; Stable / Early</span>
+      <h2 class="section-h2 c-amber">No product, no price yet &mdash; but the device-reimbursement precedent is already being written by Tyvaso DPI. <em>Avalyn's future pricing conversation has an anchor before it has a product.</em></h2>
+      <p class="section-body">No Avalyn asset has an FDA approval or a pricing conversation to speak of &mdash; MIST's earliest topline is 18 months out. But inhaled specialty respiratory drugs administered by device already have a reimbursement pattern payers apply by analogy: device/administration billing codes, in-clinic versus at-home administration, and training burden, all shaped in practice by how Tyvaso DPI is currently reimbursed. That precedent will color how AP01/AP02 get modeled long before either has a label.</p>
+      <p class="section-body">What's at stake: if MIST reads out positive, Avalyn's launch-readiness conversation with payers won't start from a blank slate &mdash; it starts from an analogy question. Will AP01/AP02 be billed like a specialty inhaled device-administered product, or will nerandomilast (Boehringer's newly approved oral, new-mechanism antifibrotic) reset the "novel mechanism premium" conversation in a way that pulls pricing logic back toward oral comparators instead?</p>
+      <div class="pull-quote c-amber">
+        <p class="pull-quote-text">"Every new inhaled respiratory therapy gets measured against Tyvaso DPI's administration cost model right now, whether or not the comparison is clinically fair. That's just where the reimbursement conversation starts."</p>
+        <span class="pull-quote-cite">Payer/health-economics analyst &middot; specialty pharmacy industry publication &middot; April 2026</span>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">When a P&amp;T-committee-adjacent contact models early inhaled-PF-therapy economics, are they anchoring to Tyvaso DPI's device/administration cost basis, or to oral antifibrotic WAC comparisons &mdash; because that anchor point will shape how AP01/AP02 get priced years before launch.</p>
+      </div>
+      <div class="action-bar">
+        <button class="act-btn act-defend" onclick="openPanel('defend','payers')">Defend This</button>
+        <button class="act-btn act-forecast" onclick="openPanel('forecast','payers')">What Does This Foretell?</button>
+        <button class="act-btn act-flag" onclick="void(0)">Flag for Market Access</button>
+      </div>
+    </div>
+
+    <div class="section-rule"></div>
+
+    <!-- COMPETITIVE -->
+    <div class="brief-section" style="animation-delay:0.20s">
+      <div class="community-marker"><span class="cm-dot" style="background:var(--rose)"></span><span class="cm-rule"></span><span class="cm-label" style="color:var(--rose)">Competitive</span></div>
+      <span class="signal-pill sp-rose">&#8593;&#8593; Accelerating Signal</span>
+      <h2 class="section-h2 c-rose">TETON's win, nerandomilast's approval, and Esbriet's generic slide are moving three ends of the board at once. <em>None of them is a like-for-like competitor &mdash; and that's exactly the problem.</em></h2>
+      <p class="section-body">TETON-1/TETON-2 (United Therapeutics, inhaled treprostinil) met their primary FVC endpoint in IPF. Insmed's TPIP (inhaled treprostinil palmitil) is advancing through Phase 2 in PPF/IPF and Phase 3 in PH-ILD &mdash; an earlier-stage but directly analogous inhaled-delivery competitor. Boehringer Ingelheim's nerandomilast (Jascayd), a PDE4B inhibitor, was approved for IPF in October 2025 and PPF in December 2025 &mdash; the first genuinely new IPF mechanism in a decade. Roche's Esbriet (oral pirfenidone) is meanwhile losing share to generic erosion, and Bristol Myers Squibb's admilparant, an oral LPA1 antagonist, is in Phase 3 for both IPF and PPF.</p>
+      <p class="section-body">What this means: Avalyn's "no like-for-like inhaled-antifibrotic competitor" position is real today &mdash; but it is temporary comfort, because it also means no one has proven the inhaled-antifibrotic thesis, for better or worse. The two developments most consequential to AP01/AP02 over the next 18 months are not Avalyn's own: whether MIST's own topline (H2 2027) reads out positive, and how thoroughly nerandomilast displaces Ofev/Esbriet as the oral standard that any inhaled option eventually gets compared against.</p>
+      <div class="pull-quote c-rose">
+        <p class="pull-quote-text">"Everyone's watching TETON because it's the flashy delivery story. But nerandomilast is the one quietly resetting what 'good enough efficacy' even means in this category &mdash; and it did it with a pill, not a nebulizer."</p>
+        <span class="pull-quote-cite">Competitive intelligence analyst &middot; industry conference sidebar conversation &middot; June 2026</span>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">Does a given ILD KOL frame nerandomilast's approval as raising the efficacy bar future antifibrotics must clear &mdash; or as evidence that IPF/PPF drug development has simply entered a faster-cadence era, which could put MIST's eventual topline in sharper competitive contrast regardless of its own result?</p>
+      </div>
+      <div class="action-bar">
+        <button class="act-btn act-defend" onclick="openPanel('defend','competitive')">Defend This</button>
+        <button class="act-btn act-forecast" onclick="openPanel('forecast','competitive')">What Does This Foretell?</button>
+        <button class="act-btn act-flag" onclick="void(0)">Flag for Competitive Intelligence</button>
+      </div>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9632; The Bottom Line &middot; 3 Things That Need to Happen Now</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text"><strong>Prep field medical materials that explicitly separate AP01/AP02's mechanism from TETON's</strong> before ATS/ERS conversations default to a false equivalence between "inhaled worked for UT" and "inhaled will work for Avalyn." The distinction is real and defensible &mdash; it just isn't automatic in the field.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text"><strong>Track nerandomilast's adoption curve among Tier-1 KOLs</strong> (Flaherty, Raghu, Maher, Richeldi) as the real oral comparator bar MIST's Phase 2b data will ultimately be read against &mdash; not just as background competitive noise.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">03</span><span class="bl-text"><strong>Begin early payer-facing device/administration-cost narrative work now</strong>, anchored on the Tyvaso DPI precedent, so Avalyn isn't building that story from scratch the day MIST reads out.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div>
+        <p class="footer-sources">Sources: ATLAS Ph1b (Thorax, 2023); MIST (NCT06329401); AURA-IPF (NCT07194382); TETON-1/TETON-2 (NEJM); nerandomilast/Jascayd FDA approvals (Oct/Dec 2025); Avalyn KOL alignment tracking. PK exposure-reduction figures are company-reported, not independently verified.</p>
+        <p class="footer-disc">No proprietary Avalyn data used. Prepared by Aurivian Medical Intelligence for internal Medical Affairs use only.</p>
+      </div>
+      <div class="footer-actions">
+        <button class="footer-btn">Share Brief</button>
+        <button class="footer-btn primary">Go Deeper &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BRIEF 2: TETON ────────────────────────── -->
+  <div id="brief-teton" class="brief-content" style="max-width:800px;margin:0 auto;padding:28px 36px 90px;">
+
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-alert">Competitive Signal</span>
+      <span class="tag tag-product">United Therapeutics &middot; TETON-1 / TETON-2</span>
+      <span class="eyebrow-date">July 20, 2026 &middot; 7:00 AM ET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      TETON-1 and TETON-2 met their primary FVC endpoint. <em>Inhaled delivery for progressive pulmonary fibrosis is no longer hypothetical &mdash; it's precedent, for a drug that isn't Avalyn's.</em>
+    </h1>
+
+    <p class="brief-lede">United Therapeutics' inhaled treprostinil program &mdash; already marketed for pulmonary arterial hypertension as Tyvaso/Tyvaso DPI &mdash; extended into IPF with TETON-1 and TETON-2, and both met their primary FVC endpoint, published in NEJM. It is the most advanced inhaled therapy to demonstrate a Phase 3 effect in a fibrosing lung disease. It is also a prostacyclin, not an antifibrotic, and its mechanism has nothing to do with the fibrotic remodeling pathway AP01 and AP02 are built to address. The result matters to Avalyn primarily as a narrative event, not a clinical one.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">Competitor</span><span class="meta-value">United Therapeutics (Tyvaso / TETON)</span></div>
+      <div class="meta-item"><span class="meta-label">Mechanism</span><span class="meta-value dim">Inhaled treprostinil (prostacyclin)</span></div>
+      <div class="meta-item"><span class="meta-label">Relevance</span><span class="meta-value warn">&#9679; Narrative Precedent, Not Direct Competitor</span></div>
+      <div class="meta-item"><span class="meta-label">PI to Watch</span><span class="meta-value dim">Steven D. Nathan &mdash; TETON PI</span></div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-label">&#9679; Pulse Summary</div>
+      <p class="summary-body"><strong>The strategic picture:</strong> TETON is the single most useful reference point ILD KOLs now have for "does inhaled delivery move outcomes in fibrosing lung disease," and it will be cited &mdash; correctly or not &mdash; every time AP01/AP02 come up in conversation. Dr. Steven Nathan, TETON's principal investigator, is tracked in Avalyn's own KOL data as skeptical and trending away on AP02 specifically, which makes him simultaneously the highest-risk and highest-value conversation Avalyn's field team can have this quarter.</p>
+    </div>
+
+    <div class="brief-section" style="animation-delay:0.05s">
+      <h2 class="section-h2">The mechanism gap is the whole story. <em>Prostacyclin vasodilation and antifibrotic tissue remodeling are different biology wearing the same nebulizer.</em></h2>
+      <p class="section-body">Treprostinil is a prostacyclin analog acting on pulmonary vasculature &mdash; its established mechanism in PAH. Its extension into IPF via TETON tests whether that vasodilatory/anti-remodeling activity slows fibrosis progression by a different biological route than pirfenidone or nintedanib. A positive FVC result in TETON says the lung can be a productive delivery target for a Phase 3 inhaled therapy in this disease family. It says nothing, mechanistically, about whether reformulating an already-approved oral antifibrotic for inhaled delivery will preserve that drug's own efficacy while cutting systemic exposure &mdash; which is the actual bet MIST and AURA-IPF are testing.</p>
+      <table class="comp-matrix">
+        <thead><tr><th></th><th>TETON (treprostinil)</th><th>AP01 (pirfenidone)</th><th>AP02 (nintedanib)</th></tr></thead>
+        <tbody>
+          <tr><td>Mechanism</td><td>Prostacyclin</td><td colspan="2">Antifibrotic (oral-proven)</td></tr>
+          <tr class="hl"><td>Phase</td><td class="chk">Ph3 &mdash; endpoint met ✓</td><td>Ph2b (MIST) &mdash; enrolled</td><td>Ph2 (AURA-IPF) &mdash; dosing</td></tr>
+          <tr><td>Existing marketed form</td><td>Oral / inhaled (Tyvaso)</td><td>Oral (Esbriet)</td><td>Oral (Ofev)</td></tr>
+        </tbody>
+      </table>
+      <div class="sources">
+        <span class="source-chip">TETON-1/TETON-2 &mdash; NEJM</span>
+        <span class="source-chip">Avalyn KOL Tracking &mdash; S. Nathan</span>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">Ahead of ATS follow-up conversations, does Dr. Nathan draw a hard mechanistic line between TETON and AP02 unprompted &mdash; or does the distinction need to be actively introduced by the MSL?</p>
+      </div>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9632; Bottom Line &middot; 2 Actions</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text"><strong>Prioritize a scientific exchange with Dr. Steven Nathan</strong> before his TETON-driven skepticism on AP02 hardens further &mdash; he is currently trending away, and no other KOL is better positioned to either validate or undercut the mechanism-differentiation message.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text"><strong>Build a one-page mechanism-comparison leave-behind</strong> (prostacyclin vs. antifibrotic, inhaled route as the only shared variable) for MSL use at ATS and ERS follow-up conversations.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div>
+        <p class="footer-sources">Sources: TETON-1/TETON-2 (NEJM); Avalyn KOL alignment tracking (S. Nathan, sentiment: skeptic, trend: shifting away); ATLAS Ph1b (Thorax 2023).</p>
+        <p class="footer-disc">No proprietary Avalyn data used. Prepared by Aurivian Medical Intelligence for internal Medical Affairs use only.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BRIEF 3: Nerandomilast / MIST timeline ─── -->
+  <div id="brief-mist" class="brief-content" style="max-width:800px;margin:0 auto;padding:28px 36px 90px;">
+
+    <div class="brief-eyebrow">
+      <span class="tag tag-outline">Intelligence Brief</span>
+      <span class="tag tag-product">AP01 &middot; MIST Phase 2b &middot; Competitive Timeline</span>
+      <span class="eyebrow-date">July 20, 2026 &middot; 7:00 AM ET</span>
+    </div>
+
+    <h1 class="brief-headline">
+      Nerandomilast's approval raises the efficacy bar just as MIST finishes enrollment. <em>AP01's Phase 2b readout now has a higher bar to clear &mdash; before it even reads out.</em>
+    </h1>
+
+    <p class="brief-lede">Boehringer Ingelheim's nerandomilast (Jascayd), a PDE4B inhibitor, was approved for IPF in October 2025 and for PPF in December 2025 &mdash; the first genuinely new IPF mechanism to reach approval in a decade. MIST, AP01's Phase 2b trial in progressive pulmonary fibrosis, completed enrollment of 375 patients in June 2026, with FVC-at-week-52 topline not expected until the second half of 2027. The two events are unrelated in mechanism but tightly linked in narrative: whatever MIST shows will now be read against a freshly raised oral-efficacy bar, not the older Esbriet/Ofev standard.</p>
+
+    <div class="brief-meta">
+      <div class="meta-item"><span class="meta-label">Product Focus</span><span class="meta-value">AP01 (inhaled pirfenidone)</span></div>
+      <div class="meta-item"><span class="meta-label">Competitor Event</span><span class="meta-value warn">&#9679; Nerandomilast &mdash; IPF Oct 2025, PPF Dec 2025</span></div>
+      <div class="meta-item"><span class="meta-label">MIST Status</span><span class="meta-value dim">375 pts enrolled June 2026 &middot; Topline H2 2027</span></div>
+      <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-value warn">&#9679; Watch &middot; 18-Month Data Gap</span></div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-label">&#9679; Pulse Summary</div>
+      <p class="summary-body"><strong>The strategic picture:</strong> Nerandomilast is a genuine new mechanism with a decade-first FDA approval, and it is available to prescribe today, while MIST's topline is 18 months away. Every month between now and that readout is a month in which nerandomilast can become embedded as the new default oral standard &mdash; which changes the comparator MIST's own eventual data gets judged against, independent of anything Avalyn does.</p>
+    </div>
+
+    <div class="brief-section" style="animation-delay:0.05s">
+      <h2 class="section-h2">A decade-first mechanism, approved twice in three months. <em>PDE4B inhibition is the new comparator, not just Ofev and Esbriet.</em></h2>
+      <p class="section-body">Nerandomilast's back-to-back IPF and PPF approvals give Boehringer Ingelheim a modern, on-patent oral option to defend against inhaled challengers &mdash; including Avalyn's own eventual portfolio, if MIST and AURA-IPF succeed. Tier-1 KOLs (Flaherty, Raghu, Maher, Richeldi) are the ones whose prescribing habits and public framing will determine how quickly nerandomilast becomes the reflexive oral choice, and therefore how MIST's eventual FVC data gets contextualized when it finally arrives.</p>
+      <div class="sources">
+        <span class="source-chip">Nerandomilast/Jascayd &mdash; FDA IPF Oct 2025, PPF Dec 2025</span>
+        <span class="source-chip">MIST NCT06329401 &mdash; Enrollment Complete Jun 2026</span>
+      </div>
+      <div class="fvq">
+        <div class="fvq-label">&#8594; Field Validation Question</div>
+        <p class="fvq-text">Has a given Tier-1 KOL already begun prescribing nerandomilast as a default for newly diagnosed IPF patients, and if so, what would MIST's eventual data need to show to change that default back toward an inhaled option?</p>
+      </div>
+    </div>
+
+    <div class="bottom-line">
+      <div class="bottom-line-header"><span class="bottom-line-label">&#9632; Bottom Line &middot; 2 Actions</span></div>
+      <div class="bottom-line-items">
+        <div class="bottom-line-item"><span class="bl-num">01</span><span class="bl-text"><strong>Track nerandomilast prescribing uptake among Tier-1 pulmonology KOLs</strong> as a leading indicator of the comparator bar MIST will face at readout.</span></div>
+        <div class="bottom-line-item"><span class="bl-num">02</span><span class="bl-text"><strong>Prepare scientific-exchange materials framing AP01 as complementary to, not solely competitive with, an evolving oral standard</strong> &mdash; the strongest near-term position may be combination or sequencing rationale rather than head-to-head displacement.</span></div>
+      </div>
+    </div>
+
+    <div class="brief-footer">
+      <div>
+        <p class="footer-sources">Sources: Nerandomilast/Jascayd FDA approvals (Oct/Dec 2025); MIST (NCT06329401); Avalyn KOL tracking (Flaherty, Raghu, Maher, Richeldi).</p>
+        <p class="footer-disc">No proprietary Avalyn data used. Prepared by Aurivian Medical Intelligence for internal Medical Affairs use only.</p>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- end view-brief -->
+
+  <!-- ══ VIEW: NARRATIVE MAP ═══════════════════════ -->
+  <div id="view-narrative" class="view">
+    <div id="view-narrative-inner">
+      <div class="narr-header">
+        <div class="narr-title">Narrative Map</div>
+        <p class="narr-sub">Where each stakeholder community currently stands on the four biggest strategic tensions in Avalyn's inhaled-antifibrotic story. Select a topic to see how Providers, Patients, Payers, and Competitive intelligence are each reading it.</p>
+      </div>
+
+      <div class="topic-pills" id="topicPills"></div>
+      <div id="tensionBoxWrap"></div>
+      <div class="narr-cards" id="narrCards"></div>
+    </div>
+  </div>
+
+  <!-- ══ VIEW: SIGNAL VELOCITY ═════════════════════ -->
+  <div id="view-velocity" class="view">
+    <div id="view-velocity-inner">
+      <div class="vel-header">
+        <div class="vel-title">Signal Velocity</div>
+        <p class="vel-sub">Rate-of-change across the five fastest-moving narratives touching AP01/AP02 &mdash; velocity, not volume. Bars show relative momentum by stakeholder community over the last 30 days.</p>
+      </div>
+      <div class="vel-alert" id="velAlert"></div>
+      <div id="velCards"></div>
+    </div>
+  </div>
+
+  <!-- ══ VIEW: PLATFORM INTEGRATION ════════════════ -->
+  <div id="view-integration" class="view">
+    <div id="view-integration-inner">
+      <div class="integration-placeholder">
+        <div class="integration-icon">&#9675;</div>
+        <div class="integration-title">Platform Integration</div>
+        <p class="integration-sub">Coming Soon &mdash; direct integration between Pulse signals and the Aurivian ARIA/LUCA platform is in development.</p>
+      </div>
+    </div>
+  </div>
+
+</main><!-- end main -->
+
+</div><!-- end shell -->
+
+<!-- SIDE PANEL -->
+<div id="side-panel-overlay" onclick="closePanel()"></div>
+<div id="side-panel">
+  <div class="panel-header">
+    <span class="panel-title" id="panelTitle">Defend This</span>
+    <button class="panel-close" onclick="closePanel()">&#215;</button>
+  </div>
+  <div class="panel-body" id="panelBody"></div>
+</div>
+
+<script>
+// ── SIGNAL BANNER ─────────────────────────────
+function dismissSignal() {
+  document.getElementById('shell').classList.remove('signal-open');
+}
+
+// ── VIEW SWITCHING ────────────────────────────
+function showView(viewId, navEl, label) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const target = document.getElementById('view-' + viewId);
+  if (target) target.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('topbarCenter').textContent = label || 'Morning Brief';
+  if (viewId !== 'brief') {
+    document.querySelectorAll('.brief-card').forEach(c => c.classList.remove('active'));
+  }
+  if (viewId === 'narrative') renderNarrative();
+  if (viewId === 'velocity') renderVelocity();
+}
+
+// ── BRIEF SWITCHING ───────────────────────────
+function switchBrief(cardEl, briefId) {
+  document.querySelectorAll('.brief-card').forEach(c => c.classList.remove('active'));
+  cardEl.classList.add('active');
+  document.querySelectorAll('.brief-content').forEach(b => b.classList.remove('active'));
+  const target = document.getElementById('brief-' + briefId);
+  if (target) {
+    target.classList.add('active');
+    document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-brief').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('nav-brief').classList.add('active');
+  document.getElementById('topbarCenter').textContent = 'Morning Brief';
+}
+
+// ── SIDEBAR TOGGLE ────────────────────────────
+function toggleSidebar() {
+  const shell = document.getElementById('shell');
+  const btn = document.getElementById('sidebar-toggle');
+  shell.classList.toggle('collapsed');
+  btn.innerHTML = shell.classList.contains('collapsed') ? '&#8250;' : '&#8249;';
+}
+
+// ── SIDE PANEL: DATA ───────────────────────────
+const panelData = {
+  defend: {
+    providers: {
+      claim: "TETON's Phase 3 win doesn't validate or invalidate AP01/AP02 &mdash; it proves inhaled delivery is tolerable and adherable at Phase 3 scale, for a different drug class entirely.",
+      blocks: [
+        { icon: '&#10022;', cls: 'pi-claim', label: 'The Claim', body: 'Mechanism-differentiation is a defensible position, not a defensive one: TETON validates the delivery route\'s feasibility, and MIST is testing whether an antifibrotic reformulation preserves oral-level efficacy through that same route.' },
+        { icon: 'E', cls: 'pi-evidence', label: 'The Evidence', body: 'TETON-1/TETON-2 (NEJM) met primary FVC endpoint via inhaled treprostinil, a prostacyclin. ATLAS (Thorax 2023) showed a real dose-response signal for AP01 at 100mg BID. MIST completed 375-patient enrollment June 2026.' },
+        { icon: 'V', cls: 'pi-voices', label: 'The Voices', body: 'Raghu, Maher, and Richeldi are engaging cautiously and treating MIST as the real test. Nathan (TETON PI) is the highest-risk voice for conflating the two mechanisms, and is currently tracked as skeptical and shifting away on AP02.' },
+        { icon: 'C', cls: 'pi-confidence', label: 'Confidence', body: 'Moderate &mdash; the differentiation argument is logically sound but untested in a live, high-stakes KOL conversation. MIST\'s own topline, 18 months out, is the real test.', confidence: 62 },
+      ],
+    },
+    patients: {
+      claim: 'The tolerability-burden narrative is grounded in published discontinuation-rate literature, not marketing framing.',
+      blocks: [
+        { icon: '&#10022;', cls: 'pi-claim', label: 'The Claim', body: 'Oral antifibrotic discontinuation and side-effect burden are real, quantified, and a legitimate unmet need &mdash; the inhaled-route hypothesis is a reasonable response to a documented problem.' },
+        { icon: 'E', cls: 'pi-evidence', label: 'The Evidence', body: 'Pirfenidone discontinuation 14.6% vs. 9.6% placebo (nausea 36%, rash 30%); nintedanib diarrhea 62&ndash;76%, discontinuation 21% vs. 15% placebo.' },
+        { icon: 'V', cls: 'pi-voices', label: 'The Voices', body: 'Patient advocacy commentary reflects real fatigue with oral regimens, tempered by skepticism from prior tolerability promises that did not hold up in later-phase data.' },
+        { icon: 'C', cls: 'pi-confidence', label: 'Confidence', body: 'Moderate-low &mdash; directionally strong, but patient-reported burden statistics were not fully reconciled across sources in Avalyn\'s own research; use qualitative framing, not a specific adherence number, until better data exists.', confidence: 55 },
+      ],
+    },
+    payers: {
+      claim: "Tyvaso DPI is the closest available real-world analogy for how payers will initially model inhaled PF-therapy administration costs.",
+      blocks: [
+        { icon: '&#10022;', cls: 'pi-claim', label: 'The Claim', body: 'In the absence of an approved Avalyn product, payer modeling logic borrows from the nearest existing precedent &mdash; and for inhaled specialty respiratory therapy, that is currently Tyvaso DPI.' },
+        { icon: 'E', cls: 'pi-evidence', label: 'The Evidence', body: 'Tyvaso DPI\'s established device/DME billing treatment is the only live example of how payers currently classify an inhaled specialty respiratory therapy administered outside a simple MDI.' },
+        { icon: 'V', cls: 'pi-voices', label: 'The Voices', body: 'Health-economics commentary from specialty pharmacy trade coverage; no direct payer statements about Avalyn specifically exist yet, by definition.' },
+        { icon: 'C', cls: 'pi-confidence', label: 'Confidence', body: 'Low &mdash; genuinely speculative this far ahead of approval. Treat as a hypothesis to monitor over the next 18 months, not a settled read.', confidence: 40 },
+      ],
+    },
+    competitive: {
+      claim: 'Avalyn has no like-for-like inhaled-antifibrotic competitor today, but nerandomilast\'s approval is the more consequential near-term threat.',
+      blocks: [
+        { icon: '&#10022;', cls: 'pi-claim', label: 'The Claim', body: 'The absence of a direct inhaled-antifibrotic rival is a factual, present-tense competitive-landscape read, distinct from any forward-looking risk assessment.' },
+        { icon: 'E', cls: 'pi-evidence', label: 'The Evidence', body: 'UT (TETON) and Insmed (TPIP) are inhaled but a different drug class (prostacyclin). Nerandomilast/Jascayd is oral, new mechanism, approved IPF Oct 2025 + PPF Dec 2025. Esbriet faces generic erosion; admilparant (BMS, oral LPA1) is in Phase 3.' },
+        { icon: 'V', cls: 'pi-voices', label: 'The Voices', body: 'Competitive intelligence commentary from industry conference sidebar conversations consistently frames nerandomilast, not TETON, as the more immediate prescribing-habit threat.' },
+        { icon: 'C', cls: 'pi-confidence', label: 'Confidence', body: 'Reasonably high &mdash; this is a factual landscape read, not a forecast, and is well-supported by verified competitive tracking.', confidence: 70 },
+      ],
+    },
+  },
+  forecast: {
+    providers: {
+      claim: "How will Tier-1 ILD KOLs be talking about AP01/AP02 by the time MIST tops line in H2 2027?",
+      scenarios: [
+        { prob: '64% likely', cls: 'prob-high', primary: true, label: 'MIST reads out positive; TETON becomes retroactive precedent.', body: 'Pulmonologists reframe TETON as helpful groundwork ("inhaled delivery for PF works, and now an antifibrotic does too"). Avalyn\'s mechanism-differentiation messaging becomes largely moot because the outcome data speaks for itself.', analogy: 'Comparable to how early real-world data across a drug class eventually made mechanism debates fade once outcomes were demonstrated broadly.' },
+        { prob: '27% likely', cls: 'prob-med', primary: false, label: 'MIST is positive, but the mechanism confusion persists in community practice.', body: 'Academic KOLs get the distinction; community pulmonologists outside major ILD centers continue conflating inhaled antifibrotic and inhaled prostacyclin narratives, requiring sustained education investment well past approval.' },
+        { prob: '9% likely', cls: 'prob-low', primary: false, label: 'MIST misses or shows a marginal effect.', body: 'TETON\'s success becomes an unfavorable contrast point ("inhaled worked for United Therapeutics, why not for Avalyn") rather than validating precedent, and Avalyn has to rebuild the inhaled-antifibrotic thesis from a weaker starting position.' },
+      ],
+      caveat: 'Where Pulse could be wrong: this forecast assumes MIST reads out roughly on schedule (H2 2027) and assumes no material safety signal emerges in AURA-IPF or MIST before then. Either would reset the timeline and the sentiment baseline this entire forecast is built on.',
+    },
+    patients: {
+      claim: 'Will the tolerability-burden message convert patient advocacy interest into referral pressure before Phase 2b data exist?',
+      scenarios: [
+        { prob: '64% likely', cls: 'prob-high', primary: true, label: 'Advocacy stays cautiously interested but non-committal until data exists.', body: 'Patient communities continue to engage with the tolerability conversation but explicitly withhold enthusiasm, citing memory of pamrevlumab and bexotegrast, until Phase 2b results are public.' },
+        { prob: '27% likely', cls: 'prob-med', primary: false, label: 'A vocal subset creates bottom-up referral pressure ahead of data.', body: 'Some patients and caregivers begin proactively asking pulmonologists about inhaled options based on ATLAS and early MIST chatter alone, creating field pressure before Avalyn has topline data to support it.' },
+        { prob: '9% likely', cls: 'prob-low', primary: false, label: 'Patient community conflates programs and disengages.', body: 'Confusion between AP01/AP02 and unrelated inhaled respiratory programs (including TETON) causes some patient-community disengagement from the specific Avalyn narrative.' },
+      ],
+      caveat: 'Patient-reported burden figures were not fully reconciled across sources in Avalyn\'s own research base &mdash; this forecast leans on qualitative signal, not a validated survey instrument.',
+    },
+    payers: {
+      claim: 'Will payers anchor early AP01/AP02 pricing conversations to Tyvaso DPI, or to oral antifibrotic WAC?',
+      scenarios: [
+        { prob: '64% likely', cls: 'prob-high', primary: true, label: 'The Tyvaso DPI device-administration anchor wins.', body: 'In the absence of a directly comparable oral generic undercutting on price, payers default to the nearest existing inhaled-specialty-respiratory precedent for administration cost modeling.' },
+        { prob: '27% likely', cls: 'prob-med', primary: false, label: 'Nerandomilast\'s oral pricing becomes the more relevant anchor.', body: 'Once nerandomilast is embedded in formularies with an established new-mechanism premium, payers may pull AP01/AP02 pricing logic back toward oral comparators instead of device-based ones.' },
+        { prob: '9% likely', cls: 'prob-low', primary: false, label: 'Payers defer any real position until approval exists.', body: 'Pre-launch payer chatter is treated as noise, and no meaningful pricing anchor forms until an actual Avalyn approval is on the table.' },
+      ],
+      caveat: 'This is the most speculative section of the brief &mdash; no Avalyn product exists yet, and payer modeling this far ahead of approval is directional at best.',
+    },
+    competitive: {
+      claim: "Which will matter more to Avalyn's positioning over the next 12 months &mdash; TETON's precedent or nerandomilast's bar-raise?",
+      scenarios: [
+        { prob: '64% likely', cls: 'prob-high', primary: true, label: 'Nerandomilast matters more day-to-day; TETON matters more at MIST readout.', body: 'Nerandomilast is actively competing for the same prescribers right now as an oral standard-of-care option, while TETON\'s relevance concentrates around the specific moment MIST\'s own data becomes public.' },
+        { prob: '27% likely', cls: 'prob-med', primary: false, label: "TETON's narrative dominates near-term KOL conversation regardless.", body: 'Because it is the more novel, delivery-focused story, TETON continues to dominate scientific-exchange conversation even though it is mechanistically distant from AP01/AP02.' },
+        { prob: '9% likely', cls: 'prob-low', primary: false, label: 'A surprise readout from a third competitor resets the board.', body: "Insmed's TPIP or BMS's admilparant produces an unexpected result that reshapes the competitive conversation before either TETON or nerandomilast fully plays out." },
+      ],
+      caveat: "Competitive forecasting in a fast-moving fibrosis pipeline is inherently fragile &mdash; multiple Phase 3 programs (BMS admilparant, Insmed's TPIP arms, Avalyn's own MIST/AURA-IPF) could read out within an overlapping window, any of which could reorder these priorities.",
+    },
+  },
+};
+
+const iconClassMap = { providers: 'c-teal', patients: 'c-sage', payers: 'c-amber', competitive: 'c-rose' };
+
+function openPanel(mode, key) {
+  const data = panelData[mode][key];
+  if (!data) return;
+  const title = mode === 'defend' ? 'Defend This' : 'What Does This Foretell?';
+  document.getElementById('panelTitle').textContent = title;
+  let html = '<p class="panel-claim">' + data.claim + '</p>';
+
+  if (mode === 'defend') {
+    data.blocks.forEach(b => {
+      html += '<div class="pblock"><div class="pblock-icon ' + b.cls + '">' + b.icon + '</div><div class="pblock-content">';
+      html += '<div class="pblock-label">' + b.label + '</div><div class="pblock-body">' + b.body + '</div>';
+      if (typeof b.confidence === 'number') {
+        html += '<div class="confidence-bar-wrap"><div class="confidence-bar-bg"><div class="confidence-bar-fill" id="confFill"></div></div><span class="confidence-pct">' + b.confidence + '%</span></div>';
+      }
+      html += '</div></div>';
+    });
+  } else {
+    data.scenarios.forEach(s => {
+      html += '<div class="scenario-card' + (s.primary ? ' primary' : '') + '">';
+      html += '<div class="scenario-top"><span class="scenario-label">' + s.label + '</span><span class="prob-chip ' + s.cls + '">' + s.prob + '</span></div>';
+      html += '<div class="scenario-body">' + s.body + '</div>';
+      if (s.analogy) html += '<div class="scenario-analogy">' + s.analogy + '</div>';
+      html += '</div>';
+    });
+    html += '<div class="caveat-box"><div class="caveat-label">&#9650; Where Pulse Could Be Wrong</div><div class="caveat-body">' + data.caveat + '</div></div>';
+  }
+
+  document.getElementById('panelBody').innerHTML = html;
+  document.getElementById('side-panel').classList.add('open');
+  document.getElementById('side-panel-overlay').classList.add('open');
+
+  const fill = document.getElementById('confFill');
+  if (fill) {
+    const pct = data.blocks.find(b => typeof b.confidence === 'number').confidence;
+    setTimeout(() => { fill.style.width = pct + '%'; }, 80);
+  }
+}
+function closePanel() {
+  document.getElementById('side-panel').classList.remove('open');
+  document.getElementById('side-panel-overlay').classList.remove('open');
+}
+
+// ── NARRATIVE MAP: DATA + RENDER ───────────────
+const topicData = {
+  tolerability: {
+    name: 'Inhaled vs. Oral Tolerability',
+    tension: { icon: '&#9878;', text: 'Oral antifibrotic discontinuation rates are well documented and painful &mdash; but "better tolerated" is a claim this therapeutic area has heard, and been disappointed by, before.', badge: 'Watch', badgeClass: 'badge-watch' },
+    cards: [
+      { community: 'Providers', color: 'teal', status: 'Questioning', statusClass: 'status-questioning', headline: 'Cautiously interested, <em>waiting on MIST/AURA-IPF data before shifting practice.</em>', body: 'ATLAS\'s dose-response signal is real but small and uncontrolled. Tier-1 KOLs treat the tolerability thesis as plausible, not proven.', quote: '"The biology makes sense. I need the Phase 2b numbers before I change how I counsel a patient."', tension: 'Rising interest, gated on data', tensionDir: '&#8593;', tensionColor: 'teal' },
+      { community: 'Patients', color: 'sage', status: 'Voicing', statusClass: 'status-voicing', headline: 'Vocal about burden, <em>but wary of another unproven tolerability promise.</em>', body: 'Discontinuation-driving side effects (GI, photosensitivity) are a real quality-of-life issue. Advocacy groups want data, not framing.', quote: '"Show us the Phase 2 numbers and I\'ll believe it."', tension: 'Interest building, skepticism intact', tensionDir: '&#8594;', tensionColor: 'sage' },
+      { community: 'Payers', color: 'amber', status: 'Monitoring', statusClass: 'status-monitoring', headline: 'Not yet engaged &mdash; <em>no product exists to price.</em>', body: 'Tolerability claims don\'t move payer modeling until there\'s an approved comparator with real-world adherence data behind it.', quote: '"We model risk, not marketing language."', tension: 'Dormant until approval', tensionDir: '&#8594;', tensionColor: 'amber' },
+      { community: 'Competitive', color: 'rose', status: 'Advancing', statusClass: 'status-advancing', headline: 'Nerandomilast just proved a new oral mechanism can still win. <em>Tolerability alone may not be enough.</em>', body: 'A new, better-tolerated oral option (nerandomilast) partially defuses the "oral is the problem" framing Avalyn\'s tolerability story depends on.', quote: '"A new pill just raised the efficacy bar. The tolerability argument alone doesn\'t automatically win anymore."', tension: 'Oral standard improving in parallel', tensionDir: '&#8593;', tensionColor: 'rose' },
+    ],
+  },
+  cscild: {
+    name: 'CTD-ILD / SSc-ILD Expansion',
+    tension: { icon: '&#128260;', text: 'AP01\'s cross-indication reach into SSc-ILD is a genuine differentiator at EULAR &mdash; but it depends on rheumatology and pulmonology actually talking to each other.', badge: 'Converging', badgeClass: 'badge-converging' },
+    cards: [
+      { community: 'Providers', color: 'teal', status: 'Voicing', statusClass: 'status-voicing', headline: 'Cross-indication bridge KOLs (Cottin, Distler, Khanna) <em>are actively building the referral pathway narrative.</em>', body: 'Vincent Cottin and Oliver Distler both engage across pulm and rheum settings, making them the connective tissue for AP01\'s SSc-ILD/CTD-ILD story.', quote: '"The patients who need this most are the ones falling between two specialties."', tension: 'Bridge narrative strengthening', tensionDir: '&#8593;', tensionColor: 'teal' },
+      { community: 'Patients', color: 'sage', status: 'Monitoring', statusClass: 'status-monitoring', headline: 'SSc-ILD patients face the same tolerability burden, <em>with an added referral-pathway complexity.</em>', body: 'SSc-ILD patients often see a rheumatologist first; awareness of inhaled antifibrotic options in that setting lags behind pure pulmonology awareness.', quote: '"My rheumatologist didn\'t mention a lung-specific option until my pulmonologist brought it up."', tension: 'Awareness gap by specialty', tensionDir: '&#8594;', tensionColor: 'sage' },
+      { community: 'Payers', color: 'amber', status: 'Monitoring', statusClass: 'status-monitoring', headline: 'No distinct payer signal yet <em>for the CTD-ILD sub-population specifically.</em>', body: 'SSc-ILD represents a smaller population (SSc affects roughly 1 in 6,500 adults) that payers have not yet separately modeled from broader IPF/PPF.', quote: '&mdash;', tension: 'Not yet on payer radar', tensionDir: '&#8594;', tensionColor: 'amber' },
+      { community: 'Competitive', color: 'rose', status: 'Monitoring', statusClass: 'status-monitoring', headline: 'Nintedanib already owns SSc-ILD (SENSCIS); <em>pirfenidone has no approval in either IPF or SSc-ILD.</em>', body: 'AP01\'s SSc-ILD opportunity is real but sits alongside an already-approved nintedanib indication (SENSCIS) &mdash; the competitive frame is displacement, not first-mover.', quote: '&mdash;', tension: 'Established incumbent in-indication', tensionDir: '&#8594;', tensionColor: 'rose' },
+    ],
+  },
+  teton: {
+    name: "TETON's Inhaled Precedent",
+    tension: { icon: '&#9992;', text: "TETON proved inhaled delivery can move FVC in fibrosing lung disease at Phase 3 &mdash; for a mechanism that isn't Avalyn's own.", badge: 'Diverging', badgeClass: 'badge-diverging' },
+    cards: [
+      { community: 'Providers', color: 'teal', status: 'Questioning', statusClass: 'status-questioning', headline: 'Split between borrowed optimism and mechanism skepticism. <em>Nathan (TETON PI) is the pivotal voice.</em>', body: 'Most Tier-1 KOLs are treating TETON as a positive but distinct data point. Steven Nathan, closest to the TETON data itself, is currently the most skeptical toward AP02.', quote: '"Those are two different pharmacology questions wearing the same delivery device."', tension: 'Mechanism distinction actively contested', tensionDir: '&#8593;', tensionColor: 'teal' },
+      { community: 'Patients', color: 'sage', status: 'Monitoring', statusClass: 'status-monitoring', headline: 'Limited direct awareness of TETON <em>outside PAH-adjacent patient communities.</em>', body: 'TETON\'s relevance to IPF/PPF patients specifically interested in Avalyn\'s programs is currently more of an academic/KOL-level narrative than a patient-community one.', quote: '&mdash;', tension: 'Low direct patient-community engagement', tensionDir: '&#8594;', tensionColor: 'sage' },
+      { community: 'Payers', color: 'amber', status: 'Monitoring', statusClass: 'status-monitoring', headline: 'Tyvaso DPI\'s existing reimbursement pathway <em>is the practical takeaway for payers, not the FVC result itself.</em>', body: 'Payers are more likely to react to Tyvaso DPI\'s device/administration billing precedent than to the clinical mechanism distinction driving KOL conversations.', quote: '&mdash;', tension: 'Reimbursement precedent forming', tensionDir: '&#8593;', tensionColor: 'amber' },
+      { community: 'Competitive', color: 'rose', status: 'Advancing', statusClass: 'status-advancing', headline: 'United Therapeutics gains a second FVC-positive readout to point to <em>in future business-development conversations.</em>', body: 'TETON strengthens UT\'s broader inhaled-respiratory platform story, independent of any direct product overlap with Avalyn.', quote: '&mdash;', tension: 'Competitor credibility expanding', tensionDir: '&#8593;', tensionColor: 'rose' },
+    ],
+  },
+  mist: {
+    name: 'MIST Readout Anticipation',
+    tension: { icon: '&#8987;', text: "MIST's topline is 18 months out. Every month between now and then is a month the competitive and narrative landscape keeps moving without Avalyn's own data to anchor it.", badge: 'Watch', badgeClass: 'badge-watch' },
+    cards: [
+      { community: 'Providers', color: 'teal', status: 'Monitoring', statusClass: 'status-monitoring', headline: 'Enrollment complete is a milestone, <em>but attention will fade without interim updates.</em>', body: 'MIST completed 375-patient enrollment in June 2026. Without interim engagement, KOL attention risks drifting toward nerandomilast and TETON in the interim.', quote: '"Enrollment complete is good news, but it\'s not data. I\'ll re-engage seriously closer to topline."', tension: 'Attention risk during data gap', tensionDir: '&#8595;', tensionColor: 'teal' },
+      { community: 'Patients', color: 'sage', status: 'Voicing', statusClass: 'status-voicing', headline: 'Trial-enrolled patients and their communities <em>are the most engaged audience right now.</em>', body: 'Patients directly involved in MIST (or aware of someone who is) represent the most invested near-term audience for the tolerability narrative.', quote: '&mdash;', tension: 'Concentrated engagement among enrolled sites', tensionDir: '&#8593;', tensionColor: 'sage' },
+      { community: 'Payers', color: 'amber', status: 'Monitoring', statusClass: 'status-monitoring', headline: 'Entirely dormant <em>until there is a readout to react to.</em>', body: 'No payer engagement expected on MIST specifically until FVC topline data exists in H2 2027.', quote: '&mdash;', tension: 'No activity expected pre-readout', tensionDir: '&#8594;', tensionColor: 'amber' },
+      { community: 'Competitive', color: 'rose', status: 'Advancing', statusClass: 'status-advancing', headline: 'Nerandomilast and TETON both continue advancing narrative share <em>during Avalyn\'s data gap.</em>', body: 'The 18-month gap between enrollment completion and topline is exactly the window in which competitors can most cheaply gain narrative ground.', quote: '&mdash;', tension: 'Competitors gaining ground during the gap', tensionDir: '&#8593;', tensionColor: 'rose' },
+    ],
+  },
+};
+
+let narrativeRendered = false;
+let activeTopic = 'tolerability';
+
+function renderNarrative() {
+  const pillsEl = document.getElementById('topicPills');
+  if (!narrativeRendered) {
+    pillsEl.innerHTML = Object.keys(topicData).map(key =>
+      '<button class="topic-pill' + (key === activeTopic ? ' active' : '') + '" onclick="selectTopic(\'' + key + '\')" id="pill-' + key + '">' + topicData[key].name + '</button>'
+    ).join('');
+    narrativeRendered = true;
+  }
+  renderTopic(activeTopic);
+}
+
+function selectTopic(key) {
+  activeTopic = key;
+  document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('pill-' + key).classList.add('active');
+  renderTopic(key);
+}
+
+function renderTopic(key) {
+  const t = topicData[key];
+  document.getElementById('tensionBoxWrap').innerHTML =
+    '<div class="tension-box"><span class="tension-icon">' + t.tension.icon + '</span><span class="tension-text">' + t.tension.text + '</span><span class="tension-badge ' + t.tension.badgeClass + '">' + t.tension.badge + '</span></div>';
+
+  document.getElementById('narrCards').innerHTML = t.cards.map(c =>
+    '<div class="narr-card" style="border-top-color:var(--' + c.color + ')">' +
+      '<div class="narr-card-header"><span class="narr-card-name" style="color:var(--' + c.color + ')">' + c.community + '</span><span class="status-chip ' + c.statusClass + '">' + c.status + '</span></div>' +
+      '<div class="narr-card-headline">' + c.headline + '</div>' +
+      '<div class="narr-card-body">' + c.body + '</div>' +
+      (c.quote !== '&mdash;' ? '<div class="narr-card-quote">' + c.quote + '</div>' : '') +
+      '<div class="narr-card-tension" style="color:var(--' + c.tensionColor + ')">' + c.tensionDir + ' ' + c.tension + '</div>' +
+    '</div>'
+  ).join('');
+}
+
+// ── SIGNAL VELOCITY: DATA + RENDER ─────────────
+const velocityData = [
+  {
+    narrative: "TETON's Phase 3 win reshapes the \"inhaled works for PF\" conversation",
+    badge: 'Accelerating', badgeClass: 'badge-accel',
+    bars: [
+      { color: 'provider', pct: 88, delta: '+31%', cls: 'up' },
+      { color: 'competitive', pct: 76, delta: '+24%', cls: 'up' },
+      { color: 'payer', pct: 34, delta: '+9%', cls: 'up' },
+      { color: 'patient', pct: 22, delta: '+4%', cls: 'stable' },
+    ],
+    reading: 'The mechanism-distinction message needs to be in-market before this narrative fully calcifies. Provider-side momentum is the fastest-moving of the four communities &mdash; and the one most exposed to conflation risk.',
+  },
+  {
+    narrative: 'SSc-ILD community watching for CTD-ILD inhaled data ahead of EULAR follow-up cycles',
+    badge: 'New Narrative', badgeClass: 'badge-new',
+    bars: [
+      { color: 'provider', pct: 61, delta: 'NEW', cls: 'new' },
+      { color: 'patient', pct: 38, delta: 'NEW', cls: 'new' },
+      { color: 'payer', pct: 12, delta: '+2%', cls: 'stable' },
+      { color: 'competitive', pct: 29, delta: '+6%', cls: 'up' },
+    ],
+    reading: 'Cross-indication bridge KOLs (Cottin, Distler, Khanna) are the accelerant here. This narrative is young but has a clear near-term catalyst in the next EULAR presentation cycle.',
+  },
+  {
+    narrative: "Nerandomilast's approval raises the oral efficacy bar for the whole category",
+    badge: 'Accelerating', badgeClass: 'badge-accel',
+    bars: [
+      { color: 'competitive', pct: 82, delta: '+19%', cls: 'up' },
+      { color: 'provider', pct: 57, delta: '+14%', cls: 'up' },
+      { color: 'payer', pct: 41, delta: '+11%', cls: 'up' },
+      { color: 'patient', pct: 9, delta: '+1%', cls: 'stable' },
+    ],
+    reading: "This is the narrative moving fastest on the competitive axis specifically. It will matter far more to MIST's eventual reception than its current provider-side visibility suggests.",
+  },
+  {
+    narrative: 'MSL field reports on oral antifibrotic discontinuation patterns',
+    badge: 'Stable', badgeClass: 'badge-stable',
+    bars: [
+      { color: 'provider', pct: 54, delta: '+3%', cls: 'stable' },
+      { color: 'patient', pct: 47, delta: '+5%', cls: 'up' },
+      { color: 'payer', pct: 8, delta: '0%', cls: 'stable' },
+      { color: 'competitive', pct: 19, delta: '+2%', cls: 'stable' },
+    ],
+    reading: 'A slow-and-steady baseline signal, not an alert. Useful as ongoing evidence the tolerability thesis has real clinical grounding, but not moving fast enough to be this week\'s headline.',
+  },
+  {
+    narrative: 'Patient advocacy tolerability-burden campaign activity',
+    badge: 'New Narrative', badgeClass: 'badge-new',
+    bars: [
+      { color: 'patient', pct: 66, delta: '+28%', cls: 'up' },
+      { color: 'provider', pct: 24, delta: '+7%', cls: 'up' },
+      { color: 'payer', pct: 6, delta: '0%', cls: 'stable' },
+      { color: 'competitive', pct: 11, delta: '+2%', cls: 'stable' },
+    ],
+    reading: 'Patient-community momentum is real but running well ahead of any data to back it. Field medical should not encourage expectations this campaign can\'t yet be matched by evidence.',
+  },
+];
+
+let velocityRendered = false;
+function renderVelocity() {
+  if (velocityRendered) return;
+  velocityRendered = true;
+
+  document.getElementById('velAlert').innerHTML =
+    '<div class="vel-alert-label">&#9650; New Narrative Alert</div>' +
+    '<div class="vel-alert-body">Patient advocacy tolerability-burden campaign activity is the fastest-accelerating community-side signal this cycle (+28% patient-community momentum in 30 days) &mdash; running well ahead of the Phase 2b data that would substantiate it. Field medical should track, not amplify, until MIST/AURA-IPF data exist.</div>';
+
+  const cardsEl = document.getElementById('velCards');
+  cardsEl.innerHTML = velocityData.map((v, i) => {
+    const barsHtml = v.bars.map(b =>
+      '<div class="vel-bar-wrap"><span class="vel-label">' + b.color + '</span><div class="vel-bar-bg"><div class="vel-bar vbar-' + b.color + '" data-pct="' + b.pct + '" id="velbar-' + i + '-' + b.color + '"></div></div><span class="vel-delta ' + b.cls + '">' + b.delta + '</span></div>'
+    ).join('');
+    return '<div class="vel-card">' +
+      '<div class="vel-card-top"><div class="vel-signal">' + v.narrative + '</div><span class="vel-badge ' + v.badgeClass + '">' + v.badge + '</span></div>' +
+      '<div class="vel-bars">' + barsHtml + '</div>' +
+      '<p class="vel-note">' + v.reading + '</p>' +
+    '</div>';
+  }).join('');
+
+  setTimeout(() => {
+    velocityData.forEach((v, i) => {
+      v.bars.forEach(b => {
+        const el = document.getElementById('velbar-' + i + '-' + b.color);
+        if (el) el.style.width = b.pct + '%';
+      });
+    });
+  }, 120);
+}
+</script>
+
+</body>
+</html>
