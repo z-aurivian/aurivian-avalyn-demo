@@ -97,6 +97,30 @@ body {
 .chip { font-size: 9.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; background: rgba(13,110,110,0.10); border: 1px solid rgba(13,110,110,0.30); color: var(--teal); font-family: var(--font-mono); }
 .topbar-date { font-size: 10px; color: var(--ink-lt); letter-spacing: 0.03em; }
 
+/* ── LISTEN BUTTON ─────────────────────────── */
+.btn-listen { display: flex; align-items: center; gap: 6px; font-size: 9.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; background: transparent; border: 1px solid rgba(13,110,110,0.30); color: var(--teal); font-family: var(--font-mono); cursor: pointer; transition: background 0.15s; }
+.btn-listen:hover { background: rgba(13,110,110,0.15); }
+.btn-listen.playing { background: rgba(13,110,110,0.15); }
+.listen-dot { width: 5px; height: 5px; background: var(--teal); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── AUDIO BAR ─────────────────────────────── */
+#audio-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 500; background: var(--ink); border-top: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; align-items: center; gap: 14px; }
+#audio-bar.open { display: flex; }
+.audio-play-btn { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; background: var(--teal); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.15s; }
+.audio-play-btn:hover { opacity: 0.85; }
+.audio-play-icon { font-size: 11px; color: #fff; margin-left: 2px; }
+.audio-pause-icon { font-size: 11px; color: #fff; }
+.audio-meta { display: flex; flex-direction: column; gap: 1px; min-width: 180px; }
+.audio-title { font-size: 11px; font-weight: 600; color: var(--cream); }
+.audio-subtitle { font-size: 9px; color: rgba(245,240,232,0.55); }
+.audio-progress-wrap { flex: 1; display: flex; align-items: center; gap: 10px; }
+.audio-track { flex: 1; height: 3px; background: rgba(255,255,255,0.15); border-radius: 2px; cursor: pointer; position: relative; }
+.audio-fill { height: 100%; background: var(--teal); border-radius: 2px; width: 0%; transition: width 0.25s linear; }
+.audio-time { font-size: 9px; color: rgba(245,240,232,0.55); white-space: nowrap; min-width: 80px; text-align: right; }
+.audio-close { background: none; border: none; color: rgba(245,240,232,0.5); cursor: pointer; font-size: 16px; line-height: 1; padding: 4px; transition: color 0.15s; }
+.audio-close:hover { color: var(--cream); }
+
 /* ── SIDEBAR TOGGLE ────────────────────────── */
 #sidebar-toggle {
   position: fixed; left: 228px; top: 50%; transform: translateY(-50%);
@@ -388,6 +412,9 @@ body {
     <span class="chip">Avalyn Pharmaceuticals</span>
     <span class="chip">AP01 &middot; AP02</span>
     <span class="topbar-date">Jul 20, 2026 &middot; 7:00 AM ET</span>
+    <button class="btn-listen" id="listen-btn" onclick="openAudio()">
+      <span class="listen-dot"></span> Listen
+    </button>
   </div>
 </header>
 
@@ -769,7 +796,91 @@ body {
   <div class="panel-body" id="panelBody"></div>
 </div>
 
+<!-- AUDIO PLAYER BAR — must be BEFORE <script> -->
+<div id="audio-bar">
+  <button class="audio-play-btn" onclick="toggleAudio()" id="play-btn">
+    <span class="audio-play-icon" id="play-icon">&#9654;</span>
+  </button>
+  <div class="audio-meta">
+    <div class="audio-title">Pulse Brief &middot; July 20, 2026</div>
+    <div class="audio-subtitle">Avalyn Pharmaceuticals Medical Intelligence</div>
+  </div>
+  <div class="audio-progress-wrap">
+    <div class="audio-track" onclick="scrubAudio(event)" id="audio-track">
+      <div class="audio-fill" id="audio-fill"></div>
+    </div>
+    <span class="audio-time" id="audio-time">0:00</span>
+  </div>
+  <button class="audio-close" onclick="closeAudio()" title="Close">&#215;</button>
+</div>
+<audio id="brief-audio" src="pulse_avalyn_brief_audio.mp3" preload="metadata"></audio>
+
 <script>
+// ── AUDIO PLAYER ───────────────────────────────
+function openAudio() {
+  const bar = document.getElementById('audio-bar');
+  bar.classList.add('open');
+  const btn = document.getElementById('listen-btn');
+  if (btn) btn.classList.add('playing');
+  const audio = document.getElementById('brief-audio');
+  if (audio) {
+    audio.play().then(() => {
+      document.getElementById('play-icon').innerHTML = '&#9646;&#9646;';
+    }).catch(() => {});
+  }
+}
+
+function toggleAudio() {
+  const audio = document.getElementById('brief-audio');
+  const icon  = document.getElementById('play-icon');
+  if (!audio) return;
+  if (audio.paused) {
+    audio.play().then(() => { icon.innerHTML = '&#9646;&#9646;'; }).catch(() => {});
+  } else {
+    audio.pause();
+    icon.innerHTML = '&#9654;';
+  }
+}
+
+function closeAudio() {
+  const audio = document.getElementById('brief-audio');
+  if (audio) { audio.pause(); audio.currentTime = 0; }
+  document.getElementById('audio-bar').classList.remove('open');
+  const icon = document.getElementById('play-icon');
+  if (icon) icon.innerHTML = '&#9654;';
+  const btn = document.getElementById('listen-btn');
+  if (btn) btn.classList.remove('playing');
+}
+
+function scrubAudio(e) {
+  const audio = document.getElementById('brief-audio');
+  const track = document.getElementById('audio-track');
+  if (!audio || !track || !audio.duration) return;
+  const rect = track.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = pct * audio.duration;
+}
+
+(function() {
+  const audio = document.getElementById('brief-audio');
+  if (!audio) return;
+  audio.addEventListener('timeupdate', function() {
+    if (!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    const fill = document.getElementById('audio-fill');
+    if (fill) fill.style.width = pct + '%';
+    const m = Math.floor(audio.currentTime / 60);
+    const s = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+    const d = Math.floor(audio.duration / 60);
+    const ds = Math.floor(audio.duration % 60).toString().padStart(2, '0');
+    const timeEl = document.getElementById('audio-time');
+    if (timeEl) timeEl.textContent = m + ':' + s + ' / ' + d + ':' + ds;
+  });
+  audio.addEventListener('ended', function() {
+    document.getElementById('play-icon').innerHTML = '&#9654;';
+  });
+})();
+
 // ── SIGNAL BANNER ─────────────────────────────
 function dismissSignal() {
   document.getElementById('shell').classList.remove('signal-open');
