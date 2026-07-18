@@ -1,65 +1,72 @@
 // Predictive Signals — Command Center & NOVA.
-// Replaces the simpler "New Signals" feed. Each signal carries an agent
-// attribution (which agent surfaced it) plus trajectory / confidence /
-// time-to-impact framing borrowed from the Alexion Momentum Indicators
-// pattern.
-//
-// Default fill: Alexion (template example). Overwrite per demo.
+// Each signal carries an agent attribution plus trajectory / confidence /
+// time-to-impact framing.
 
 export const PREDICTIVE_SIGNALS = [
   {
     id: 'ps-1',
     agent: 'NOVA',
-    signal: 'Biosimilar formulary displacement accelerating',
-    currentState: 'Three major US PBMs have excluded originator Soliris from 2026 national formularies. EU5 markets show 35% biosimilar penetration in new patient starts.',
+    signal: 'MIST enrollment completion — topline readout window opening',
+    currentState: 'MIST (Ph2b, NCT06329401) completed enrollment of 375 patients in June 2026. Topline FVC-at-week-52 data expected H2 2027. KOL and community anticipation is building ahead of readout.',
     trajectory: 'rising',
-    timeToImpact: '0–6 months',
+    timeToImpact: '6-12 months',
     confidence: 'high',
-    requiredAction: 'Accelerate Soliris→Ultomiris conversion outreach to prescribers managing stable patients at risk of forced biosimilar switching.',
+    requiredAction: 'Begin pre-readout scientific-exchange sequencing with Tier 1 CTD-ILD KOLs; prepare congress abstract pipeline for ATS/ERS/EULAR 2027.',
     suggestedAction: { label: 'Open in NOVA', path: '/insights' },
   },
   {
     id: 'ps-2',
     agent: 'ARIA',
-    signal: 'Competitor symposium added at EHA 2026 (iptacopan)',
-    currentState: 'Late-breaking PNH extension data announced. No equivalent Alexion session currently scheduled in that room.',
+    signal: 'Nerandomilast (Jascayd) approvals reshaping ATS/ERS session content',
+    currentState: 'Boehringer\'s nerandomilast was approved in IPF (Oct 2025) and PPF (Dec 2025) — the first new IPF mechanism in a decade. Early ATS 2026 session titles show a marked pivot toward PDE4B sequencing questions.',
     trajectory: 'rising',
-    timeToImpact: '0–3 months',
+    timeToImpact: '0-3 months',
     confidence: 'high',
-    requiredAction: 'Brief MSL team before session. Prepare response talking points and an evidence one-pager.',
+    requiredAction: 'Brief MSL team on nerandomilast sequencing before ERS 2026; prepare rapid-response talking points positioning AP02 relative to the new oral mechanism.',
     suggestedAction: { label: 'Open in ARIA', path: '/congress' },
   },
   {
     id: 'ps-3',
     agent: 'LUCA',
-    signal: 'Sentiment shift: Dr. K. Rhee toward C5 sequencing in NMOSD',
-    currentState: 'Two recent congress talks and one podcast indicate shifting preference on sequencing C5 vs IL-6 inhibition.',
+    signal: 'Sentiment shift: Vincent Cottin increasingly bridging pulm/rheum referral conversation',
+    currentState: 'Two recent congress talks and a co-authored EULAR abstract show Cottin explicitly framing CTD-ILD/PPF referral pathways as a joint pulm-rheum responsibility — directly relevant to the LP1/LP4 referral-gap narrative.',
     trajectory: 'rising',
-    timeToImpact: '3–6 months',
+    timeToImpact: '3-6 months',
     confidence: 'medium',
-    requiredAction: 'Schedule scientific exchange focused on C5 sequencing data; prepare advisory board invitation.',
+    requiredAction: 'Invite Cottin to co-develop the referral-pathway one-pager; positions him as a cross-indication advisory voice ahead of MIST readout.',
     suggestedAction: { label: 'Open in LUCA', path: '/kol' },
   },
   {
     id: 'ps-4',
     agent: 'NOVA',
-    signal: 'Recurrence threshold hit: infusion-burden switch hesitancy',
-    currentState: 'Insight AI1 recorded a third source this month — now at Prioritised status. Strategy-to-Action recommends community-facing switching materials.',
+    signal: 'Recurrence threshold hit: tolerability-burden discontinuation narrative',
+    currentState: 'Insight AI3 recorded a fourth source this month — the highest recurrence of any insight this cycle, now Prioritised. Strategy-to-Action recommends the tolerability/adherence conversation guide be finalized and deployed.',
     trajectory: 'rising',
-    timeToImpact: '3–6 months',
+    timeToImpact: '0-3 months',
     confidence: 'high',
-    requiredAction: 'Approve patient-facing switching one-pager; deploy community KIT to MSL field team.',
+    requiredAction: 'Approve and deploy the tolerability/adherence conversation guide (A5) to the full MSL field team ahead of ERS 2026.',
     suggestedAction: { label: 'Review in NOVA', path: '/insights' },
   },
   {
     id: 'ps-5',
     agent: 'LUCA',
-    signal: '2 emerging NMOSD KOLs crossed the watch threshold',
-    currentState: 'Publication cadence and congress-speaking frequency both up 40% vs prior 6 months. Neither is currently on the NMOSD engagement list.',
+    signal: '2 emerging SSc-ILD KOLs crossed the watch threshold ahead of EULAR',
+    currentState: 'Publication cadence and EUSTAR-affiliated congress-speaking frequency are both up meaningfully for two early-detection-biomarker researchers not yet on the Tier 1/2 engagement list.',
     trajectory: 'rising',
-    timeToImpact: '3–6 months',
+    timeToImpact: '3-6 months',
     confidence: 'medium',
-    requiredAction: 'Add to LUCA watch list; assign MSL for initial outreach.',
+    requiredAction: 'Add to LUCA watch list; assign a UK/Europe MSL for initial outreach ahead of EULAR 2026.',
     suggestedAction: { label: 'Open in LUCA', path: '/kol' },
+  },
+  {
+    id: 'ps-6',
+    agent: 'VEGA',
+    signal: 'Share of scientific voice softening vs. United Therapeutics (TETON) at pulmonology congresses',
+    currentState: 'TETON-1/TETON-2 positive NEJM readouts have measurably increased United Therapeutics\' abstract and session share at ATS-adjacent programming, raising the risk that inhaled therapy mindshare consolidates around Tyvaso rather than antifibrotics.',
+    trajectory: 'declining',
+    timeToImpact: '3-6 months',
+    confidence: 'medium',
+    requiredAction: 'Commission a mechanism-differentiation deck (A7) and secure an ERS 2026 session slot explicitly separating inhaled-antifibrotic from inhaled-prostacyclin categories.',
+    suggestedAction: { label: 'Open in VEGA', path: '/vega' },
   },
 ];

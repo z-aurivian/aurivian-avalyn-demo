@@ -1,12 +1,12 @@
 // Customer identity — populated per demo from the Demo Brief (§1).
-// Default: Alexion (the master template's example fill).
+// Avalyn Pharmaceuticals — clinical-stage inhaled-respiratory biotech.
 
 export const CLIENT = {
-  name: 'Alexion',
-  parentCompany: 'AstraZeneca',
-  division: 'Rare Disease',
+  name: 'Avalyn',
+  parentCompany: null,
+  division: 'Medical Affairs',
   franchiseDescription:
-    'Complement inhibitors for rare hematologic and neurological disorders (PNH, aHUS, gMG, NMOSD)',
+    'Inhaled therapies for pulmonary fibrosis and interstitial lung disease (IPF, PPF, CTD-ILD/SSc-ILD), built on the PARI eFlow® nebulizer platform',
   cloudLabel: 'your cloud',
   // Optional accent color override. Leave null to inherit the Aurivian palette.
   accentHex: null,
@@ -14,4 +14,5 @@ export const CLIENT = {
   logoSrc: null,
 };
 
-export const CAPTURE_APP_URL = 'https://aurivian-capture-demo.vercel.app';
+export const CAPTURE_APP_URL = 'https://aurivian-avalyn-capture-app.vercel.app';
+export const PULSE_BRIEF_URL = '/pulse_avalyn_brief.html';

@@ -1,23 +1,28 @@
 // Gap Radar — Demo Brief §9.
-// Default fill: Alexion template. Overwrite per demo.
 
 export const GAP_RADAR = [
   {
     type: 'New LP',
-    moRef: 'MO4',
-    suggestion: 'Complement biology scientific exchange — mechanistic differentiation vs next-gen agents',
-    rationale: 'MO4 (scientific exchange) has 0 qualifying insights this cycle (Gap). Current LPs don’t cover mechanistic-differentiation conversations where they are happening.',
+    moRef: 'MO3',
+    suggestion: 'Patient-reported tolerability voice — capture patient advocacy channel signal directly, not only via MSL relay',
+    rationale: 'MO3 (tolerability/adherence narrative) is flagged Gap despite AI3 being the highest-recurrence insight this cycle. Patient advocacy channels (et-4) are now generating independent signal that no current LP captures directly.',
   },
   {
     type: 'New KIQ',
-    moRef: 'MO1',
-    suggestion: '“What pediatric dosing confidence gap remains between registry data and community practice?”',
-    rationale: 'Pediatric aHUS insight (AI5) is isolated — no LP currently triangulates pediatric dosing confidence. Low coverage in MO1 overall.',
+    moRef: 'MO5',
+    suggestion: '"What specific language do KOLs use to distinguish an inhaled antifibrotic from an inhaled prostacyclin, and where does it break down?"',
+    rationale: 'AI5 (mechanistic confusion) is recurring and MO5 overall is a Gap. No current LP is precise enough to track where the differentiation message is failing.',
   },
   {
     type: 'New KIT',
-    moRef: 'MO2',
-    suggestion: 'Patient-facing switch-stability one-pager (co-created with community HCPs)',
-    rationale: 'Recurring community-center request across AI1 and AI4. KIT library currently lacks patient-facing material.',
+    moRef: 'MO5',
+    suggestion: 'Nerandomilast rapid-response FAQ, refreshed quarterly',
+    rationale: 'et-2 shows the fastest growth rate of any emerging theme (61%). A8 addressed the initial signal but MO5 needs a standing, refreshed asset rather than a one-time briefing.',
+  },
+  {
+    type: 'New LP',
+    moRef: 'MO4',
+    suggestion: 'General (non-EUSTAR) rheumatologist screening confidence — expand beyond academic SSc-ILD centers',
+    rationale: 'AI4 and et-3 both point to a gap specifically among rheumatologists outside EUSTAR-affiliated centers, who are underrepresented in current LP4 coverage.',
   },
 ];

@@ -1,40 +1,38 @@
-// Emerging Themes — Command Center tile (per Zeinab's diagram) and NOVA.
+// Emerging Themes — Command Center tile and NOVA.
 // Themes detected by NOVA as growing in volume across MSL, ad-board and
 // congress sources.
-//
-// Default fill: Alexion (template example). Overwrite per demo.
 
 export const EMERGING_THEMES = [
   {
     id: 'et-1',
-    theme: 'Payer-Mandated Biosimilar Step Therapy',
-    growthRate: 67,
-    firstDetected: '2025-11-14',
-    relatedKIT: 'Biosimilar Switching Readiness',
-    description: 'Multiple US payers are implementing step-through-biosimilar policies. MSLs report growing physician frustration with prior authorization barriers and clinical concerns about switching stable patients.',
+    theme: 'Inhaled-Category Confusion (Antifibrotic vs. Prostacyclin)',
+    growthRate: 54,
+    firstDetected: '2026-05-19',
+    relatedKIT: 'Inhaled Route Differentiation vs. Oral Antifibrotics',
+    description: 'Community physicians and some congress attendees are conflating inhaled antifibrotics (AP01/AP02) with inhaled prostacyclin analogues (Tyvaso, TPIP) purely on the basis of shared "inhaled" delivery — mechanism differentiation is not landing.',
   },
   {
     id: 'et-2',
-    theme: 'C3-Mediated Hemolysis Awareness Gap',
-    growthRate: 43,
-    firstDetected: '2025-12-02',
-    relatedKIT: 'Breakthrough Hemolysis Management',
-    description: 'Increasing recognition that residual C3-mediated extravascular hemolysis on C5 inhibitors represents an unmet need. Competitor messaging amplifying this narrative.',
+    theme: 'Nerandomilast First-Line Sequencing Debate',
+    growthRate: 61,
+    firstDetected: '2026-05-30',
+    relatedKIT: 'Nerandomilast (Jascayd) Competitive Response',
+    description: 'Following nerandomilast\'s IPF and PPF approvals, pulmonologists are actively debating how a new oral mechanism changes first-line sequencing — and whether inhaled reformulation of older mechanisms still has a role.',
   },
   {
     id: 'et-3',
-    theme: 'Real-World Biosimilar Immunogenicity Signals',
-    growthRate: 38,
-    firstDetected: '2026-01-10',
-    relatedKIT: 'Biosimilar Switching Readiness',
-    description: 'Early pharmacovigilance data from EU biosimilar eculizumab launches has generated discussion about anti-drug antibody development in switched patients.',
+    theme: 'SSc-ILD Screening Algorithm Demand (EUSTAR-Aligned)',
+    growthRate: 37,
+    firstDetected: '2026-05-14',
+    relatedKIT: 'SSc-ILD Screening & Rheum-Pulm Referral Pathway',
+    description: 'Rheumatologists outside EUSTAR-affiliated centers are requesting a simplified, EUSTAR-consistent HRCT/PFT screening trigger to standardize early pulmonology referral in systemic sclerosis.',
   },
   {
     id: 'et-4',
-    theme: 'Subcutaneous C5 Inhibitor Preference',
-    growthRate: 29,
-    firstDetected: '2026-01-22',
-    relatedKIT: 'Oral Competitor Awareness',
-    description: 'Patient preference research at ASH highlighted that subcutaneous administration is rated nearly as convenient as oral by patients on IV infusions.',
+    theme: 'Patient-Reported Tolerability Burden Gaining Advocacy Voice',
+    growthRate: 33,
+    firstDetected: '2026-06-01',
+    relatedKIT: 'GI/Hepatic Tolerability Burden (Oral Standard of Care)',
+    description: 'Patient advocacy channels (Pulmonary Fibrosis Foundation, Scleroderma Foundation) are increasingly amplifying first-person tolerability accounts on oral pirfenidone/nintedanib, independent of MSL-sourced signals.',
   },
 ];

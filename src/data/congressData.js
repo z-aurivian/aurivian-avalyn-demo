@@ -1,82 +1,95 @@
 // ============================================================================
-// Congress Intelligence Data — adapted from Terumo ingestion pipeline
-// Keys off CONGRESS_OPTIONS from clientConfig
+// Congress Intelligence Data — Avalyn (ATS / ERS / EULAR)
+// Keys off CONGRESS_OPTIONS from config
 // ============================================================================
 
-import { PRODUCT_OPTIONS } from '../config/clientConfig';
+import { PRODUCT_OPTIONS } from '../config';
 
-const productNames = PRODUCT_OPTIONS.map(p => p.name);
+const productNames = PRODUCT_OPTIONS.map(p => p.name); // ['AP01', 'AP02', 'AP03']
 
 export const MOCK_TREND_SENTIMENT = {
-  timeline: ['Post-ASH 2024', 'Q1 2025', 'Q2 2025', 'Q3 2025', 'ASH 2025'],
+  timeline: ['Post-ATS 2025', 'Q4 2025', 'Q1 2026', 'Q2 2026', 'ATS 2026'],
   scientific: [
-    { period: 'Post-ASH 2024', [productNames[0]]: 62, [productNames[1]]: 68, 'Iptacopan': 55, Other: 50 },
-    { period: 'Q1 2025', [productNames[0]]: 64, [productNames[1]]: 72, 'Iptacopan': 60, Other: 52 },
-    { period: 'Q2 2025', [productNames[0]]: 66, [productNames[1]]: 76, 'Iptacopan': 65, Other: 54 },
-    { period: 'Q3 2025', [productNames[0]]: 68, [productNames[1]]: 80, 'Iptacopan': 70, Other: 56 },
-    { period: 'ASH 2025', [productNames[0]]: 65, [productNames[1]]: 84, 'Iptacopan': 74, Other: 58 },
+    { period: 'Post-ATS 2025', [productNames[0]]: 54, [productNames[1]]: 48, 'Nerandomilast': 51, 'Tyvaso/TETON': 58, Other: 46 },
+    { period: 'Q4 2025',       [productNames[0]]: 58, [productNames[1]]: 52, 'Nerandomilast': 62, 'Tyvaso/TETON': 61, Other: 47 },
+    { period: 'Q1 2026',       [productNames[0]]: 63, [productNames[1]]: 55, 'Nerandomilast': 68, 'Tyvaso/TETON': 63, Other: 48 },
+    { period: 'Q2 2026',       [productNames[0]]: 67, [productNames[1]]: 58, 'Nerandomilast': 74, 'Tyvaso/TETON': 66, Other: 49 },
+    { period: 'ATS 2026',      [productNames[0]]: 71, [productNames[1]]: 60, 'Nerandomilast': 79, 'Tyvaso/TETON': 69, Other: 50 },
   ],
   social: [
-    { period: 'Post-ASH 2024', [productNames[0]]: 58, [productNames[1]]: 64, 'Iptacopan': 52, Other: 48 },
-    { period: 'Q1 2025', [productNames[0]]: 60, [productNames[1]]: 68, 'Iptacopan': 56, Other: 50 },
-    { period: 'Q2 2025', [productNames[0]]: 62, [productNames[1]]: 72, 'Iptacopan': 60, Other: 52 },
-    { period: 'Q3 2025', [productNames[0]]: 64, [productNames[1]]: 76, 'Iptacopan': 64, Other: 54 },
-    { period: 'ASH 2025', [productNames[0]]: 62, [productNames[1]]: 80, 'Iptacopan': 68, Other: 56 },
+    { period: 'Post-ATS 2025', [productNames[0]]: 41, [productNames[1]]: 36, 'Nerandomilast': 44, 'Tyvaso/TETON': 62, Other: 40 },
+    { period: 'Q4 2025',       [productNames[0]]: 44, [productNames[1]]: 39, 'Nerandomilast': 52, 'Tyvaso/TETON': 65, Other: 41 },
+    { period: 'Q1 2026',       [productNames[0]]: 47, [productNames[1]]: 41, 'Nerandomilast': 59, 'Tyvaso/TETON': 68, Other: 42 },
+    { period: 'Q2 2026',       [productNames[0]]: 50, [productNames[1]]: 43, 'Nerandomilast': 66, 'Tyvaso/TETON': 71, Other: 43 },
+    { period: 'ATS 2026',      [productNames[0]]: 53, [productNames[1]]: 45, 'Nerandomilast': 72, 'Tyvaso/TETON': 74, Other: 44 },
   ],
 };
 
 export const MOCK_SCIENTIFIC_ARTICLES = [
-  { title: 'Long-term ravulizumab efficacy in PNH: 5-year follow-up', journalOrCongress: 'ASH 2024', date: '2024-12', product: productNames[1], sentiment: 'positive' },
-  { title: 'Biosimilar eculizumab switching outcomes in Europe', journalOrCongress: 'Blood', date: '2024-11', product: productNames[0], sentiment: 'neutral' },
-  { title: 'Iptacopan oral complement inhibitor Phase III results', journalOrCongress: 'NEJM', date: '2025-01', product: 'Iptacopan', sentiment: 'positive' },
-  { title: 'C5 inhibitor sequencing strategies in gMG', journalOrCongress: 'ASH 2025 Abstract', date: '2025-12', product: productNames[1], sentiment: 'positive' },
-  { title: 'Real-world complement inhibitor utilization patterns', journalOrCongress: 'Am J Hematol', date: '2025-03', product: productNames[0], sentiment: 'neutral' },
+  { title: 'ATLAS: A phase 1b dose-response study of inhaled pirfenidone in progressive fibrosing ILD', journalOrCongress: 'Thorax', date: '2023-06', product: productNames[0], sentiment: 'positive' },
+  { title: 'MIST: rationale and design of a phase 2b trial of inhaled pirfenidone in PPF and CTD-ILD', journalOrCongress: 'ATS 2026 Abstract', date: '2026-05', product: productNames[0], sentiment: 'positive' },
+  { title: 'AURA-IPF: phase 2 design of inhaled nintedanib in treatment-naive IPF', journalOrCongress: 'ATS 2026 Abstract', date: '2026-05', product: productNames[1], sentiment: 'neutral' },
+  { title: 'Nerandomilast in idiopathic pulmonary fibrosis: a randomized, controlled, phase 3 trial', journalOrCongress: 'NEJM', date: '2025-09', product: 'Nerandomilast', sentiment: 'positive' },
+  { title: 'TETON-1 and TETON-2: inhaled treprostinil in idiopathic pulmonary fibrosis', journalOrCongress: 'NEJM', date: '2025-05', product: 'Tyvaso/TETON', sentiment: 'positive' },
+  { title: 'Screening for interstitial lung disease in systemic sclerosis: a EUSTAR consensus update', journalOrCongress: 'EULAR 2026 Abstract', date: '2026-06', product: productNames[0], sentiment: 'positive' },
 ];
 
 export const MOCK_SOCIAL_TREND_SOURCES = [
-  { platform: 'Twitter', author: 'Prof. R. Brodsky', topic: 'PNH treatment landscape', date: '2024-12', product: productNames[1], sentiment: 'positive' },
-  { platform: 'LinkedIn', author: 'Dr. A. Hill', topic: 'Biosimilar switching readiness', date: '2025-01', product: productNames[0], sentiment: 'neutral' },
-  { platform: 'Twitter', author: 'KOL Hematology', topic: 'Oral complement inhibitor data', date: '2025-03', product: 'Iptacopan', sentiment: 'positive' },
-  { platform: 'LinkedIn', author: 'Dr. H. Schrezenmeier', topic: 'Ultomiris real-world data', date: '2025-06', product: productNames[1], sentiment: 'positive' },
-  { platform: 'Conference backchannel', author: 'Multiple', topic: 'ASH 2025 complement sessions', date: '2025-12', product: productNames[1], sentiment: 'positive' },
+  { platform: 'LinkedIn', author: 'Prof. Vincent Cottin', topic: 'CTD-ILD referral pathway gaps', date: '2026-05-19', product: productNames[0], sentiment: 'neutral' },
+  { platform: 'Twitter', author: 'Pulmonology fellow network', topic: 'Nerandomilast sequencing debate', date: '2026-06-01', product: 'Nerandomilast', sentiment: 'positive' },
+  { platform: 'Conference backchannel', author: 'Multiple', topic: 'Inhaled antifibrotic vs. inhaled prostacyclin confusion', date: '2026-05-18', product: productNames[0], sentiment: 'neutral' },
+  { platform: 'LinkedIn', author: 'Dr. Oliver Distler', topic: 'EUSTAR SSc-ILD screening consensus', date: '2026-06-08', product: productNames[0], sentiment: 'positive' },
+  { platform: 'Patient advocacy forum', author: 'Pulmonary Fibrosis Foundation community', topic: 'Tolerability burden on oral antifibrotics', date: '2026-06-02', product: productNames[1], sentiment: 'negative' },
 ];
 
 export const MOCK_INGESTION = {
-  agendas: 14,
-  abstracts: 1247,
-  posters: 489,
-  speakers: 342,
-  publicationsLinked: 1568,
+  agendas: 9,
+  abstracts: 612,
+  posters: 247,
+  speakers: 168,
+  publicationsLinked: 384,
   sessions: [
-    { title: 'Complement Inhibition in PNH: Current and Emerging Therapies', track: 'Hematology', products: [productNames[0], productNames[1], 'Iptacopan'] },
-    { title: 'C5 Inhibitor Sequencing and Switching Strategies', track: 'Clinical Practice', products: [productNames[0], productNames[1]] },
-    { title: 'Rare Disease Registries and Real-World Evidence', track: 'Health Services', products: [productNames[1]] },
+    { title: 'Progressive Pulmonary Fibrosis: Diagnosis, Classification and Emerging Therapy', track: 'Pulmonology', products: [productNames[0], productNames[1]] },
+    { title: 'Inhaled Therapeutics in ILD: Antifibrotics, Prostacyclins and Delivery Science', track: 'Clinical Trials', products: [productNames[0], productNames[1], 'Tyvaso/TETON'] },
+    { title: 'CTD-ILD and SSc-ILD: Screening, Referral and Multidisciplinary Care', track: 'Rheumatology / Pulmonology Crossover', products: [productNames[0]] },
   ],
 };
 
 export const INGESTION_BY_CONGRESS = {
-  'ash-2024': {
-    agendas: 12,
-    abstracts: 1108,
-    posters: 412,
-    speakers: 298,
-    publicationsLinked: 1342,
+  'ats-2026': {
+    agendas: 9,
+    abstracts: 612,
+    posters: 247,
+    speakers: 168,
+    publicationsLinked: 384,
     sessions: [
-      { title: 'Complement Pathway Therapeutics in PNH', track: 'Hematology', products: [productNames[0], productNames[1]] },
-      { title: 'Biosimilar Transition in Rare Disease', track: 'Health Services', products: [productNames[0]] },
-      { title: 'Emerging Oral Complement Inhibitors', track: 'Clinical Trials', products: ['Iptacopan', 'Danicopan'] },
+      { title: 'Progressive Pulmonary Fibrosis: Diagnosis, Classification and Emerging Therapy', track: 'Pulmonology', products: [productNames[0], productNames[1]] },
+      { title: 'Inhaled Therapeutics in ILD: Antifibrotics, Prostacyclins and Delivery Science', track: 'Clinical Trials', products: [productNames[0], productNames[1], 'Tyvaso/TETON'] },
+      { title: 'New Oral Mechanisms in IPF: Nerandomilast and Beyond', track: 'Clinical Trials', products: ['Nerandomilast'] },
     ],
   },
-  'ash-2025': {
-    agendas: 14,
-    abstracts: 1247,
-    posters: 489,
-    speakers: 342,
-    publicationsLinked: 1568,
+  'ers-2026': {
+    agendas: 8,
+    abstracts: 578,
+    posters: 231,
+    speakers: 152,
+    publicationsLinked: 356,
     sessions: [
-      { title: 'Complement Inhibition in PNH: Current and Emerging Therapies', track: 'Hematology', products: [productNames[0], productNames[1], 'Iptacopan'] },
-      { title: 'C5 Inhibitor Sequencing and Switching Strategies', track: 'Clinical Practice', products: [productNames[0], productNames[1]] },
-      { title: 'Rare Disease Registries and Real-World Evidence', track: 'Health Services', products: [productNames[1]] },
+      { title: 'AURA-IPF and the Case for Inhaled Antifibrotic Reformulation', track: 'Clinical Trials', products: [productNames[1]] },
+      { title: 'European Perspectives on Progressive Fibrosing ILD', track: 'Pulmonology', products: [productNames[0], productNames[1]] },
+      { title: 'Tolerability and Adherence on Oral Antifibrotic Therapy', track: 'Patient Care', products: [productNames[0], productNames[1]] },
+    ],
+  },
+  'eular-2026': {
+    agendas: 6,
+    abstracts: 341,
+    posters: 128,
+    speakers: 94,
+    publicationsLinked: 189,
+    sessions: [
+      { title: 'SSc-ILD Screening: Toward a EUSTAR Consensus Algorithm', track: 'Rheumatology', products: [productNames[0]] },
+      { title: 'Antifibrotic Therapy in Systemic Sclerosis-Associated ILD', track: 'Clinical Trials', products: [productNames[0]] },
+      { title: 'Multidisciplinary Rheum-Pulm Co-Management Models', track: 'Rheumatology / Pulmonology Crossover', products: [productNames[0]] },
     ],
   },
 };
@@ -87,74 +100,76 @@ export function getIngestionForCongress(congressId) {
 
 export const MOCK_THEMES = [
   {
-    theme: 'Biosimilar switching readiness & outcomes',
-    momentum: 94,
-    mentions: 52,
-    summary: 'Community hematologists and infusion-center directors are openly debating readiness for Soliris biosimilar entry. Discussion clusters on outcome parity in PNH and practical switching protocols for stable patients.',
-    action: 'Accelerate MSL switch-protocol toolkit and co-create a community-facing outcomes narrative before biosimilar launch windows open.',
+    theme: 'Tolerability burden driving discontinuation on oral antifibrotics',
+    momentum: 95,
+    mentions: 61,
+    summary: 'Pulmonologists across community and academic centers consistently cite GI (nausea, diarrhea) and dermatologic (rash, photosensitivity) adverse events as the leading reason patients ask about alternatives to Esbriet/Ofev. This is Avalyn\'s clearest and most consistently reinforced wedge this cycle.',
+    action: 'Finalize and fully deploy the tolerability/adherence conversation guide (A5) across all MSL territories ahead of ERS 2026.',
   },
   {
-    theme: 'Oral complement inhibitor competitive pressure',
-    momentum: 91,
-    mentions: 44,
-    summary: 'Iptacopan and pegcetacoplan oral/SC options are reshaping patient-preference conversations, especially among younger PNH patients. KOLs frame the debate as convenience vs. long-term disease control.',
-    action: 'Prepare head-to-head disease-control narrative and MSL FAQ emphasizing long-term RWE. Engage oral-combination investigators to anchor sequencing conversations.',
+    theme: 'Nerandomilast approval reshaping first-line sequencing conversations',
+    momentum: 90,
+    mentions: 54,
+    summary: 'Following nerandomilast\'s IPF (Oct 2025) and PPF (Dec 2025) approvals, session Q&A repeatedly pivots to how the new PDE4B mechanism changes first-line sequencing — and whether an inhaled reformulation of an older mechanism still has a role.',
+    action: 'Complete the nerandomilast rapid-response briefing (A8) and prepare an ERS 2026 session specifically addressing inhaled route positioning alongside new oral mechanisms.',
   },
   {
-    theme: 'C5 vs proximal complement inhibition debate',
-    momentum: 87,
-    mentions: 38,
-    summary: 'Mechanistic differentiation conversations are concentrated among academic hematologists and translational scientists. Proximal inhibition proponents challenge C5 durability; C5 advocates cite bleed control and long-term safety profile.',
-    action: 'Commission a mechanistic-differentiation slide deck and sponsor a roundtable bridging C5 and proximal-inhibition perspectives.',
+    theme: 'Inhaled-category confusion: antifibrotic vs. prostacyclin',
+    momentum: 83,
+    mentions: 46,
+    summary: 'Community physicians and some congress attendees conflate an inhaled antifibrotic with inhaled treprostinil (Tyvaso, TPIP) purely on shared delivery route. TETON-1/TETON-2\'s prominent NEJM readouts have amplified this risk.',
+    action: 'Commission a mechanism-differentiation deck (A7) explicitly separating inhaled-antifibrotic from inhaled-prostacyclin categories for MSL and KOL use.',
   },
   {
-    theme: 'Real-world evidence in rare hematologic disease',
-    momentum: 82,
-    mentions: 31,
-    summary: 'Persistent call from community centers and payers for long-horizon RWE — particularly in aHUS and pediatric populations where registrational data are thin.',
-    action: 'Prioritize pediatric aHUS sub-analysis and long-term retention RWE. Align with HEOR on publication cadence.',
+    theme: 'SSc-ILD screening and early referral gaps',
+    momentum: 76,
+    mentions: 34,
+    summary: 'Rheumatologists outside EUSTAR-affiliated academic centers want a simplified, consensus-aligned screening trigger for early pulmonology referral in systemic sclerosis, rather than center-specific protocols.',
+    action: 'Advance the EUSTAR-aligned screening algorithm one-pager (A6) toward EULAR 2026 advisory board review.',
   },
 ];
 
 export const MOCK_COMPETITOR_VISIBILITY = [
-  { product: `${productNames[0]} (Alexion)`, share: 24, mentions: 78 },
-  { product: `${productNames[1]} (Alexion)`, share: 34, mentions: 112 },
-  { product: 'Iptacopan / Fabhalta (Novartis)', share: 22, mentions: 71 },
-  { product: 'Other C5/C3 inhibitors', share: 20, mentions: 64 },
+  { product: `${productNames[0]} (Avalyn)`, share: 11, mentions: 62 },
+  { product: `${productNames[1]} (Avalyn)`, share: 8,  mentions: 41 },
+  { product: 'Jascayd / nerandomilast (Boehringer Ingelheim)', share: 19, mentions: 108 },
+  { product: 'Tyvaso / Tyvaso DPI (United Therapeutics)',      share: 22, mentions: 127 },
+  { product: 'Ofev / nintedanib (Boehringer Ingelheim)',       share: 24, mentions: 139 },
+  { product: 'Other (Esbriet, TPIP, admilparant)',             share: 16, mentions: 88  },
 ];
 
 export const MOCK_TRIALS = {
-  total: 52,
-  linkedToKOLs: 34,
-  byIndication: { PNH: 28, aHUS: 12, gMG: 8, NMOSD: 4 },
+  total: 21,
+  linkedToKOLs: 16,
+  byIndication: { IPF: 11, PPF: 6, 'CTD-ILD': 3, 'SSc-ILD': 4 },
   sample: [
-    { nctId: 'NCT04432584', title: 'Ravulizumab vs eculizumab switching study in PNH', phase: 'Phase III', sponsor: 'Alexion', product: productNames[1], indication: 'PNH', status: 'Completed', sites: 24 },
-    { nctId: 'NCT04557735', title: 'Long-term safety of ravulizumab in aHUS', phase: 'Phase III', sponsor: 'Alexion', product: productNames[1], indication: 'aHUS', status: 'Active', sites: 18 },
-    { nctId: 'NCT05070858', title: 'Iptacopan monotherapy in PNH (APPLY-PNH)', phase: 'Phase III', sponsor: 'Novartis', product: 'Iptacopan', indication: 'PNH', status: 'Completed', sites: 32 },
-    { nctId: 'NCT04469465', title: 'Danicopan add-on to C5 inhibitor in PNH', phase: 'Phase III', sponsor: 'Alexion', product: 'Danicopan', indication: 'PNH', status: 'Active', sites: 20 },
+    { nctId: 'NCT06329401', title: 'MIST: A Phase 2b study of inhaled pirfenidone (AP01) in progressive pulmonary fibrosis', phase: 'Phase 2b', sponsor: 'Avalyn Pharmaceuticals', product: productNames[0], indication: 'PPF / CTD-ILD', status: 'Enrollment complete', sites: 62 },
+    { nctId: 'NCT07194382', title: 'AURA-IPF: A Phase 2 study of inhaled nintedanib (AP02) in treatment-naive IPF', phase: 'Phase 2', sponsor: 'Avalyn Pharmaceuticals', product: productNames[1], indication: 'IPF', status: 'Active, recruiting', sites: 38 },
+    { nctId: 'NCT04552704', title: 'TETON-1: Inhaled treprostinil in idiopathic pulmonary fibrosis', phase: 'Phase 3', sponsor: 'United Therapeutics', product: 'Tyvaso/TETON', indication: 'IPF', status: 'Completed', sites: 91 },
+    { nctId: 'NCT05255120', title: 'FIBRONEER-IPF: Nerandomilast in idiopathic pulmonary fibrosis', phase: 'Phase 3', sponsor: 'Boehringer Ingelheim', product: 'Nerandomilast', indication: 'IPF', status: 'Completed', sites: 145 },
   ],
 };
 
 export const MOCK_SOCIAL = {
-  totalSignals: 4280,
+  totalSignals: 1840,
   period: 'Last 90 days',
   byPlatform: [
-    { platform: 'Twitter / X', mentions: 1480, kolsTracked: 95 },
-    { platform: 'LinkedIn', mentions: 1024, kolsTracked: 128 },
-    { platform: 'PubMed / alerts', mentions: 568, kolsTracked: 340 },
-    { platform: 'Conference backchannels', mentions: 1208, kolsTracked: 142 },
+    { platform: 'LinkedIn', mentions: 612, kolsTracked: 48 },
+    { platform: 'Twitter / X', mentions: 498, kolsTracked: 36 },
+    { platform: 'PubMed / alerts', mentions: 341, kolsTracked: 82 },
+    { platform: 'Conference backchannels', mentions: 389, kolsTracked: 54 },
   ],
   sample: [
-    { platform: 'Twitter', author: 'Prof. R. Brodsky', topic: 'PNH treatment paradigm shift', sentiment: 'positive', date: '2025-11-18' },
-    { platform: 'LinkedIn', author: 'Dr. A. Hill', topic: 'Biosimilar eculizumab real-world data', sentiment: 'neutral', date: '2025-11-12' },
-    { platform: 'PubMed alert', author: 'Multiple', topic: 'Complement inhibition systematic review', sentiment: 'positive', date: '2025-11-08' },
+    { platform: 'LinkedIn', author: 'Prof. Vincent Cottin', topic: 'CTD-ILD referral pathway gaps', sentiment: 'neutral', date: '2026-05-19' },
+    { platform: 'Twitter', author: 'Pulmonology fellow network', topic: 'Nerandomilast sequencing debate', sentiment: 'positive', date: '2026-06-01' },
+    { platform: 'PubMed alert', author: 'Multiple', topic: 'SSc-ILD screening consensus update (EUSTAR)', sentiment: 'positive', date: '2026-06-08' },
   ],
 };
 
 export const DATA_MODULES = [
-  { id: 'congress', label: 'Congress & Publications', iconId: 'FileText', status: 'connected', description: 'Agendas, abstracts, posters, speakers, linked publications' },
-  { id: 'trials', label: 'Clinical Trials', iconId: 'Activity', status: 'available', description: 'Trial sponsorship, sites, outcomes by product' },
-  { id: 'social', label: 'Social & Digital', iconId: 'MessageCircle', status: 'available', description: 'Scientific and digital footprint signals' },
+  { id: 'congress', label: 'Congress & Publications', iconId: 'FileText',      status: 'connected', description: 'ATS/ERS/EULAR agendas, abstracts, posters, speakers, linked publications' },
+  { id: 'trials',   label: 'Clinical Trials',         iconId: 'Activity',      status: 'available',  description: 'MIST, AURA-IPF and competitor trial sponsorship, sites, outcomes by product' },
+  { id: 'social',   label: 'Social & Digital',        iconId: 'MessageCircle', status: 'available',  description: 'Scientific and digital footprint signals across pulmonology and rheumatology' },
 ];
 
 export function getDemoContext() {

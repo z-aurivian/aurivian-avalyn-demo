@@ -31,7 +31,7 @@ export function retrieveContext(query, selectedProduct) {
   }
 
   // Competitor data
-  if (q.includes('compet') || q.includes('rival') || q.includes('threat') || q.includes('oral') || q.includes('biosimilar') || q.includes('iptacopan') || q.includes('fabhalta') || q.includes('pegcetacoplan') || q.includes('empaveli') || q.includes('crovalimab') || q.includes('piasky') || q.includes('zilucoplan') || q.includes('zilbrysq')) {
+  if (q.includes('compet') || q.includes('rival') || q.includes('threat') || q.includes('oral') || q.includes('nerandomilast') || q.includes('jascayd') || q.includes('tyvaso') || q.includes('teton') || q.includes('tpip') || q.includes('treprostinil') || q.includes('admilparant') || q.includes('esbriet') || q.includes('ofev')) {
     const comps = COMPETITOR_DATA[selectedProduct];
     if (comps) {
       context.push('## Competitive Intelligence\n' + comps.map(c =>
@@ -62,10 +62,10 @@ export function retrieveContext(query, selectedProduct) {
     }
   }
 
-  // Complement biology
-  if (q.includes('complement') || q.includes('c5') || q.includes('c3') || q.includes('factor') || q.includes('mechanism') || q.includes('biology') || q.includes('pnh') || q.includes('ahus') || q.includes('gmg') || q.includes('nmosd')) {
+  // Fibrosis biology
+  if (q.includes('fibrosis') || q.includes('mechanism') || q.includes('biology') || q.includes('inhaled') || q.includes('ipf') || q.includes('ppf') || q.includes('ctd-ild') || q.includes('ssc-ild')) {
     if (COMPLEMENT_BIOLOGY) {
-      context.push(`## Complement Biology\n${COMPLEMENT_BIOLOGY.overview}\nC5 Inhibition: ${COMPLEMENT_BIOLOGY.c5Inhibition}\nProximal Inhibition: ${COMPLEMENT_BIOLOGY.proximalInhibition}`);
+      context.push(`## Fibrosis & Inhaled-Delivery Biology\n${COMPLEMENT_BIOLOGY.overview}\nPirfenidone (AP01): ${COMPLEMENT_BIOLOGY.c5Inhibition}\nNintedanib (AP02): ${COMPLEMENT_BIOLOGY.proximalInhibition}`);
       Object.entries(COMPLEMENT_BIOLOGY.diseaseConnections).forEach(([disease, desc]) => {
         if (q.includes(disease.toLowerCase())) {
           context.push(`### ${disease}\n${desc}`);
@@ -75,7 +75,7 @@ export function retrieveContext(query, selectedProduct) {
   }
 
   // Pipeline
-  if (q.includes('pipeline') || q.includes('gefurulimab') || q.includes('danicopan') || q.includes('voydeya') || q.includes('alxn') || q.includes('pozelimab') || q.includes('development')) {
+  if (q.includes('pipeline') || q.includes('ap01') || q.includes('ap02') || q.includes('ap03') || q.includes('combination') || q.includes('development')) {
     if (PIPELINE_INTELLIGENCE) {
       context.push('## Pipeline Intelligence\n' + PIPELINE_INTELLIGENCE.map(p =>
         `- **${p.name}**: ${p.mechanism}, ${p.stage}, ${p.indication}. ${p.significance}`
@@ -85,7 +85,7 @@ export function retrieveContext(query, selectedProduct) {
 
   // Real publications (PubMed)
   if (q.includes('publi') || q.includes('paper') || q.includes('journal') || q.includes('evidence') || q.includes('literature') || q.includes('study') || q.includes('research') || q.includes('pubmed')) {
-    const pubs = selectedProduct === 'soliris' ? PUBMED_SOLIRIS : PUBMED_ULTOMIRIS;
+    const pubs = selectedProduct === 'ap01' ? PUBMED_SOLIRIS : PUBMED_ULTOMIRIS;
     context.push('## Recent Publications (PubMed)\n' + pubs.slice(0, 8).map(formatPub).join('\n'));
   }
 
@@ -106,12 +106,12 @@ export function retrieveContext(query, selectedProduct) {
 
   // Clinical trials
   if (q.includes('trial') || q.includes('clinical') || q.includes('study') || q.includes('recruit') || q.includes('phase') || q.includes('nct')) {
-    const trials = selectedProduct === 'soliris' ? TRIALS_SOLIRIS : TRIALS_ULTOMIRIS;
+    const trials = selectedProduct === 'ap01' ? TRIALS_SOLIRIS : TRIALS_ULTOMIRIS;
     context.push('## Active Clinical Trials\n' + trials.slice(0, 8).map(formatTrial).join('\n'));
   }
 
   // Landmark trials
-  if (q.includes('landmark') || q.includes('pivotal') || q.includes('completed') || q.includes('triumph') || q.includes('champion') || q.includes('medusa') || q.includes('prevent')) {
+  if (q.includes('landmark') || q.includes('pivotal') || q.includes('completed') || q.includes('atlas') || q.includes('senscis') || q.includes('inbuild') || q.includes('ascend')) {
     context.push('## Landmark Completed Trials\n' + TRIALS_COMPLETED_LANDMARK.slice(0, 8).map(formatTrial).join('\n'));
   }
 

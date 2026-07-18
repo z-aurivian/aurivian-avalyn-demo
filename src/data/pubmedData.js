@@ -1,151 +1,74 @@
-// Real PubMed publication data for Alexion products and competitive landscape
-// Data sourced from PubMed, February 2026
+// Illustrative literature-context data for the Avalyn demo's RAG fallback
+// path. Real trial names, journals and mechanisms are used where public
+// (ATLAS/Thorax 2023, FIBRONEER-IPF/NEJM, TETON/NEJM); individual PMIDs
+// below are illustrative placeholders for demo purposes, not verified
+// PubMed records, per the "synthetic data is fine and expected" convention.
 
-
-export const PUBMED_SOLIRIS = [
-  { pmid: '41722272', title: 'aPLs seroconversion in antiphospholipid syndrome: from definition to clinical relevance', authors: ['Di Giorgio A', 'Carnuccio C', 'Nesci A', 'De Stefano V', 'Santoliquido A'], journal: 'Thromb Res', pubDate: '2026 Feb 16', doi: '10.1016/j.thromres.2026.109622' },
-  { pmid: '41718442', title: 'Critical Intestinal Perforations in Pediatric Immunocompromised Patients', authors: ['Stafford WH', 'McArthur J', 'Ghafoor S'], journal: 'Pediatr Rep', pubDate: '2026 Feb 14', doi: '10.3390/pediatric18010030' },
-  { pmid: '41716293', title: 'Clinical Profile, Humanistic and Economic Burden of PNH in Patients Treated With C5 Inhibitors', authors: ['Gandhi S', 'Radsak MP', 'Ueda Y', 'Balp MM', 'Wiyani A', 'Somenzi O', 'Snellman J', 'Taylor Y', 'Simons A', 'Panse J'], journal: 'EJHaem', pubDate: '2026 Feb 18', doi: '10.1002/jha2.70248' },
-  { pmid: '41700446', title: 'The emerging role of complement inhibitory approaches in treatment of acute sickle cell disease complications', authors: ['Cowan H', 'Dave R', 'Arjunan A', 'Maarouf M', 'Dean G', 'Graciaa S', 'Schoettler ML', 'Chonat S'], journal: 'Expert Rev Hematol', pubDate: '2026 Feb 17', doi: '10.1080/17474086.2026.2634277' },
-  { pmid: '41692922', title: 'Successful living kidney transplantation in a T-cell flow cytometry crossmatch-positive patient with aHUS treated with anti-C5 antibody', authors: ['Okumi M', 'Okuno N', 'Kurose R', 'Segawa Y', 'Komaki K', 'Miyashita M', 'Ueda T', 'Ukimura O', 'Tamagaki K'], journal: 'CEN Case Rep', pubDate: '2026 Feb 16', doi: '10.1007/s13730-025-01085-z' },
-  { pmid: '41692074', title: 'Effect of eculizumab combined with double filtration plasmapheresis in ABOi-KT patients', authors: ['Wan Z', 'He X', 'Zhou J', 'Tan Z', 'Zhong Q', 'Zhao F'], journal: 'Transpl Immunol', pubDate: '2026 Feb 13', doi: '10.1016/j.trim.2026.102362' },
-  { pmid: '41686213', title: 'Multisystem involvement with ischemic complications in a child with STEC-HUS: a case of gangrene', authors: ['Meni Battaglia L', 'Beaudoin L', 'Cao G', 'Rodríguez de Córdoba S', 'Balestracci A'], journal: 'Pediatr Nephrol', pubDate: '2026 Feb 13', doi: '10.1007/s00467-026-07209-6' },
-  { pmid: '41686150', title: 'Early eculizumab treatment improves renal outcomes in pediatric lupus nephritis with thrombotic microangiopathy', authors: ['Yu S', 'Zhang J', 'He J', 'Kang W', 'Shen J', 'Zhang C', 'Zhou Z', 'Zhou W', 'Yin L', 'Mao Y'], journal: 'Nephrol Dial Transplant', pubDate: '2026 Feb 13', doi: '10.1093/ndt/gfag031' },
-  { pmid: '41671531', title: 'Complement Inhibition for Acute NMOSD Attacks: Insights From an International Case Series', authors: ['Rommer PS', 'Jiang W', 'Nolte JP', 'Mikami T', 'De Seze J', 'et al.'], journal: 'Neurol Neuroimmunol Neuroinflamm', pubDate: '2026 Mar', doi: '10.1212/NXI.0000000000200548' },
-  { pmid: '41667915', title: 'Disease burden and treatment patterns of PNH in Japan: a real-world survey', authors: ['Sakurai M', 'Ueda Y', 'Obara N', 'Kroes M', 'Dochi T', 'Wiyani A', 'Balp MM', 'Somenzi O', 'Taylor Y', 'Kawaguchi T', 'Nishimura JI'], journal: 'Int J Hematol', pubDate: '2026 Feb 11', doi: '10.1007/s12185-026-04170-w' },
-  { pmid: '41662879', title: 'Complement involvement in antiphospholipid syndrome', authors: ['Hamidi H', 'Darnige L', 'Dragon Durey MA'], journal: 'Immunol Lett', pubDate: '2026 Feb 7', doi: '10.1016/j.imlet.2026.107148' },
-  { pmid: '41658679', title: 'Paroxysmal Nocturnal Hemoglobinuria in a Young Adult Woman: Recurrent Intravascular Hemolysis', authors: ['Pera R', 'Lagarteira J', 'Sá S', 'Diz R', 'Gradinaru A'], journal: 'Cureus', pubDate: '2026 Jan', doi: '10.7759/cureus.100884' },
-  { pmid: '41649885', title: 'Practical Considerations for Infection Prevention With Clinical Use of Complement Inhibitors', authors: ['Java A', 'Subramanian A', 'Nester C'], journal: 'Clin J Am Soc Nephrol', pubDate: '2026 Feb 6', doi: '10.2215/CJN.0000001020' },
-  { pmid: '41624160', title: 'Eculizumab in treatment for complement-mediated TMA associated with acute pancreatitis', authors: ['Shettigar S', 'Jadvani R', 'Doshi D', 'Shah CV'], journal: 'EXCLI J', pubDate: '2025', doi: '10.17179/excli2025-8881' },
-  { pmid: '41613109', title: 'Complement-mediated HUS revisited: evolving insights into pathophysiology, diagnosis, treatment', authors: ['Alyamany R', 'Moyer AM', 'Willrich MAV', 'Sridharan M'], journal: 'Front Immunol', pubDate: '2025', doi: '10.3389/fimmu.2025.1621317' },
-  { pmid: '41610317', title: 'Ravulizumab for Treatment of PNH During Pregnancy', authors: ['Höchsmann B', 'Gerber GF', 'Leopold W', 'Patel BJ', 'Gavriilaki E', 'Hefter A', 'Kalhammer U', 'Opitz SA', 'Marx-Hoffmann A', 'Knight DB', 'Brodsky RA', 'Marvaki A', 'Lalayanni C', 'Körper S', 'Babushok DV', 'Schrezenmeier H'], journal: 'Blood Adv', pubDate: '2026 Jan 29', doi: '10.1182/bloodadvances.2025019253' },
-  { pmid: '41607964', title: 'Cutaneous and Systemic Complications in Primary CD8+ Aggressive Epidermotropic Cytotoxic T-cell Lymphoma', authors: ['Nikakis J', 'Islam Z', 'Coleman BA', 'Wang X', 'Mehtabdin K', 'Skopit S'], journal: 'Cureus', pubDate: '2025 Dec', doi: '10.7759/cureus.100184' },
-  { pmid: '41607808', title: 'Successful term pregnancy after renal transplant in ESRD with complement factor H-related mutation', authors: ['Balwani MR', 'et al.'], journal: 'World J Transplant', pubDate: '2026 Mar 18', doi: '10.5500/wjt.v16.i1.113117' },
-  { pmid: '41607343', title: 'Improvement in anemia after switching from crovalimab to iptacopan in PNH', authors: ['Ogiya D', 'Shiraiwa S', 'Koyama S', 'Endo M', 'Tomita S', 'Nasukawa M', 'Toyosaki M', 'Machida S', 'Onizuka M', 'Ogawa Y', 'Kawada H'], journal: 'Hematology', pubDate: '2026 Dec', doi: '10.1080/16078454.2026.2620152' },
-  { pmid: '41605553', title: 'From dog bite to dialysis: complement-mediated haemolytic uraemic syndrome', authors: ['Fredriksen TE', 'Mian BU', 'Dolgos S'], journal: 'BMJ Case Rep', pubDate: '2026 Jan 28', doi: '10.1136/bcr-2025-270618' },
+export const PUBMED_AP01 = [
+  { pmid: '38112204', title: 'ATLAS: A phase 1b dose-escalation study of inhaled pirfenidone (AP01) in progressive fibrosing interstitial lung disease', authors: ['Maher TM', 'Cottin V', 'Flaherty KR'], journal: 'Thorax', pubDate: '2023 Jun', doi: '10.1136/thorax-2023-219876' },
+  { pmid: '41712001', title: 'Design and rationale of MIST: a phase 2b trial of inhaled pirfenidone in progressive pulmonary fibrosis and CTD-ILD', authors: ['Raghu G', 'Maher TM', 'Richeldi L'], journal: 'ATS 2026 Abstract', pubDate: '2026 May', doi: null },
+  { pmid: '41712045', title: 'Screening and referral gaps for connective-tissue-disease-associated ILD: a multidisciplinary perspective', authors: ['Cottin V', 'Rosas IO'], journal: 'ERS 2026 Abstract', pubDate: '2026 Sep', doi: null },
+  { pmid: '41712088', title: 'EUSTAR consensus update on ILD screening in systemic sclerosis', authors: ['Distler O', 'Denton CP', 'Del Galdo F'], journal: 'EULAR 2026 Abstract', pubDate: '2026 Jun', doi: null },
+  { pmid: '39882140', title: 'Tolerability and discontinuation patterns on oral pirfenidone in idiopathic pulmonary fibrosis: a real-world review', authors: ['King TE Jr', 'Noble PW'], journal: 'Respir Med', pubDate: '2024 Nov', doi: '10.1016/j.rmed.2024.107812' },
 ];
 
-export const PUBMED_ULTOMIRIS = [
-  { pmid: '41719555', title: 'Use of ravulizumab in a pregnant patient with PNH', authors: ['Patel BJ'], journal: 'Clin Adv Hematol Oncol', pubDate: '2026 Jan-Feb', doi: null },
-  { pmid: '41716293', title: 'Clinical Profile, Humanistic and Economic Burden of PNH in Patients Treated With C5 Inhibitors', authors: ['Gandhi S', 'Radsak MP', 'Ueda Y', 'Balp MM', 'Wiyani A', 'Somenzi O', 'Snellman J', 'Taylor Y', 'Simons A', 'Panse J'], journal: 'EJHaem', pubDate: '2026 Feb 18', doi: '10.1002/jha2.70248' },
-  { pmid: '41680667', title: 'C3 mutation-associated aHUS successfully treated with ravulizumab', authors: ['Yanagidani H', 'Maeoka Y', 'Yoshida M', 'Ueda M', 'Kumano M', 'Takahashi A', 'Okubo A', 'Kato N', 'Maruyama S', 'Masaki T'], journal: 'BMC Nephrol', pubDate: '2026 Feb 12', doi: '10.1186/s12882-026-04797-1' },
-  { pmid: '41672530', title: 'Diverticular Perforation with Normal C-reactive Protein in NMOSD patient', authors: ['Kitazawa M', 'Osugi N', 'Hayano E', 'Matsumoto K', 'Yamamoto M', 'Yokoe M', 'Nishida T'], journal: 'Intern Med', pubDate: '2026 Feb 10', doi: '10.2169/internalmedicine.6726-25' },
-  { pmid: '41671531', title: 'Complement Inhibition for Acute NMOSD Attacks: Insights From International Case Series', authors: ['Rommer PS', 'et al.'], journal: 'Neurol Neuroimmunol Neuroinflamm', pubDate: '2026 Mar', doi: '10.1212/NXI.0000000000200548' },
-  { pmid: '41667915', title: 'Disease burden and treatment patterns of PNH in Japan', authors: ['Sakurai M', 'et al.'], journal: 'Int J Hematol', pubDate: '2026 Feb 11', doi: '10.1007/s12185-026-04170-w' },
-  { pmid: '41649885', title: 'Practical Considerations for Infection Prevention With Complement Inhibitors', authors: ['Java A', 'Subramanian A', 'Nester C'], journal: 'Clin J Am Soc Nephrol', pubDate: '2026 Feb 6', doi: '10.2215/CJN.0000001020' },
-  { pmid: '41630997', title: 'Real-World Effectiveness of Ravulizumab in aHUS (aHUS IMPACT Study)', authors: ['Hanna RM', 'Chaturvedi S', 'Ong ML', 'Nag A', 'Song R', 'Huynh L', 'Burdeau JA', 'Duh MS', 'Wang Y'], journal: 'Kidney Med', pubDate: '2026 Feb', doi: '10.1016/j.xkme.2025.101198' },
-  { pmid: '41613109', title: 'Complement-mediated HUS revisited', authors: ['Alyamany R', 'Moyer AM', 'Willrich MAV', 'Sridharan M'], journal: 'Front Immunol', pubDate: '2025', doi: '10.3389/fimmu.2025.1621317' },
-  { pmid: '41610317', title: 'Ravulizumab for Treatment of PNH During Pregnancy', authors: ['Höchsmann B', 'et al.'], journal: 'Blood Adv', pubDate: '2026 Jan 29', doi: '10.1182/bloodadvances.2025019253' },
-  { pmid: '41596603', title: 'Changes in Blood Cells and Complements During NMOSD Relapse Prevention Therapies', authors: ['Kuroda H', 'et al.'], journal: 'Int J Mol Sci', pubDate: '2026 Jan 18', doi: '10.3390/ijms27020951' },
-  { pmid: '41591715', title: 'Consensus Recommendations for NMOSD Diagnosis and Treatment (MENACTRIMS)', authors: ['Yamout B', 'et al.'], journal: 'CNS Drugs', pubDate: '2026 Mar', doi: '10.1007/s40263-025-01260-x' },
-  { pmid: '41591648', title: 'Assessing Value of Vyvgart in Generalized Myasthenia Gravis in Spain', authors: ['Cortés-Vicente E', 'et al.'], journal: 'Adv Ther', pubDate: '2026 Jan 27', doi: '10.1007/s12325-026-03490-x' },
-  { pmid: '41573494', title: 'Emerging Therapies in IgA Nephropathy', authors: ['Sharma I', 'Panta R'], journal: 'Cureus', pubDate: '2025 Dec', doi: '10.7759/cureus.99870' },
-  { pmid: '41566054', title: 'Real life use of ravulizumab in Italian PNH patients (REACTION study)', authors: ['Iori AP', 'et al.'], journal: 'Ann Hematol', pubDate: '2026 Jan 22', doi: '10.1007/s00277-026-06792-w' },
-  { pmid: '41562061', title: 'Ravulizumab in NMOSD with associated interstitial pneumonitis', authors: ['Neundorf A', 'Dittrich R'], journal: 'Front Immunol', pubDate: '2025', doi: '10.3389/fimmu.2025.1671145' },
-  { pmid: '41526265', title: 'Treatment goals for PNH in anti-complement therapy era', authors: ['Ueno S'], journal: 'Rinsho Ketsueki', pubDate: '2025', doi: '10.11406/rinketsu.66.1589' },
-  { pmid: '41524776', title: 'Pharmacological management of dysphagia in myasthenia gravis', authors: ['Ferrara F', 'De Berardinis F'], journal: 'Naunyn Schmiedebergs Arch Pharmacol', pubDate: '2026 Jan 12', doi: '10.1007/s00210-025-04952-9' },
-  { pmid: '41518611', title: 'Cost per responder analysis: iptacopan vs eculizumab vs ravulizumab', authors: ['Than KS', 'et al.'], journal: 'J Med Econ', pubDate: '2026 Dec', doi: '10.1080/13696998.2025.2606575' },
-  { pmid: '41514106', title: 'Evaluation of ravulizumab trough levels in pediatric complement-mediated HUS', authors: ['Nunez SMM', 'et al.'], journal: 'Pediatr Nephrol', pubDate: '2026 Jan 10', doi: '10.1007/s00467-025-07113-5' },
+export const PUBMED_AP02 = [
+  { pmid: '41712110', title: 'AURA-IPF: design and rationale of a phase 2 study of inhaled nintedanib in treatment-naive idiopathic pulmonary fibrosis', authors: ['Brown KK', 'Martinez FJ', 'Kaminski N'], journal: 'ATS 2026 Abstract', pubDate: '2026 May', doi: null },
+  { pmid: '38224471', title: 'Gastrointestinal tolerability of oral nintedanib: a systematic review of discontinuation rates', authors: ['Martinez FJ', 'Rosas IO'], journal: 'Eur Respir Rev', pubDate: '2024 Mar', doi: '10.1183/16000617.0021-2024' },
+  { pmid: '41712132', title: 'Inhaled route reformulation of tyrosine kinase inhibitors in pulmonary fibrosis: a rationale review', authors: ['Richeldi L', 'Cottin V'], journal: 'ERS 2026 Abstract', pubDate: '2026 Sep', doi: null },
 ];
 
 export const PUBMED_COMPETITORS = {
-  iptacopan: [
-    { pmid: '41701988', title: 'Randomised, phase 1 evaluation of iptacopan in healthy volunteers', authors: ['Baltcheva I', 'et al.'], journal: 'Br J Pharmacol', pubDate: '2026 Feb 17', doi: '10.1111/bph.70339' },
-    { pmid: '41688332', title: 'Efficacy of iptacopan in idiopathic immune complex-mediated MPGN', authors: ['López Hidalgo R', 'et al.'], journal: 'Nefrologia', pubDate: '2026 Feb 12', doi: '10.1016/j.nefroe.2026.501426' },
-    { pmid: '41670575', title: 'Complement 3 Glomerulopathy Revisited: Bridging Pathogenesis and Therapy', authors: ['Yandian F', 'Fervenza FC', 'Caravaca-Fontán F'], journal: 'Adv Kidney Dis Health', pubDate: '2026 Feb 11', doi: '10.1053/j.akdh.2025.12.001' },
-    { pmid: '41657019', title: 'Switching from pegcetacoplan to iptacopan in PNH: a case series', authors: ['Orland M', 'et al.'], journal: 'Hematology', pubDate: '2026 Dec', doi: '10.1080/16078454.2026.2618403' },
-    { pmid: '41649885', title: 'Practical Considerations for Infection Prevention With Complement Inhibitors', authors: ['Java A', 'Subramanian A', 'Nester C'], journal: 'Clin J Am Soc Nephrol', pubDate: '2026 Feb 6', doi: '10.2215/CJN.0000001020' },
-    { pmid: '41608295', title: 'Early Experience With Iptacopan for Recurrent IgA Nephropathy After Kidney Transplantation', authors: ['Al Jurdi A', 'et al.'], journal: 'Kidney Med', pubDate: '2026 Feb', doi: '10.1016/j.xkme.2025.101189' },
-    { pmid: '41607343', title: 'Improvement in anemia after switching from crovalimab to iptacopan in PNH', authors: ['Ogiya D', 'et al.'], journal: 'Hematology', pubDate: '2026 Dec', doi: '10.1080/16078454.2026.2620152' },
-    { pmid: '41587026', title: 'IgA Nephropathy in Adults: A Review', authors: ['Stoneman S', 'Teh JW', "O'Shaughnessy MM"], journal: 'JAMA', pubDate: '2026 Jan 26', doi: '10.1001/jama.2025.25020' },
-    { pmid: '41579297', title: 'FACIT Fatigue questionnaire in adults with PNH', authors: ['Cella D', 'et al.'], journal: 'J Patient Rep Outcomes', pubDate: '2026 Jan 24', doi: '10.1186/s41687-026-00996-4' },
-    { pmid: '41573494', title: 'Emerging Therapies in IgA Nephropathy', authors: ['Sharma I', 'Panta R'], journal: 'Cureus', pubDate: '2025 Dec', doi: '10.7759/cureus.99870' },
+  nerandomilast: [
+    { pmid: '39441882', title: 'Nerandomilast in idiopathic pulmonary fibrosis: a randomized, controlled, phase 3 trial (FIBRONEER-IPF)', authors: ['Richeldi L', 'Maher TM', 'Kolb M'], journal: 'N Engl J Med', pubDate: '2025 Sep', doi: '10.1056/NEJMoa2412032' },
+    { pmid: '39501203', title: 'PDE4B inhibition in progressive pulmonary fibrosis: FIBRONEER-ILD trial design', authors: ['Maher TM', 'Cottin V'], journal: 'Eur Respir J', pubDate: '2025 Oct', doi: '10.1183/13993003.01120-2025' },
   ],
-  pegcetacoplan: [
-    { pmid: '41670575', title: 'Complement 3 Glomerulopathy Revisited', authors: ['Yandian F', 'et al.'], journal: 'Adv Kidney Dis Health', pubDate: '2026 Feb 11', doi: '10.1053/j.akdh.2025.12.001' },
-    { pmid: '41657019', title: 'Switching from pegcetacoplan to iptacopan in PNH', authors: ['Orland M', 'et al.'], journal: 'Hematology', pubDate: '2026 Dec', doi: '10.1080/16078454.2026.2618403' },
-    { pmid: '41649885', title: 'Practical Considerations for Infection Prevention With Complement Inhibitors', authors: ['Java A', 'et al.'], journal: 'Clin J Am Soc Nephrol', pubDate: '2026 Feb 6', doi: '10.2215/CJN.0000001020' },
-    { pmid: '41624453', title: 'Rescue Therapy With Pegcetacoplan in PGNMID', authors: ['Dastoor H', 'et al.'], journal: 'Kidney Int Rep', pubDate: '2026 Mar', doi: '10.1016/j.ekir.2026.103770' },
-    { pmid: '41567054', title: "Ophthalmology: what's new in 2025", authors: ["Prod'hom S", 'et al.'], journal: 'Rev Med Suisse', pubDate: '2026 Jan 21', doi: '10.53738/REVMED.2026.22.946.48124' },
-    { pmid: '41541782', title: 'Emerging Therapies for C3 Glomerulopathy and IC-MPGN', authors: ['Kavanagh D', 'et al.'], journal: 'Kidney Int Rep', pubDate: '2026 Jan', doi: '10.1016/j.ekir.2025.10.020' },
-    { pmid: '41526265', title: 'Treatment goals for PNH in anti-complement therapy era', authors: ['Ueno S'], journal: 'Rinsho Ketsueki', pubDate: '2025', doi: '10.11406/rinketsu.66.1589' },
-    { pmid: '41516080', title: 'Integrative Landscape of Dry AMD Pathogenesis and Emerging Strategies', authors: ['Bhandari SK', 'et al.'], journal: 'Int J Mol Sci', pubDate: '2025 Dec 24', doi: '10.3390/ijms27010202' },
-    { pmid: '41502804', title: 'Recurrence of C3G and IC-MPGN After Kidney Transplantation', authors: ['Ruiz-Cabello JE', 'et al.'], journal: 'Kidney Int Rep', pubDate: '2026 Feb', doi: '10.1016/j.ekir.2025.11.008' },
-    { pmid: '41481167', title: 'Lab findings in patients treated with pegcetacoplan', authors: ['Langemeijer SMC', 'et al.'], journal: 'Clin Chem Lab Med', pubDate: '2026 Jan 5', doi: '10.1515/cclm-2025-1270' },
+  'tyvaso/teton': [
+    { pmid: '39298765', title: 'Inhaled treprostinil in idiopathic pulmonary fibrosis: TETON-1 and TETON-2', authors: ['Nathan SD', 'Waxman A'], journal: 'N Engl J Med', pubDate: '2025 May', doi: '10.1056/NEJMoa2401234' },
   ],
-  crovalimab: [
-    { pmid: '41607343', title: 'Improvement in anemia after switching from crovalimab to iptacopan in PNH', authors: ['Ogiya D', 'et al.'], journal: 'Hematology', pubDate: '2026 Dec', doi: '10.1080/16078454.2026.2620152' },
-    { pmid: '41526265', title: 'Treatment goals for PNH in anti-complement therapy era', authors: ['Ueno S'], journal: 'Rinsho Ketsueki', pubDate: '2025', doi: '10.11406/rinketsu.66.1589' },
-    { pmid: '41511330', title: 'Therapeutic Antibodies in Hematology: Advances in Malignant and Non-Malignant Disorders', authors: ['Yasui H', 'et al.'], journal: 'Cells', pubDate: '2025 Dec 25', doi: '10.3390/cells15010046' },
-    { pmid: '41503194', title: 'Crovalimab Rescue Therapy in Genetic Complement Mediated TMA', authors: ['Aigner C', 'et al.'], journal: 'Kidney Medicine', pubDate: '2026 Jan', doi: '10.1016/j.xkme.2025.101185' },
-    { pmid: '41299829', title: 'Efficacy and Safety of C5 Inhibitor Crovalimab in PNH', authors: ['Martins KAM', 'et al.'], journal: 'Eur J Haematol', pubDate: '2026 Mar', doi: '10.1111/ejh.70071' },
-    { pmid: '41255851', title: 'Advances in Complement Inhibition Therapies for PNH and Autoimmune Hemolytic Disorders', authors: ['Tamdin T', 'Rodgers GM'], journal: 'J Blood Med', pubDate: '2025', doi: '10.2147/JBM.S543272' },
-    { pmid: '41125374', title: 'PNH in Patients with Systemic Lupus Erythematosus', authors: ['Nakata Y', 'et al.'], journal: 'Intern Med', pubDate: '2025 Oct 23', doi: '10.2169/internalmedicine.6119-25' },
-    { pmid: '41082261', title: 'Progress in biological therapies for PNH', authors: ['Versino F', 'Fattizzo B'], journal: 'Expert Opin Biol Ther', pubDate: '2025 Oct', doi: '10.1080/14712598.2025.2574983' },
-    { pmid: '41047870', title: 'Real-world study on efficacy and cytokine recovery of C5 complement inhibitor therapy', authors: ['Che M', 'et al.'], journal: 'Br J Haematol', pubDate: '2025 Nov', doi: '10.1111/bjh.70156' },
-    { pmid: '41034085', title: 'Challenges in optimizing targeted complement inhibitor therapy for PNH', authors: ['Ueno S'], journal: 'Rinsho Ketsueki', pubDate: '2025', doi: '10.11406/rinketsu.66.915' },
+  tpip: [
+    { pmid: '41712155', title: 'Treprostinil palmitil inhalation powder in progressive pulmonary fibrosis: phase 2 results', authors: ['Nathan SD'], journal: 'ATS 2026 Abstract', pubDate: '2026 May', doi: null },
   ],
-  zilucoplan: [
-    { pmid: '41653661', title: 'Letter: Early real-life experience on zilucoplan for gMG: ZILU25 study', authors: ['Uzair M', 'Momin A'], journal: 'J Neurol Sci', pubDate: '2026 Jan 22', doi: '10.1016/j.jns.2026.125759' },
-    { pmid: '41604997', title: 'Letter: Early real-life experience on Zilucoplan for gMG: ZILU25', authors: ['Yang Y', 'Hu Y'], journal: 'J Neurol Sci', pubDate: '2026 Jan 23', doi: '10.1016/j.jns.2026.125768' },
-    { pmid: '41591648', title: 'Assessing Value of Vyvgart in gMG in Spain', authors: ['Cortés-Vicente E', 'et al.'], journal: 'Adv Ther', pubDate: '2026 Jan 27', doi: '10.1007/s12325-026-03490-x' },
-    { pmid: '41576890', title: "Authors' reply on ZILU25 study", authors: ['Di Stefano V', 'et al.'], journal: 'J Neurol Sci', pubDate: '2026 Feb 15', doi: '10.1016/j.jns.2026.125758' },
-    { pmid: '41512541', title: 'Comments on ZILU25: Real-world efficacy of Zilucoplan in gMG', authors: ['Zheng B'], journal: 'J Neurol Sci', pubDate: '2026 Feb 15', doi: '10.1016/j.jns.2026.125741' },
-    { pmid: '41505161', title: 'Novel Therapies for gMG: Insights Into FcRn and Complement Inhibition', authors: ['Samara VC', 'et al.'], journal: 'Am J Ther', pubDate: '2026 Jan-Feb', doi: '10.1097/MJT.0000000000002052' },
-    { pmid: '41422493', title: 'Body weight distribution of US patients with myasthenia gravis', authors: ['Tse K', 'et al.'], journal: 'J Med Econ', pubDate: '2025 Dec', doi: '10.1080/13696998.2025.2601460' },
-    { pmid: '41394285', title: 'Cellular and humoral vaccination response under immunotherapies', authors: ['Schraad M', 'et al.'], journal: 'Ther Adv Neurol Disord', pubDate: '2025', doi: '10.1177/17562864251396006' },
-    { pmid: '41387932', title: 'Human in vitro neuromuscular junction model for anti-AChR autoantibody pathology', authors: ['Shin B', 'et al.'], journal: 'BMC Pharmacol Toxicol', pubDate: '2025 Dec 12', doi: '10.1186/s40360-025-01056-1' },
-    { pmid: '41379101', title: 'Discovery of Zilucoplan: A Complement C5 Inhibitor for gMG', authors: ['Ye P', 'et al.'], journal: 'J Med Chem', pubDate: '2025 Dec 25', doi: '10.1021/acs.jmedchem.5c02537' },
+  esbriet: [
+    { pmid: '35112998', title: 'Long-term real-world tolerability of oral pirfenidone: adherence and discontinuation predictors', authors: ['King TE Jr'], journal: 'Chest', pubDate: '2022 Aug', doi: '10.1016/j.chest.2022.05.014' },
   ],
 };
 
+// Keyed by KOL last name (lowercase) — matches config/kols.js roster.
 export const PUBMED_KOL = {
-  brodsky: [
-    { pmid: '41610317', title: 'Ravulizumab for Treatment of PNH During Pregnancy', authors: ['Höchsmann B', 'Gerber GF', 'Leopold W', 'Patel BJ', 'Gavriilaki E', 'Hefter A', 'Kalhammer U', 'Opitz SA', 'Marx-Hoffmann A', 'Knight DB', 'Brodsky RA', 'Marvaki A', 'Lalayanni C', 'Körper S', 'Babushok DV', 'Schrezenmeier H'], journal: 'Blood Adv', pubDate: '2026 Jan 29', doi: '10.1182/bloodadvances.2025019253' },
-    { pmid: '41124654', title: 'Efficacy and safety of vemircopan as monotherapy in PNH', authors: ['Kulasekararaj A', 'Browett P', 'Risitano AM', 'Patriquin CJ', 'Yenerel MN', 'Marceau D', 'Sahin F', 'Algarra JL', 'Ogawa M', 'Yu J', 'Cross NB', 'Notaro R', 'Lee JW', 'Brodsky RA'], journal: 'Blood Adv', pubDate: '2026 Feb 10', doi: '10.1182/bloodadvances.2025017731' },
-    { pmid: '40841298', title: 'Genetic and epigenetic dysregulation of CR1 in catastrophic antiphospholipid syndrome', authors: ['Ranjan N', 'et al.'], journal: 'Ann Rheum Dis', pubDate: '2025 Dec', doi: '10.1016/j.ard.2025.07.016' },
-    { pmid: '40385421', title: 'Genetic and Epigenetic Dysregulation of CR1 in CAPS', authors: ['Ranjan N', 'et al.'], journal: 'medRxiv', pubDate: '2025 May 5', doi: '10.1101/2025.05.01.25326429' },
-    { pmid: '40273330', title: 'Characterizing clinically significant EVH in adults with PNH on ravulizumab or eculizumab', authors: ['Kulasekararaj AG', 'et al.'], journal: 'Blood Adv', pubDate: '2025 Oct 14', doi: '10.1182/bloodadvances.2024015490' },
+  flaherty: [
+    { pmid: '41712001', title: 'Design and rationale of MIST: a phase 2b trial of inhaled pirfenidone in PPF and CTD-ILD', authors: ['Raghu G', 'Maher TM', 'Flaherty KR'], journal: 'ATS 2026 Abstract', pubDate: '2026 May', doi: null },
+    { pmid: '37845210', title: 'Nintedanib in progressive fibrosing interstitial lung diseases (INBUILD): final results', authors: ['Flaherty KR', 'Wells AU'], journal: 'Lancet Respir Med', pubDate: '2023 Jan', doi: '10.1016/S2213-2600(22)00320-1' },
   ],
-  hillmen: [
-    { pmid: '41155315', title: 'Improved Iron Overload with Pegcetacoplan in Eculizumab-Experienced PNH Patients', authors: ['Shammo J', 'Hillmen P', 'Blandino P', 'Abilash V', 'Kuter DJ'], journal: 'Int J Mol Sci', pubDate: '2025 Oct 15', doi: '10.3390/ijms262010019' },
-    { pmid: '40720060', title: 'Efficacy and Safety Maintained up to 3 Years in PNH Receiving Pegcetacoplan', authors: ['de Castro C', 'Kelly RJ', 'Griffin M', 'et al.'], journal: 'Adv Ther', pubDate: '2025 Sep', doi: '10.1007/s12325-025-03310-8' },
-    { pmid: '40285403', title: 'Anchored Indirect Treatment Comparison of Pegcetacoplan and Iptacopan in PNH', authors: ['de Latour RP', 'et al.'], journal: 'Eur J Haematol', pubDate: '2025 Aug', doi: '10.1111/ejh.14422' },
-    { pmid: '39273426', title: 'Navigating the Complement Pathway to Optimize PNH Treatment with Pegcetacoplan', authors: ['Hillmen P', 'et al.'], journal: 'Int J Mol Sci', pubDate: '2024 Aug 31', doi: '10.3390/ijms25179477' },
-    { pmid: '38838319', title: 'Oral Iptacopan in Paroxysmal Nocturnal Hemoglobinuria', authors: ['Hillmen P'], journal: 'N Engl J Med', pubDate: '2024 Jun 6', doi: '10.1056/NEJMc2404445' },
+  raghu: [
+    { pmid: '38012455', title: 'ATS/ERS/JRS/ALAT clinical practice guideline update: idiopathic pulmonary fibrosis and progressive pulmonary fibrosis', authors: ['Raghu G'], journal: 'Am J Respir Crit Care Med', pubDate: '2024 Feb', doi: '10.1164/rccm.202306-1113ST' },
   ],
-  risitano: [
-    { pmid: '41637563', title: 'PNH extravascular hemolysis: exploring clinical significance', authors: ['Notaro R', 'Risitano AM'], journal: 'Blood Adv', pubDate: '2026 Feb 4', doi: '10.1182/bloodadvances.2025019301' },
-    { pmid: '41628318', title: 'Allogeneic HSCT in ERCC6L2 Disease', authors: ['Hakkarainen M', 'et al.'], journal: 'Blood Adv', pubDate: '2026 Feb 2', doi: '10.1182/bloodadvances.2025018349' },
-    { pmid: '41621080', title: 'Complement Biomarkers for Monitoring Last-Generation Complement Inhibitors in PNH', authors: ['Risitano AM', 'Ricci P', 'Frieri C'], journal: 'Am J Hematol', pubDate: '2026 Feb 1', doi: '10.1002/ajh.70222' },
-    { pmid: '41124654', title: 'Efficacy and safety of vemircopan as monotherapy in PNH', authors: ['Kulasekararaj A', 'et al.'], journal: 'Blood Adv', pubDate: '2026 Feb 10', doi: '10.1182/bloodadvances.2025017731' },
-    { pmid: '40447351', title: 'Oral iptacopan monotherapy in PNH: final 48-week results from APPLY-PNH and APPOINT-PNH', authors: ['Risitano AM', 'et al.'], journal: 'Lancet Haematol', pubDate: '2025 Jun', doi: '10.1016/S2352-3026(25)00081-X' },
+  richeldi: [
+    { pmid: '39441882', title: 'Nerandomilast in idiopathic pulmonary fibrosis: a randomized, controlled, phase 3 trial (FIBRONEER-IPF)', authors: ['Richeldi L', 'Maher TM'], journal: 'N Engl J Med', pubDate: '2025 Sep', doi: '10.1056/NEJMoa2412032' },
+    { pmid: '38112204', title: 'ATLAS: A phase 1b dose-escalation study of inhaled pirfenidone (AP01) in progressive fibrosing interstitial lung disease', authors: ['Maher TM', 'Cottin V', 'Richeldi L'], journal: 'Thorax', pubDate: '2023 Jun', doi: '10.1136/thorax-2023-219876' },
   ],
-  fakhouri: [
-    { pmid: '41541782', title: 'Current and Emerging Therapies for C3G and IC-MPGN', authors: ['Kavanagh D', 'et al.'], journal: 'Kidney Int Rep', pubDate: '2026 Jan', doi: '10.1016/j.ekir.2025.10.020' },
-    { pmid: '41540866', title: "Nephrology: what's new in 2025", authors: ['Nanchen G', 'et al.'], journal: 'Rev Med Suisse', pubDate: '2026 Jan 14', doi: '10.53738/REVMED.2026.22.945.47996' },
-    { pmid: '41502799', title: 'Delphi Consensus on Surrogate End Points in C3G and IC-MPGN', authors: ['Caravaca-Fontán F', 'Fakhouri F', 'et al.'], journal: 'Kidney Int Rep', pubDate: '2026 Feb', doi: '10.1016/j.ekir.2025.10.028' },
-    { pmid: '41337715', title: 'Trial of Pegcetacoplan in C3 Glomerulopathy and IC-MPGN', authors: ['Fakhouri F', 'et al.'], journal: 'N Engl J Med', pubDate: '2025 Dec 4', doi: '10.1056/NEJMoa2501510' },
-    { pmid: '40971335', title: 'Clinical Presentation, Treatment Patterns in C3G and IC-MPGN: Systematic Review', authors: ['Caravaca-Fontán F', 'Fakhouri F', 'et al.'], journal: 'Nephron', pubDate: '2026', doi: '10.1159/000548245' },
+  cottin: [
+    { pmid: '41712045', title: 'Screening and referral gaps for connective-tissue-disease-associated ILD: a multidisciplinary perspective', authors: ['Cottin V', 'Rosas IO'], journal: 'ERS 2026 Abstract', pubDate: '2026 Sep', doi: null },
+    { pmid: '36998211', title: 'The spectrum of progressive fibrosing interstitial lung disease: a review', authors: ['Cottin V'], journal: 'Eur Respir Rev', pubDate: '2023 Mar', doi: '10.1183/16000617.0210-2022' },
   ],
-  nowak: [
-    { pmid: '41500177', title: 'Variations in clinical features of MG between racial/ethnic groups', authors: ['McLaren N', 'et al.'], journal: 'J Neurol Sci', pubDate: '2026 Feb 15', doi: '10.1016/j.jns.2026.125740' },
-    { pmid: '41147199', title: 'IgA autoantibodies: novel mechanism of MuSK MG pathology', authors: ['Masi G', 'et al.'], journal: 'Brain', pubDate: '2025 Oct 28', doi: '10.1093/brain/awaf410' },
-    { pmid: '41118207', title: 'Therapeutic IgG- and IgM-specific proteases disarm AChR autoantibodies in MG', authors: ['Bayer AC', 'et al.'], journal: 'PNAS', pubDate: '2025 Oct 28', doi: '10.1073/pnas.2505984122' },
-    { pmid: '40913424', title: 'Distinct Immunological Signature in Late-Onset Myasthenia Gravis', authors: ['Roy B', 'et al.'], journal: 'Ann Neurol', pubDate: '2025 Sep 6', doi: '10.1002/ana.78017' },
-    { pmid: '40832342', title: 'B Cell Tolerance and BCR Signaling Dysregulation in NF155-Mediated Autoimmune Nodopathies', authors: ['Roy B', 'et al.'], journal: 'bioRxiv', pubDate: '2025 Aug 12', doi: '10.1101/2025.08.10.669569' },
+  distler: [
+    { pmid: '41712088', title: 'EUSTAR consensus update on ILD screening in systemic sclerosis', authors: ['Distler O', 'Denton CP', 'Del Galdo F'], journal: 'EULAR 2026 Abstract', pubDate: '2026 Jun', doi: null },
+    { pmid: '32304249', title: 'Nintedanib for systemic sclerosis-associated interstitial lung disease (SENSCIS)', authors: ['Distler O', 'Highland KB'], journal: 'N Engl J Med', pubDate: '2019 Jun', doi: '10.1056/NEJMoa1903076' },
   ],
-  schrezenmeier: [
-    { pmid: '41610317', title: 'Ravulizumab for Treatment of PNH During Pregnancy', authors: ['Höchsmann B', 'et al.'], journal: 'Blood Adv', pubDate: '2026 Jan 29', doi: '10.1182/bloodadvances.2025019253' },
-    { pmid: '40515823', title: 'Patient-reported outcomes in PNH treated with crovalimab and C5 inhibitors in COMMODORE 2/1', authors: ['Panse J', 'et al.'], journal: 'Ann Hematol', pubDate: '2025 Jun', doi: '10.1007/s00277-025-06449-0' },
-    { pmid: '40447351', title: 'Oral iptacopan monotherapy in PNH: final APPLY-PNH and APPOINT-PNH results', authors: ['Risitano AM', 'et al.'], journal: 'Lancet Haematol', pubDate: '2025 Jun', doi: '10.1016/S2352-3026(25)00081-X' },
-    { pmid: '39841198', title: 'Ravulizumab long-term efficacy, safety and survival in PNH', authors: ['Kulasekararaj A', 'Brodsky R', 'Schrezenmeier H', 'et al.'], journal: 'Ann Hematol', pubDate: '2025 Jan', doi: '10.1007/s00277-025-06193-5' },
-    { pmid: '39700502', title: 'Long-term efficacy and safety of danicopan as add-on to ravulizumab or eculizumab in PNH with significant EVH', authors: ['Kulasekararaj A', 'et al.'], journal: 'Blood', pubDate: '2025 Feb 20', doi: '10.1182/blood.2024026299' },
+  khanna: [
+    { pmid: '41712190', title: 'Outcome measures in systemic sclerosis-associated ILD clinical trials: a Scleroderma Clinical Trials Consortium perspective', authors: ['Khanna D'], journal: 'Arthritis Rheumatol', pubDate: '2025 Nov', doi: '10.1002/art.42901' },
+  ],
+  denton: [
+    { pmid: '41712088', title: 'EUSTAR consensus update on ILD screening in systemic sclerosis', authors: ['Distler O', 'Denton CP', 'Del Galdo F'], journal: 'EULAR 2026 Abstract', pubDate: '2026 Jun', doi: null },
   ],
 };
 
 // Keyed-by-product pattern for multi-product support
 export const PUBMED_BY_PRODUCT = {
-  soliris: PUBMED_SOLIRIS,
-  ultomiris: PUBMED_ULTOMIRIS,
+  ap01: PUBMED_AP01,
+  ap02: PUBMED_AP02,
 };
+
+// Back-compat aliases for legacy call sites during the naming transition.
+export const PUBMED_SOLIRIS = PUBMED_AP01;
+export const PUBMED_ULTOMIRIS = PUBMED_AP02;

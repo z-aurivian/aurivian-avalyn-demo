@@ -4,14 +4,14 @@
 
 export const OUTCOME_VOLUME = {
   period: 'Q2 2026',
-  committed: 1200,
-  consumed: 847,
+  committed: 760,
+  consumed: 512,
   // Optional per-agent breakdown
   byAgent: {
-    aria: { committed: 400, consumed: 312 },
-    luca: { committed: 400, consumed: 268 },
-    nova: { committed: 400, consumed: 267 },
+    aria: { committed: 250, consumed: 178 },
+    luca: { committed: 260, consumed: 169 },
+    nova: { committed: 250, consumed: 165 },
   },
   // Optional momentum note ("+12% vs last quarter")
-  momentumNote: null,
+  momentumNote: '+9% vs Q1 2026',
 };

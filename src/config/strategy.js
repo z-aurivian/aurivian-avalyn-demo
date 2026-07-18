@@ -2,34 +2,62 @@
 // This is NOVA's spine: ISP → POA (Medical Objectives) → Listening
 // Priorities → KIQs / KITs. Drives the Strategy-to-Action surface and the
 // coverage scoring displayed on the Command Center.
-//
-// Default fill: Alexion (template example). Overwrite per demo.
 
 export const ISP_PILLARS = [
-  { id: 'p1', title: 'Establish Ultomiris as preferred C5 inhibitor',         description: 'Drive conversion where clinically appropriate; sustain Soliris in indications where Ultomiris is not yet available.' },
-  { id: 'p2', title: 'Expand guideline footprint in gMG and NMOSD',           description: 'Shape treatment paradigms where complement inhibition is positioned neutrally in current guidance.' },
-  { id: 'p3', title: 'Deepen evidence in pediatric and rare subpopulations',  description: 'RWE and sub-analyses where registrational data are thin.' },
+  { id: 'p1', title: 'Establish AP01 as the first inhaled antifibrotic in PPF and CTD-ILD',
+    description: 'Build MIST-anchored evidence and KOL conviction across pulmonology and rheumatology so inhaled pirfenidone is understood ahead of topline data.' },
+  { id: 'p2', title: 'Build AP02 evidence to unseat oral IPF incumbency',
+    description: 'Generate AURA-IPF data and community-pulmonologist readiness before oral competitors (Ofev, Jascayd) further entrench first-line practice.' },
+  { id: 'p3', title: 'Own the inhaled-delivery category',
+    description: 'Establish route of administration — not mechanism — as Avalyn\'s defining differentiation, versus both oral antifibrotics and inhaled prostacyclins.' },
+  { id: 'p4', title: 'Build an SSc-ILD rheumatology beachhead',
+    description: 'Use EULAR and rheumatology KOL relationships to establish screening and referral pathways ahead of AP01\'s eventual pulmonology launch.' },
 ];
 
 export const MEDICAL_OBJECTIVES = [
-  { id: 'MO1', name: 'Real-world evidence',   description: 'Generate and disseminate RWE in rare subpopulations, including pediatric and long-term outcomes.', ispPillarRef: 'p3' },
-  { id: 'MO2', name: 'HCP switching education', description: 'Build community-hematologist confidence in switching stable patients from Soliris to Ultomiris.', ispPillarRef: 'p1' },
-  { id: 'MO3', name: 'Guideline alignment',   description: 'Support guideline strengthening for C5 inhibition in gMG and NMOSD.',                              ispPillarRef: 'p2' },
-  { id: 'MO4', name: 'Scientific exchange',    description: 'Facilitate peer-to-peer exchange on complement biology and emerging mechanisms.',                   ispPillarRef: 'p2' },
+  { id: 'MO1', name: 'MIST evidence generation & CTD-ILD KOL engagement',
+    description: 'Build KOL and community conviction around inhaled pirfenidone\'s PPF/CTD-ILD profile ahead of MIST topline (H2 2027), anchored on the earlier ATLAS dose-response signal.',
+    ispPillarRef: 'p1' },
+  { id: 'MO2', name: 'AURA-IPF community readiness',
+    description: 'Prepare IPF community pulmonologists to evaluate inhaled nintedanib as AURA-IPF enrollment and early data mature toward 2027.',
+    ispPillarRef: 'p2' },
+  { id: 'MO3', name: 'Tolerability & adherence differentiation narrative',
+    description: 'Build and disseminate the clinical case that inhaled delivery meaningfully reduces the GI/hepatic/dermatologic burden driving discontinuation on oral pirfenidone and nintedanib.',
+    ispPillarRef: 'p3' },
+  { id: 'MO4', name: 'SSc-ILD scientific exchange (EULAR-anchored)',
+    description: 'Deepen rheumatology KOL relationships and screening/referral pathway education so SSc-ILD patients reach pulmonology co-management earlier.',
+    ispPillarRef: 'p4' },
+  { id: 'MO5', name: 'Inhaled-category competitive response',
+    description: 'Track and respond to inhaled treprostinil (TETON, TPIP) and the newly approved oral nerandomilast so Avalyn\'s inhaled-antifibrotic positioning stays differentiated and current.',
+    ispPillarRef: 'p3' },
 ];
 
 export const LISTENING_PRIORITIES = [
-  { id: 'LP1', name: 'RWE awareness gaps',             moRef: 'MO1', kiq: 'Are community hematologists aware of long-term Ultomiris RWE?',                   kits: ['RWE summary card', 'Congress abstract'] },
-  { id: 'LP2', name: 'Switch-patient confidence',      moRef: 'MO2', kiq: 'What is driving hesitancy to switch stable Soliris patients to Ultomiris?',        kits: ['Switching algorithm', 'MSL FAQ'] },
-  { id: 'LP3', name: 'gMG guideline positioning',      moRef: 'MO3', kiq: 'Do neurologists feel current gMG guidelines adequately position C5 inhibition?',  kits: ['Guideline readout', 'Ad board summary'] },
-  { id: 'LP4', name: 'NMOSD treatment paradigm',       moRef: 'MO3', kiq: 'How are NMOSD specialists sequencing C5 inhibitors vs IL-6 and CD19-targeted?',   kits: ['Treatment algorithm', 'KOL panel'] },
-  { id: 'LP5', name: 'Pediatric evidence gaps',        moRef: 'MO1', kiq: 'What data gaps prevent confident pediatric aHUS management?',                     kits: ['Pediatric registry summary'] },
+  { id: 'LP1', name: 'MIST trial & CTD-ILD referral pathway awareness',
+    moRef: 'MO1', kiq: 'Are rheumatologists and pulmonologists aware of the MIST trial and how CTD-ILD patients are routed into it?',
+    kits: ['MIST trial fact sheet', 'CTD-ILD referral pathway one-pager'] },
+  { id: 'LP2', name: 'AURA-IPF & inhaled nintedanib community confidence',
+    moRef: 'MO2', kiq: 'What would give community pulmonologists confidence to consider inhaled nintedanib once AURA-IPF data reads out?',
+    kits: ['AURA-IPF investigator deck', 'Inhaled PK explainer'] },
+  { id: 'LP3', name: 'Oral antifibrotic tolerability/adherence burden',
+    moRef: 'MO3', kiq: 'How are pulmonologists and patients describing the tolerability burden driving discontinuation on Esbriet/Ofev?',
+    kits: ['Tolerability burden summary', 'Adherence conversation guide'] },
+  { id: 'LP4', name: 'SSc-ILD screening & rheum-pulm co-management',
+    moRef: 'MO4', kiq: 'What screening and referral gaps keep SSc-ILD patients from reaching pulmonology evaluation early enough?',
+    kits: ['EUSTAR screening algorithm brief', 'Rheum-pulm co-management model'] },
+  { id: 'LP5', name: 'Inhaled category differentiation vs treprostinil',
+    moRef: 'MO5', kiq: 'How are KOLs distinguishing an inhaled antifibrotic from inhaled treprostinil (TETON/TPIP) mechanistically and clinically?',
+    kits: ['Mechanism differentiation deck', 'TETON/TPIP competitive FAQ'] },
+  { id: 'LP6', name: 'Nerandomilast (Jascayd) competitive response readiness',
+    moRef: 'MO5', kiq: 'How is the new PDE4B mechanism (nerandomilast) shifting pulmonologist treatment-sequencing conversations?',
+    kits: ['Nerandomilast rapid-response brief'] },
 ];
 
 // Coverage score per MO at the moment of the demo.
 export const COVERAGE_TARGETS = {
-  MO1: 'Low',
-  MO2: 'Sufficient',
-  MO3: 'Low',
-  MO4: 'Gap',
+  MO1: 'Sufficient',
+  MO2: 'Low',
+  MO3: 'Gap',
+  MO4: 'Low',
+  MO5: 'Gap',
 };

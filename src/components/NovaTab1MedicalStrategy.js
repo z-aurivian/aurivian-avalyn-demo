@@ -13,119 +13,120 @@ import {
 // ─── Mock data (structural — override per demo via config when needed) ────
 
 const TACTIC_POA = [
-  { id: 'T1', name: 'Evidence Generation',      Icon: Microscope, budget: '$1.8M', pct: 28, moRefs: ['MO1','MO3','MO4'], signalCount: 3, signalStatus: 'Active',  deliverables: ['RWE sub-analysis protocol', 'Registry data submission', 'Pediatric outcomes abstract'], novaSummary: 'Signal volume is high. Three field signals this cycle point to evidence gaps in rare subpopulations as the #1 barrier to MO1 progress.' },
-  { id: 'T2', name: 'Medical Education',         Icon: BookOpen,   budget: '$1.4M', pct: 22, moRefs: ['MO1','MO2'],       signalCount: 2, signalStatus: 'Monitor', deliverables: ['Switch education module', 'Community HCP webinar series', 'Switch FAQ co-creation'], novaSummary: 'Two signals: HCP-facing switch materials read as academic. Community-language adaptation is overdue.' },
-  { id: 'T3', name: 'Field Medical Engagement',  Icon: Users,      budget: '$1.6M', pct: 25, moRefs: ['MO1','MO2','MO3'], signalCount: 5, signalStatus: 'Alert',   deliverables: ['MSL interaction quality programme', 'KOL engagement plan refresh', 'Congress debrief protocol'], novaSummary: 'Highest signal volume of any tactic. Five signals flagged — MO2 switching inertia and MO3 guideline positioning are both active.' },
-  { id: 'T4', name: 'Scientific Communications', Icon: FileText,   budget: '$0.6M', pct:  9, moRefs: ['MO2','MO3','MO4'], signalCount: 1, signalStatus: 'Active',  deliverables: ['Peer-reviewed manuscript pipeline', 'Congress poster submissions', 'Scientific platform refresh'], novaSummary: 'One signal: NMOSD sequencing data gap. RWE sub-analysis scope would directly feed the manuscript pipeline.' },
-  { id: 'T5', name: 'HEOR',                      Icon: BarChart2,  budget: '$0.5M', pct:  8, moRefs: ['MO3','MO4'],       signalCount: 0, signalStatus: 'Monitor', deliverables: ['Cost-effectiveness model update', 'Burden-of-disease publication'], novaSummary: 'No new signals this cycle. Budget allocation reviewed; no reallocation proposed.' },
-  { id: 'T6', name: 'Patient Advocacy',          Icon: Heart,      budget: '$0.5M', pct:  8, moRefs: ['MO1','MO2'],       signalCount: 1, signalStatus: 'Active',  deliverables: ['Patient organisation engagement plan', 'Disease awareness co-creation'], novaSummary: 'One signal: community infusion centres requesting patient-facing materials. Aligns with MO2 switch education deliverable.' },
+  { id: 'T1', name: 'Evidence Generation',      Icon: Microscope, budget: '$1.6M', pct: 26, moRefs: ['MO1','MO2','MO4'], signalCount: 3, signalStatus: 'Active',  deliverables: ['MIST/CTD-ILD referral checklist', 'AURA-IPF investigator deck', 'SSc-ILD screening algorithm draft'], novaSummary: 'Signal volume is steady. Three field signals this cycle point to referral-pathway clarity as the #1 lever across MO1 and MO4.' },
+  { id: 'T2', name: 'Medical Education',         Icon: BookOpen,   budget: '$1.3M', pct: 21, moRefs: ['MO2','MO3'],       signalCount: 4, signalStatus: 'Alert',   deliverables: ['Tolerability/adherence conversation guide', 'Inhaled PK plain-language explainer', 'Nerandomilast sequencing FAQ'], novaSummary: 'Four signals: tolerability burden is the highest-recurrence theme this cycle, and the conversation guide is only partially deployed.' },
+  { id: 'T3', name: 'Field Medical Engagement',  Icon: Users,      budget: '$1.7M', pct: 28, moRefs: ['MO1','MO3','MO5'], signalCount: 5, signalStatus: 'Alert',   deliverables: ['MSL interaction quality programme', 'KOL engagement plan refresh', 'ATS/ERS/EULAR congress debrief protocol'], novaSummary: 'Highest signal volume of any tactic. Five signals flagged — tolerability burden (MO3) and nerandomilast response (MO5) are both active.' },
+  { id: 'T4', name: 'Scientific Communications', Icon: FileText,   budget: '$0.5M', pct:  8, moRefs: ['MO1','MO5'],       signalCount: 2, signalStatus: 'Active',  deliverables: ['ATLAS dose-response scientific-exchange refresh', 'Mechanism-differentiation deck'], novaSummary: 'Two signals: ATLAS data underused, and inhaled-category confusion (antifibrotic vs. prostacyclin) both need dedicated materials.' },
+  { id: 'T5', name: 'HEOR',                      Icon: BarChart2,  budget: '$0.4M', pct:  7, moRefs: ['MO2'],             signalCount: 1, signalStatus: 'Monitor', deliverables: ['Independent PK-replication scoping', 'Burden-of-tolerability publication'], novaSummary: 'One signal this cycle: academic pushback on unqualified exposure-reduction claims. Independent-replication scoping in progress.' },
+  { id: 'T6', name: 'Patient Advocacy',          Icon: Heart,      budget: '$0.6M', pct: 10, moRefs: ['MO3'],             signalCount: 1, signalStatus: 'Active',  deliverables: ['PFF / Scleroderma Foundation engagement plan', 'Patient-facing tolerability materials'], novaSummary: 'One signal: patient advocacy channels are amplifying tolerability-burden accounts independent of MSL relay — a new, unowned data source.' },
 ];
 
 const INSIGHT_LOOPS = [
   {
     id: 'IL1', tactic: 'Evidence Generation', moRef: 'MO1',
     signals: [
-      { source: 'MSL interaction', msl: 'J. Morgan', territory: 'NE Region', date: '2026-06-04', text: 'Community haematologists asking for pediatric 3-year retention data before enrolling. "We won\'t enrol without it."' },
-      { source: 'Congress debrief', msl: 'A. Patel', territory: 'SE Region', date: '2026-05-28', text: 'AAN satellite symposium: 4 of 6 panellists cited NMOSD long-term RWE gap as the main sequencing barrier.' },
+      { source: 'MSL interaction', msl: 'Maya Sorensen', territory: 'Northeast US', date: '2026-06-04', text: 'Community rheumatologist: "I know MIST exists but I don\'t know which of my SSc-ILD patients would qualify, or who to call."' },
+      { source: 'Congress debrief', msl: 'Derek Okafor', territory: 'Southeast US', date: '2026-05-18', text: 'ATS 2026: ILD center director said referral into inhaled-antifibrotic trials needs a much clearer front door for community rheum.' },
     ],
-    novaSynthesis: 'Pattern across 2 source types: pediatric and NMOSD long-term evidence are the primary barriers to MO1 progress. Confidence: 82%.',
-    insight: { id: 'AI2', confidence: 0.82, status: 'Validated', title: 'RWE gap — long-term NMOSD outcomes', summary: 'NMOSD specialists sequencing C5 vs IL-6 vs CD19 without head-to-head long-term data. Retention and relapse-free survival data requested.' },
-    action: { title: 'Scope long-term NMOSD relapse-free RWE sub-analysis with HEOR', owner: 'HEOR', dueBy: '2026-Q4', moRef: 'MO1' },
-    loopCondition: 'RWE sub-analysis protocol approved by HEOR',
-    loopMet: false,
-  },
-  {
-    id: 'IL2', tactic: 'Field Medical Engagement', moRef: 'MO2',
-    signals: [
-      { source: 'MSL interaction', msl: 'S. Chen', territory: 'MW Region', date: '2026-06-10', text: '"Patients who are stable are stable — I don\'t want to mess with it, even though the dosing interval would be easier."' },
-      { source: 'Med Info query', msl: 'L. Torres', territory: 'SW Region', date: '2026-06-01', text: 'Infusion centre nurse asked for a switch protocol sheet she can hand to scheduling staff.' },
-      { source: 'Ad board', msl: 'K. Davis', territory: 'National', date: '2026-05-20', text: '"Switching data convincing on paper but we need a cleaner community-facing algorithm."' },
-    ],
-    novaSynthesis: 'Switching inertia is framing-based, not knowledge-based. Community language adaptation is the critical lever. Confidence: 87%.',
-    insight: { id: 'AI1', confidence: 0.87, status: 'Prioritised', title: 'Infusion-burden concern persists', summary: 'Community haematologists cite biweekly infusion burden as a decision point, but switching inertia remains high even where switching is appropriate.' },
-    action: { title: 'Develop community-facing switch-stability narrative', owner: 'Field Medical', dueBy: '2026-Q3', moRef: 'MO2' },
-    loopCondition: 'Switch-stability narrative reviewed, approved and deployed to MSL tablets',
+    novaSynthesis: 'Pattern across 2 source types: referral-pathway clarity, not eligibility criteria, is the primary barrier to MO1 progress. Confidence: 85%.',
+    insight: { id: 'AI1', confidence: 0.85, status: 'Prioritised', title: 'MIST / CTD-ILD referral pathway confusion', summary: 'Community rheumatologists are unsure how to route CTD-ILD patients into MIST trial sites; referral language is inconsistent across territories.' },
+    action: { title: 'Publish MIST/CTD-ILD referral eligibility checklist for community rheumatology', owner: 'Field Medical', dueBy: '2026-Q3', moRef: 'MO1' },
+    loopCondition: 'Referral eligibility checklist approved and deployed to community rheumatology',
     loopMet: true,
   },
   {
-    id: 'IL3', tactic: 'Medical Education', moRef: 'MO2',
+    id: 'IL2', tactic: 'Field Medical Engagement', moRef: 'MO3',
     signals: [
-      { source: 'MSL interaction', msl: 'R. Kim', territory: 'NW Region', date: '2026-06-08', text: 'GP registrar asked for patient FAQs for switch discussion. "Something the patient can take home."' },
-      { source: 'MSL interaction', msl: 'B. Walker', territory: 'NE Region', date: '2026-05-30', text: '"The switch FAQ on the portal is written for consultants, not patients."' },
-      { source: 'MSL interaction', msl: 'T. Evans', territory: 'SE Region', date: '2026-05-22', text: 'Three infusion centres requested co-creation of patient-friendly switch materials. Offering to join review panel.' },
+      { source: 'MSL interaction', msl: 'Derek Okafor', territory: 'Southeast US', date: '2026-06-10', text: '"Nausea and rash are why patients stop calling me back, not lack of efficacy."' },
+      { source: 'Ad board', msl: 'Priya Chandrasekaran', territory: 'Midwest US', date: '2026-05-29', text: '"I counsel every new Ofev patient that diarrhea is basically guaranteed. That conversation alone costs adherence."' },
+      { source: 'Congress debrief', msl: 'Multiple', territory: 'ATS 2026', date: '2026-05-17', text: 'ILD nurse coordinator: "Patients ask us for anything that avoids the GI side effects — an inhaled option is an easy yes if it works."' },
     ],
-    novaSynthesis: 'Three independent signals from different territories, same gap: patient-facing switch language is absent. Co-creation opportunity with community HCPs. Confidence: 91%.',
-    insight: { id: 'AI4', confidence: 0.91, status: 'Prioritised', title: 'Switch-stability concerns from community centres', summary: 'Community infusion centres want a patient-facing switch-stability narrative; current MSL materials read as academic.' },
-    action: { title: 'Develop patient-facing switch FAQ (co-created with community HCPs)', owner: 'Medical Comms', dueBy: '2026-Q3', moRef: 'MO2' },
-    loopCondition: 'Switch FAQ approved, deployed to community centres and MSL tablets',
+    novaSynthesis: 'Tolerability burden is the single most consistently reinforced theme this cycle — the highest recurrence of any insight. Confidence: 89%.',
+    insight: { id: 'AI3', confidence: 0.89, status: 'Prioritised', title: 'Tolerability burden is the #1 discontinuation driver', summary: 'Pulmonologists consistently cite GI and dermatologic AEs as the leading reason patients ask about alternatives to oral pirfenidone/nintedanib.' },
+    action: { title: 'Build tolerability/adherence conversation guide contrasting inhaled vs. oral route', owner: 'Field Medical', dueBy: '2026-Q3', moRef: 'MO3' },
+    loopCondition: 'Conversation guide reviewed, approved and deployed to all MSL territories',
     loopMet: false,
   },
   {
-    id: 'IL4', tactic: 'Scientific Communications', moRef: 'MO3',
+    id: 'IL3', tactic: 'Medical Education', moRef: 'MO5',
     signals: [
-      { source: 'Congress debrief', msl: 'A. Patel', territory: 'SE Region', date: '2026-06-05', text: 'gMG guideline steering member: "Bring us the refractory subgroup data and we have something to work with. The current language is too hedged."' },
+      { source: 'MSL interaction', msl: 'Priya Chandrasekaran', territory: 'Midwest US', date: '2026-06-12', text: 'Academic pulmonologist: "Now that there\'s a real new oral mechanism, why would I wait for an inhaled reformulation of an old one?"' },
+      { source: 'Ad board', msl: 'Jordan Reyes', territory: 'West US', date: '2026-05-30', text: 'Community pulmonologist: "I need to understand where an inhaled option fits once PDE4B inhibition is on the table."' },
+      { source: 'Congress debrief', msl: 'Multiple', territory: 'ATS 2026', date: '2026-05-18', text: 'Several sessions pivoted mid-Q&A to nerandomilast sequencing questions regardless of the scheduled topic.' },
     ],
-    novaSynthesis: 'Single high-credibility signal from a guideline steering member. Low volume but high strategic value — this is a gating signal for MO3 progress. Confidence: 71%.',
-    insight: { id: 'AI3', confidence: 0.71, status: 'Triaged', title: 'gMG guideline positioning opportunity', summary: 'Current gMG guidelines position C5 inhibition neutrally. Steering-committee KOLs open to strengthening with additional refractory-subgroup evidence.' },
-    action: { title: 'Engage gMG guideline steering KOLs for refractory-subgroup dossier', owner: 'Medical Affairs', dueBy: 'TBD', moRef: 'MO3' },
-    loopCondition: 'Refractory-subgroup dossier submitted to guideline steering committee',
+    novaSynthesis: 'Three independent signals, same trigger event: nerandomilast\'s approval is actively reshaping first-line sequencing conversations. Confidence: 84%.',
+    insight: { id: 'AI6', confidence: 0.84, status: 'Validated', title: 'Nerandomilast approval reshaping first-line IPF conversations', summary: 'Following nerandomilast\'s IPF and PPF approvals, pulmonologists are asking how AP02 sequences against a genuinely new oral mechanism.' },
+    action: { title: 'Prepare nerandomilast rapid-response briefing and MSL sequencing FAQ', owner: 'Field Medical', dueBy: '2026-Q3', moRef: 'MO5' },
+    loopCondition: 'Rapid-response briefing deployed and MSL sequencing-confidence score re-measured',
+    loopMet: true,
+  },
+  {
+    id: 'IL4', tactic: 'Scientific Communications', moRef: 'MO4',
+    signals: [
+      { source: 'Ad board', msl: 'Sophie Bergman', territory: 'UK & Ireland', date: '2026-05-14', text: 'Rheumatologist: "We need a screening algorithm we can actually put in front of general rheumatologists, not just EUSTAR specialists."' },
+    ],
+    novaSynthesis: 'Single high-credibility signal from a EULAR-adjacent rheumatology advisory contact. Low volume but high strategic value ahead of EULAR 2026. Confidence: 76%.',
+    insight: { id: 'AI4', confidence: 0.76, status: 'Validated', title: 'SSc-ILD patients reaching pulmonology too late', summary: 'Rheumatologists want a clearer HRCT/PFT screening trigger for early pulmonology referral in systemic sclerosis.' },
+    action: { title: 'Co-develop EUSTAR-aligned SSc-ILD screening algorithm one-pager with rheumatology KOLs', owner: 'Medical Affairs', dueBy: '2026-Q4', moRef: 'MO4' },
+    loopCondition: 'Screening algorithm submitted for EULAR 2026 advisory board review',
     loopMet: false,
   },
 ];
 
 const MAO_METRICS = [
-  { label: 'Total signals ingested',              value: '247', sub: 'this cycle',          alert: false },
-  { label: 'Actionable insights generated',       value: '7',   sub: '+3 vs prior cycle',   alert: false },
-  { label: 'Actions initiated',                   value: '5',   sub: '71% of insights',      alert: false },
+  { label: 'Total signals ingested',              value: '286', sub: 'this cycle',          alert: false },
+  { label: 'Actionable insights generated',       value: '7',   sub: '+2 vs prior cycle',   alert: false },
+  { label: 'Actions initiated',                   value: '6',   sub: '67% of insights',      alert: false },
   { label: 'Tactical POA areas reshaped by AI',   value: '3',   sub: 'of 6 tactics',         alert: false },
-  { label: 'MOs with critical coverage gaps',     value: '1',   sub: 'MO4 · Gap',            alert: true  },
+  { label: 'MOs with critical coverage gaps',     value: '2',   sub: 'MO3, MO5 · Gap',       alert: true  },
 ];
 
 const MAO_TABLE = [
-  { mo: 'MO1', name: 'Real-world evidence',    signalsIn: 62, breakdown: 'MSL 48% · Congress 31% · Lit 21%', insightIds: 'AI2, AI5', actionsCount: 2, actionsInitiated: 1, coverage: 'Low',       aiImpact: 'Partial',   impactDesc: 'RWE sub-analysis scoped; registry protocol in review.' },
-  { mo: 'MO2', name: 'HCP switching education',signalsIn: 89, breakdown: 'MSL 62% · Med Info 21% · Ad board 17%', insightIds: 'AI1, AI4', actionsCount: 3, actionsInitiated: 3, coverage: 'Sufficient', aiImpact: 'Reshaped',  impactDesc: 'Switch-stability narrative reframed to community language following AI synthesis. Approved and deployed.' },
-  { mo: 'MO3', name: 'Guideline alignment',    signalsIn: 54, breakdown: 'Congress 52% · KOL 28% · Lit 20%',  insightIds: 'AI3',       actionsCount: 1, actionsInitiated: 0, coverage: 'Low',       aiImpact: 'Partial',   impactDesc: 'KOL engagement plan updated to prioritise guideline steering members. Dossier scoping underway.' },
-  { mo: 'MO4', name: 'Scientific exchange',    signalsIn: 42, breakdown: 'Congress 60% · KOL 40%',            insightIds: 'AI7',       actionsCount: 1, actionsInitiated: 1, coverage: 'Gap',       aiImpact: 'Not yet',   impactDesc: 'No plan change documented. Insight generated but not yet accepted by Medical Affairs leadership.' },
+  { mo: 'MO1', name: 'MIST evidence & CTD-ILD referral',   signalsIn: 71, breakdown: 'MSL 51% · Congress 33% · Med Info 16%', insightIds: 'AI1, AI7', actionsCount: 2, actionsInitiated: 2, coverage: 'Sufficient', aiImpact: 'Reshaped',  impactDesc: 'Referral eligibility checklist deployed following AI synthesis. Referral-conversation rate up 21%.' },
+  { mo: 'MO2', name: 'AURA-IPF community readiness',       signalsIn: 44, breakdown: 'MSL 55% · Ad board 27% · Lit 18%',       insightIds: 'AI2',       actionsCount: 2, actionsInitiated: 1, coverage: 'Low',       aiImpact: 'Partial',   impactDesc: 'PK explainer drafted; independent-replication scoping with academic labs underway.' },
+  { mo: 'MO3', name: 'Tolerability/adherence narrative',   signalsIn: 89, breakdown: 'MSL 58% · Ad board 24% · Congress 18%',  insightIds: 'AI3',       actionsCount: 1, actionsInitiated: 1, coverage: 'Gap',       aiImpact: 'Reshaped',  impactDesc: 'Conversation guide accepted despite Gap coverage score — highest-recurrence insight this cycle, deployment still in progress.' },
+  { mo: 'MO4', name: 'SSc-ILD scientific exchange',        signalsIn: 24, breakdown: 'Ad board 46% · MSL 38% · Congress 16%',  insightIds: 'AI4',       actionsCount: 1, actionsInitiated: 0, coverage: 'Low',       aiImpact: 'Partial',   impactDesc: 'Screening algorithm scoping session held with 2 Tier 1 rheumatology KOLs; draft pending EULAR review.' },
+  { mo: 'MO5', name: 'Inhaled-category competitive response', signalsIn: 58, breakdown: 'Congress 47% · MSL 39% · Lit 14%',   insightIds: 'AI5, AI6',  actionsCount: 2, actionsInitiated: 1, coverage: 'Gap',       aiImpact: 'Reshaped',  impactDesc: 'Nerandomilast rapid-response briefing produced within 3 weeks; mechanism-differentiation deck still in progress.' },
 ];
 
 const AUDIT_TRAILS = {
   MO1: {
     rawSignals: [
-      { source: 'MSL interaction', msl: 'J. Morgan', territory: 'NE Region', date: '2026-06-04', text: 'Community haematologists asking for pediatric 3-year retention data before enrolling.' },
-      { source: 'Congress debrief', msl: 'A. Patel', territory: 'SE Region', date: '2026-05-28', text: 'AAN 2026: 4 of 6 panellists cited NMOSD long-term RWE gap as sequencing barrier.' },
+      { source: 'MSL interaction', msl: 'Maya Sorensen', territory: 'Northeast US', date: '2026-06-04', text: 'Community rheumatologist asking which SSc-ILD patients qualify for MIST and who to call.' },
+      { source: 'Congress debrief', msl: 'Derek Okafor', territory: 'Southeast US', date: '2026-05-18', text: 'ATS 2026: ILD center director says referral into inhaled-antifibrotic trials needs a clearer front door for community rheum.' },
     ],
-    synthesis: { text: 'Pattern across MSL and congress sources: long-term evidence gaps in rare subpopulations are the primary barrier to MO1 progress.', confidence: 0.82, checks: ['MSL field reports', 'AAN congress abstracts', 'Prior-cycle literature scan'] },
-    insight: { id: 'AI2', confidence: 0.82, status: 'Validated', title: 'RWE gap — long-term NMOSD outcomes', summary: 'NMOSD specialists making sequencing decisions without head-to-head long-term data.' },
-    action: { title: 'Scope long-term NMOSD relapse-free RWE sub-analysis with HEOR', owner: 'HEOR', date: '2026-Q4', mos: ['MO1'] },
-    planChange: { when: 'June 2026', effect: 'HEOR budget increased by 8% to support sub-analysis scope. New deliverable added: relapse-free survival registry analysis.', condition: 'Sub-analysis protocol approved' },
+    synthesis: { text: 'Pattern across MSL and congress sources: referral-pathway clarity, not eligibility, is the primary barrier to MO1 progress.', confidence: 0.85, checks: ['MSL field reports', 'ATS 2026 congress abstracts', 'Med Info query log'] },
+    insight: { id: 'AI1', confidence: 0.85, status: 'Prioritised', title: 'MIST / CTD-ILD referral pathway confusion', summary: 'Community rheumatologists are unsure how to route CTD-ILD patients into MIST trial sites.' },
+    action: { title: 'Publish MIST/CTD-ILD referral eligibility checklist for community rheumatology', owner: 'Field Medical', date: '2026-Q3', mos: ['MO1'] },
+    planChange: { when: 'June 2026', effect: 'Field Medical budget increased by 5% to support checklist distribution and a single-point-of-contact referral line. New deliverable added: community rheumatology outreach campaign.', condition: 'Referral checklist deployed to all territories' },
   },
-  MO2: {
+  MO3: {
     rawSignals: [
-      { source: 'MSL interaction', msl: 'S. Chen', territory: 'MW Region', date: '2026-06-10', text: '"Patients who are stable are stable — I don\'t want to mess with it."' },
-      { source: 'Med Info query', msl: 'L. Torres', territory: 'SW Region', date: '2026-06-01', text: 'Infusion centre nurse asked for switch protocol she can hand to scheduling.' },
-      { source: 'Ad board', msl: 'K. Davis', territory: 'National', date: '2026-05-20', text: '"Switching data convincing on paper but we need a cleaner community-facing algorithm."' },
+      { source: 'MSL interaction', msl: 'Derek Okafor', territory: 'Southeast US', date: '2026-06-10', text: '"Nausea and rash are why patients stop calling me back, not lack of efficacy."' },
+      { source: 'Ad board', msl: 'Priya Chandrasekaran', territory: 'Midwest US', date: '2026-05-29', text: '"I counsel every new Ofev patient that diarrhea is basically guaranteed. That conversation alone costs adherence."' },
+      { source: 'Congress debrief', msl: 'Multiple', territory: 'ATS 2026', date: '2026-05-17', text: 'ILD nurse coordinator: patients ask for anything that avoids the GI side effects.' },
     ],
-    synthesis: { text: 'Switching inertia is framing-based, not knowledge-based. Community language adaptation is the critical lever.', confidence: 0.87, checks: ['MSL interaction corpus', 'Med Info query log', 'Ad board transcript'] },
-    insight: { id: 'AI1', confidence: 0.87, status: 'Prioritised', title: 'Infusion-burden concern persists', summary: 'Community haematologists cite biweekly infusion burden as a decision point but switching inertia remains high.' },
-    action: { title: 'Develop community-facing switch-stability narrative', owner: 'Field Medical', date: '2026-Q3', mos: ['MO2'] },
-    planChange: { when: 'May 2026', effect: 'Switch-education module reframed from academic to community-HCP language. New deliverable: co-created patient FAQ. Budget reallocated from Scientific Comms (−$40K).', condition: 'Switch FAQ deployed to community centres' },
+    synthesis: { text: 'Tolerability burden is framing-based as much as clinical — physicians want a route-of-administration explanation they can use in the room, not just efficacy data.', confidence: 0.89, checks: ['MSL interaction corpus', 'Ad board transcript', 'ATS 2026 congress debrief'] },
+    insight: { id: 'AI3', confidence: 0.89, status: 'Prioritised', title: 'Tolerability burden is the #1 discontinuation driver', summary: 'Pulmonologists consistently cite GI and dermatologic AEs as the leading reason patients ask about alternatives to oral SoC.' },
+    action: { title: 'Build tolerability/adherence conversation guide contrasting inhaled vs. oral route', owner: 'Field Medical', date: '2026-Q3', mos: ['MO3'] },
+    planChange: { when: 'June 2026', effect: 'Conversation guide accepted and prioritised despite MO3\'s Gap coverage score — reflects urgency of the signal. Budget reallocated from Scientific Comms (−$35K) to accelerate deployment.', condition: 'Conversation guide deployed to all MSL territories' },
   },
 };
 
 const ROI_METRICS = [
-  { label: 'Total ISP Budget', value: '$6.3M', sub: '2024–2026' },
-  { label: 'Insight affirmation score', value: '72 / 100', sub: '+8 pts vs Q2 2025' },
-  { label: 'AI-proposed reallocation', value: '$420K', sub: 'pending approval' },
-  { label: 'Actions taken from insights', value: '5 / 7', sub: '71% actioned this cycle' },
+  { label: 'Total ISP Budget', value: '$6.1M', sub: '2025–2027' },
+  { label: 'Insight affirmation score', value: '68 / 100', sub: '+11 pts vs Q1 2026' },
+  { label: 'AI-proposed reallocation', value: '$275K', sub: 'pending approval' },
+  { label: 'Actions taken from insights', value: '6 / 7', sub: '86% actioned this cycle' },
 ];
 
 const ROI_TACTICS = [
-  { tactic: 'Field Medical Engagement', budget: '$1.6M', pct: 25, delta: 'up',     note: 'Increase by 5% — highest signal ROI this cycle' },
-  { tactic: 'Evidence Generation',       budget: '$1.8M', pct: 28, delta: 'stable', note: 'Maintain allocation — signal volume steady' },
-  { tactic: 'Medical Education',          budget: '$1.4M', pct: 22, delta: 'up',     note: 'Increase by 3% — community materials gap confirmed' },
-  { tactic: 'Scientific Communications', budget: '$0.6M', pct:  9, delta: 'down',   note: 'Decrease by 3% — low signal return this cycle' },
-  { tactic: 'HEOR',                       budget: '$0.5M', pct:  8, delta: 'up',     note: 'Increase by 2% — RWE sub-analysis approved' },
-  { tactic: 'Patient Advocacy',           budget: '$0.5M', pct:  8, delta: 'stable', note: 'Maintain allocation' },
+  { tactic: 'Field Medical Engagement', budget: '$1.7M', pct: 28, delta: 'up',     note: 'Increase by 4% — highest signal ROI this cycle, tolerability and nerandomilast response both active' },
+  { tactic: 'Evidence Generation',       budget: '$1.6M', pct: 26, delta: 'stable', note: 'Maintain allocation — referral-pathway signal volume steady' },
+  { tactic: 'Medical Education',          budget: '$1.3M', pct: 21, delta: 'up',     note: 'Increase by 3% — tolerability conversation guide deployment gap confirmed' },
+  { tactic: 'Patient Advocacy',           budget: '$0.6M', pct: 10, delta: 'up',     note: 'Increase by 2% — new unowned signal source from advocacy channels' },
+  { tactic: 'Scientific Communications', budget: '$0.5M', pct:  8, delta: 'down',   note: 'Decrease by 2% — lower signal return relative to field-facing tactics this cycle' },
+  { tactic: 'HEOR',                       budget: '$0.4M', pct:  7, delta: 'stable', note: 'Maintain allocation — independent-replication scoping ongoing' },
 ];
 
 // ─── Shared helpers ────────────────────────────────────────────────────────
@@ -184,11 +185,12 @@ function NovaStrategicBrief() {
         <span className="text-[10px] text-violet-500 ml-1">AI-generated · on load</span>
       </div>
       <p className="text-sm text-auri-text leading-relaxed">
-        The strategy-to-action score stands at <strong>72/100</strong>, up 8 points from last cycle.
-        Switching inertia (MO2) remains the highest-signal theme — three independent MSL territories
-        this cycle confirmed that the barrier is framing, not clinical knowledge. The RWE gap for
-        long-term NMOSD outcomes (MO1) is emerging as the #2 priority. One critical coverage gap
-        persists: MO4 (Scientific exchange) has received no new field signals this cycle.
+        The strategy-to-action score stands at <strong>68/100</strong>, up 11 points from last cycle.
+        Tolerability burden (MO3) remains the highest-signal theme — four independent sources
+        this cycle confirmed GI/dermatologic AEs as the top discontinuation driver on oral standard
+        of care, though MO3 is still flagged a coverage Gap. Nerandomilast's approval (MO5) is
+        emerging as the #2 priority, reshaping first-line sequencing conversations in the field.
+        Two critical coverage gaps persist: MO3 and MO5 both need faster deployment of in-progress materials.
       </p>
     </div>
   );
@@ -713,8 +715,8 @@ function ROICalculator() {
           <span className="text-xs font-semibold text-amber-700">Nova Reallocation Recommendation</span>
         </div>
         <p className="text-xs text-auri-text">
-          Based on signal ROI analysis, Nova recommends reallocating <strong>$120K</strong> from Scientific Communications to Field Medical Engagement and <strong>$60K</strong> to Medical Education.
-          Combined reallocation of <strong>$180K</strong> is projected to increase MO2 coverage from <strong>Sufficient → Confirmed</strong> within 2 cycles.
+          Based on signal ROI analysis, Nova recommends reallocating <strong>$175K</strong> from Scientific Communications to Field Medical Engagement and <strong>$100K</strong> to Patient Advocacy.
+          Combined reallocation of <strong>$275K</strong> is projected to move MO3 coverage from <strong>Gap → Low</strong> within 2 cycles.
           Pending Medical Affairs leadership approval.
         </p>
       </div>

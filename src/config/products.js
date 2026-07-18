@@ -1,15 +1,35 @@
 // Portfolio — Demo Brief §2.
 // Products surface in the header selector and scope most agent views.
-// Optional: platformLens for customers that track a cross-indication
-// platform/mechanism (e.g. Dyne FORCE™).
 
 export const PRODUCT_OPTIONS = [
-  { id: 'soliris',   name: 'Soliris',   generic: 'eculizumab',  indications: ['PNH', 'aHUS', 'gMG', 'NMOSD'] },
-  { id: 'ultomiris', name: 'Ultomiris', generic: 'ravulizumab', indications: ['PNH', 'aHUS', 'gMG', 'NMOSD'] },
+  {
+    id: 'ap01',
+    name: 'AP01',
+    generic: 'inhaled pirfenidone',
+    indications: ['Progressive Pulmonary Fibrosis (PPF)', 'CTD-ILD', 'SSc-ILD'],
+    stage: 'Phase 2b (MIST)',
+  },
+  {
+    id: 'ap02',
+    name: 'AP02',
+    generic: 'inhaled nintedanib',
+    indications: ['Idiopathic Pulmonary Fibrosis (IPF)'],
+    stage: 'Phase 2 (AURA-IPF)',
+  },
+  {
+    id: 'ap03',
+    name: 'AP03',
+    generic: 'inhaled pirfenidone + nintedanib (fixed-dose combination)',
+    indications: ['Pulmonary Fibrosis (indication TBD)'],
+    stage: 'Preclinical / IND-enabling',
+  },
 ];
 
-// Platform / mechanism lens. Leave null when not applicable.
-// Example when populated:
-//   { name: 'FORCE™', description: 'Fab + linker + payload, TfR1-targeted delivery',
-//     appliesToProducts: ['dyne-101', 'dyne-251'] }
-export const PLATFORM_LENS = null;
+// Platform / mechanism lens — Avalyn's cross-asset platform is the PARI
+// eFlow® / eRapid nebulizer system underlying all three programs.
+export const PLATFORM_LENS = {
+  name: 'PARI eFlow®',
+  description:
+    'Exclusively licensed eFlow®/eRapid nebulizer platform (2017) used to reformulate proven oral antifibrotics for targeted lung delivery, aiming to preserve efficacy while sharply reducing systemic exposure (company-reported).',
+  appliesToProducts: ['ap01', 'ap02', 'ap03'],
+};

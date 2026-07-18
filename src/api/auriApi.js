@@ -15,9 +15,9 @@ function keywordFallback(query, selectedProduct) {
   const competitors = COMPETITOR_DATA[selectedProduct] || [];
   const kols = KOL_DATA.filter(k => k.productAlignment.includes(selectedProduct));
 
-  if (q.includes('biosimilar') || q.includes('switching')) {
-    const kit = kits.find(k => k.name.toLowerCase().includes('biosimilar'));
-    return `## Biosimilar Switching Readiness\n\n${kit ? kit.aiSummaryCurrent : 'Biosimilar eculizumab products (Bkemv by Samsung Bioepis, Epysqli by Amgen) launched in 2025, creating significant pressure on the Soliris franchise.'}\n\n**Key Metrics:**\n- Mentions: ${kit?.currentMentions || 'N/A'} (${kit?.percentChange > 0 ? '+' : ''}${kit?.percentChange || 'N/A'}% vs prior month)\n- Sentiment: ${kit?.currentSentiment || 'N/A'}\n- Status: ${kit?.status || 'N/A'}\n\nThe urgency of Soliris→Ultomiris conversion is a top priority for franchise defense. MSL teams report increasing HCP inquiries about biosimilar interchangeability and switching protocols.`;
+  if (q.includes('tolerab') || q.includes('adherence') || q.includes('discontinu')) {
+    const kit = kits.find(k => k.name.toLowerCase().includes('tolerability'));
+    return `## Tolerability & Adherence Burden\n\n${kit ? kit.aiSummaryCurrent : 'Oral pirfenidone and nintedanib carry meaningful GI, hepatic and dermatologic tolerability burden — the leading discontinuation driver cited in the field.'}\n\n**Key Metrics:**\n- Mentions: ${kit?.currentMentions || 'N/A'} (${kit?.percentChange > 0 ? '+' : ''}${kit?.percentChange || 'N/A'}% vs prior month)\n- Sentiment: ${kit?.currentSentiment || 'N/A'}\n- Status: ${kit?.status || 'N/A'}\n\nThe tolerability/adherence differentiation narrative is Avalyn's clearest wedge against oral standard of care. MSL teams report increasing HCP inquiries about the inhaled-route rationale.`;
   }
 
   if (q.includes('compet') || q.includes('oral') || q.includes('threat')) {
@@ -36,7 +36,7 @@ function keywordFallback(query, selectedProduct) {
 
   if (q.includes('kol') || q.includes('opinion leader') || q.includes('expert')) {
     const topKols = kols.filter(k => k.engagementTier === 'Tier 1').slice(0, 5);
-    return `## Top KOLs for ${selectedProduct === 'soliris' ? 'Soliris' : 'Ultomiris'}\n\n${topKols.map(k =>
+    return `## Top KOLs for ${selectedProduct === 'ap01' ? 'AP01' : selectedProduct === 'ap02' ? 'AP02' : 'AP03'}\n\n${topKols.map(k =>
       `### ${k.name}\n- **Institution:** ${k.institution}, ${k.country}\n- **Specialty:** ${k.specialty}\n- **Influence Score:** ${k.influenceScore}/100\n- **Focus Areas:** ${k.focusAreas.join(', ')}\n- **Recommended Strategy:** ${k.recommendedStrategy}`
     ).join('\n\n')}\n\n*${kols.length} total KOLs tracked for this product.*`;
   }
@@ -47,7 +47,7 @@ function keywordFallback(query, selectedProduct) {
     ).join('\n\n')}`;
   }
 
-  if (q.includes('pipeline') || q.includes('gefurulimab') || q.includes('danicopan') || q.includes('voydeya')) {
+  if (q.includes('pipeline') || q.includes('ap03') || q.includes('combination')) {
     if (PIPELINE_INTELLIGENCE) {
       return `## Pipeline Intelligence\n\n${PIPELINE_INTELLIGENCE.map(p =>
         `### ${p.name}\n- **Mechanism:** ${p.mechanism}\n- **Stage:** ${p.stage}\n- **Indication:** ${p.indication}\n- **Timeline:** ${p.expectedTimeline}\n- **Significance:** ${p.significance}`
@@ -64,16 +64,16 @@ function keywordFallback(query, selectedProduct) {
   }
 
   if (q.includes('publi') || q.includes('paper') || q.includes('journal') || q.includes('literature') || q.includes('pubmed')) {
-    const pubs = selectedProduct === 'soliris' ? PUBMED_SOLIRIS : PUBMED_ULTOMIRIS;
-    const productName = selectedProduct === 'soliris' ? 'Soliris (eculizumab)' : 'Ultomiris (ravulizumab)';
+    const pubs = selectedProduct === 'ap01' ? PUBMED_SOLIRIS : PUBMED_ULTOMIRIS;
+    const productName = selectedProduct === 'ap01' ? 'AP01 (inhaled pirfenidone)' : 'AP02 (inhaled nintedanib)';
     return `## Recent Publications — ${productName}\n\nBased on real PubMed data (sourced Feb 2026):\n\n${pubs.slice(0, 10).map((p, i) =>
       `${i + 1}. **${p.title}**\n   - ${p.authors.slice(0, 3).join(', ')}${p.authors.length > 3 ? ' et al.' : ''}\n   - *${p.journal}* (${p.pubDate})\n   - PMID: ${p.pmid}${p.doi ? ` | DOI: ${p.doi}` : ''}`
     ).join('\n\n')}\n\n*${pubs.length} total publications tracked.*`;
   }
 
   if (q.includes('trial') || q.includes('clinical') || q.includes('recruit')) {
-    const trials = selectedProduct === 'soliris' ? TRIALS_SOLIRIS : TRIALS_ULTOMIRIS;
-    const productName = selectedProduct === 'soliris' ? 'Soliris (eculizumab)' : 'Ultomiris (ravulizumab)';
+    const trials = selectedProduct === 'ap01' ? TRIALS_SOLIRIS : TRIALS_ULTOMIRIS;
+    const productName = selectedProduct === 'ap01' ? 'AP01 (inhaled pirfenidone)' : 'AP02 (inhaled nintedanib)';
     return `## Active Clinical Trials — ${productName}\n\nBased on real ClinicalTrials.gov data (sourced Feb 2026):\n\n${trials.slice(0, 8).map((t, i) =>
       `${i + 1}. **${t.title}**\n   - ${t.nctId} | ${t.status} | ${t.phase || 'N/A'}\n   - Sponsor: ${t.sponsor}\n   - Enrollment: ${t.enrollment} | Completion: ${t.completionDate || 'TBD'}`
     ).join('\n\n')}\n\n*${trials.length} active trials tracked.*`;

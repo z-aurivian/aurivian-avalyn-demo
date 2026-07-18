@@ -2,21 +2,17 @@
 // Vision Doc Module 3 (KOL Intelligence) — alignment % per messaging pillar
 // plus an AI engagement recommendation tying tier, influence and gaps
 // together.
-//
-// Default fill: Alexion (template example). Overwrite per demo.
 
 // The medical messaging pillars the brand is trying to move HCPs toward.
 export const MESSAGING_PILLARS = [
-  { id: 'pillar-1', name: 'C5 inhibition long-term safety',          short: 'C5 safety' },
-  { id: 'pillar-2', name: 'Ultomiris extended dosing convenience',   short: 'Extended dosing' },
-  { id: 'pillar-3', name: 'BTH management & differentiation',        short: 'BTH mgmt' },
-  { id: 'pillar-4', name: 'Diagnostic pathway & guideline alignment', short: 'Guidelines' },
+  { id: 'pillar-1', name: 'Inhaled delivery, proven mechanism',                short: 'Inhaled delivery' },
+  { id: 'pillar-2', name: 'Lower systemic exposure (company-reported)',        short: 'Exposure reduction' },
+  { id: 'pillar-3', name: 'Tolerability built for adherence',                  short: 'Tolerability' },
+  { id: 'pillar-4', name: 'CTD-ILD / SSc-ILD multidisciplinary care',          short: 'SSc-ILD care' },
 ];
 
 // Stable per-KOL alignment + AI recommendation, derived deterministically
-// from tier + influence + a per-pillar offset on the KOL id hash. Avoids
-// the 18×4 hand-keyed table while giving each KOL distinct values across
-// re-renders and per-pillar realism.
+// from tier + influence + a per-pillar offset on the KOL id hash.
 function hashCode(s) {
   let h = 0;
   for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;

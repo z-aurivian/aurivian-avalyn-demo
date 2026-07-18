@@ -23,77 +23,90 @@ function actionCoversInsight(action, insightId) {
 
 const KIQ_PERIOD_DATA = {
   LP1: {
-    status: 'new',
+    status: 'urgent',
     thisPeriod: {
-      summary: 'Three independent MSL reports this cycle confirm community haematologists lack awareness of the long-term Ultomiris retention data. The gap is most pronounced in NE and NW regions. MSLs who probed directly found HCPs defaulting to switching FAQs that cite only 2-year data.',
-      novaSynthesis: 'The intelligence picture shifted this period: awareness of the data exists among academic centres but has not transferred to community practice. The missing link is a community-appropriate evidence summary — not more data generation.',
-      keyQuote: { text: 'I know the 3-year data exists somewhere but I\'ve never seen a clean one-pager I could use in clinic.', msl: 'J. Morgan', territory: 'NE Region', date: '2026-06-04' },
-      actionPill: { insight: 'AI2', taken: true, label: 'RWE sub-analysis scoped' },
+      summary: 'Three independent sources this cycle confirm community rheumatologists lack a clear MIST/CTD-ILD referral pathway. The gap is most pronounced outside the Northeast US and UK & Ireland territories. MSLs who probed directly found HCPs unsure which patients qualify or who to call.',
+      novaSynthesis: 'The intelligence picture shifted this period: awareness that MIST exists is high, but referral logistics — not eligibility criteria — is the blocker. The missing link is a community-facing checklist, not more trial-design communication.',
+      keyQuote: { text: 'I know MIST exists but I don\'t know which of my SSc-ILD patients would qualify, or who to call.', msl: 'Maya Sorensen', territory: 'Northeast US', date: '2026-06-04' },
+      actionPill: { insight: 'AI1', taken: true, label: 'Referral checklist deployed' },
     },
     cumulative: {
-      summary: 'Across 3 measurement periods, community awareness of long-term Ultomiris RWE has grown from 12% to 31% of surveyed HCPs — steady progress, but below the 60% target. Academic centres are at 78%.',
-      runningInsight: 'The question has shifted from "does the data exist?" to "how do we make it accessible in community practice?" — a transition from evidence generation to education strategy.',
+      summary: 'Across 3 measurement periods, community referral-conversation rate has grown from 11% to 21% of tracked rheumatology accounts following the checklist deployment — steady progress, but still below the 40% target.',
+      runningInsight: 'The question has shifted from "does the referral pathway exist?" to "how many territories have the checklist actually reached?" — a distribution question, not a design question.',
     },
   },
   LP2: {
-    status: 'urgent',
+    status: 'new',
     thisPeriod: {
-      summary: 'Five signals this period — highest volume of any KIQ. Hesitancy is consistently attributed to inertia, not clinical concern. The phrase "if it\'s not broken" appeared in three separate MSL reports from different regions. National alignment score for this question has regressed from 68 to 61.',
-      novaSynthesis: 'The core barrier is not knowledge of switching safety — it is the absence of a compelling framing for why to act when the status quo appears stable. Community-facing materials address the "what" but not the "why now."',
-      keyQuote: { text: 'If it\'s not broken, I\'m not going to fix it. My patients are stable and the infusion schedule is built into their routine.', msl: 'S. Chen', territory: 'MW Region', date: '2026-06-10' },
-      actionPill: { insight: 'AI1', taken: true, label: 'Switch narrative reframed' },
+      summary: 'Two signals this period focused on the inhaled PK rationale. Physicians want the exposure-reduction claim presented plainly and labeled company-reported, not as an independently verified fact. Academic ad-board feedback echoed the same caution.',
+      novaSynthesis: 'The core barrier is not skepticism about the mechanism — it is a credibility-framing question. Getting the "company-reported" language right in every piece of MSL material is now a prerequisite for further engagement, not a footnote.',
+      keyQuote: { text: 'If you tell me it\'s 15 to 68 times lower exposure I want to know whose number that is and how it was measured.', msl: 'Priya Chandrasekaran', territory: 'Midwest US', date: '2026-06-08' },
+      actionPill: { insight: 'AI2', taken: true, label: 'PK explainer drafted' },
     },
     cumulative: {
-      summary: 'This has been the most persistent KIQ across all periods. The switching inertia signal first appeared in Q3 2025 and has remained the highest-recurrence theme. Despite three intervention cycles, the national hesitancy rate has only declined from 74% to 61%.',
-      runningInsight: 'The question is evolving from "what are the barriers?" to "which levers move the needle?" — the evidence is that MSL conversation quality matters more than materials availability.',
+      summary: 'LP2 was established alongside AURA-IPF\'s first patient dosed (March 2026). Two insights generated across 2 periods, both centered on the same credibility-framing question rather than new concerns.',
+      runningInsight: 'The question is evolving from "is inhaled delivery credible?" to "is our labeling of company-reported data rigorous enough to survive academic scrutiny?"',
     },
   },
   LP3: {
-    status: 'new',
+    status: 'urgent',
     thisPeriod: {
-      summary: 'Three MSL reports from independent territories confirmed guideline steering members are receptive to strengthening the gMG position — but require refractory-subgroup data as the evidentiary basis. The ask is specific and actionable.',
-      novaSynthesis: 'A single high-value signal from a guideline steering member has catalysed three supporting field reports. The opportunity window is narrow — the next guideline review cycle is scheduled for late 2026.',
-      keyQuote: { text: 'Bring us the refractory subgroup data and we have something to work with. The current language is too hedged.', msl: 'A. Patel', territory: 'SE Region', date: '2026-06-05' },
-      actionPill: { insight: 'AI3', taken: false, label: 'KOL dossier not yet initiated' },
+      summary: 'Four signals this period — the highest volume of any KIQ. Tolerability burden is now the single most consistently reinforced theme in the field: GI and dermatologic AEs, not efficacy, are cited as the top discontinuation driver.',
+      novaSynthesis: 'The core barrier is not lack of tolerability data — it is that MSL materials do not yet lead with it. The conversation guide (A5) has been Accepted but deployment across all territories is incomplete, which is why MO3 remains flagged Gap despite this being the top-recurrence insight.',
+      keyQuote: { text: 'Nausea and rash are why patients stop calling me back, not lack of efficacy.', msl: 'Derek Okafor', territory: 'Southeast US', date: '2026-06-10' },
+      actionPill: { insight: 'AI3', taken: true, label: 'Conversation guide accepted' },
     },
     cumulative: {
-      summary: 'The guideline positioning question has generated 2 insights across 3 periods, both consistent in identifying the same evidentiary gap. Progress has been slow due to the long cycle time of guideline review processes.',
-      runningInsight: 'The question has narrowed from "is there an opportunity?" to "what evidence is needed and by when?" — urgency is increasing as the 2026 review window approaches.',
+      summary: 'This has been the most persistent KIQ across all periods. The tolerability-burden signal first appeared in Q4 2025 and has remained the highest-recurrence theme every cycle since — 4 sources this period alone.',
+      runningInsight: 'The question is evolving from "is tolerability a real barrier?" to "why hasn\'t the conversation guide fully deployed yet?" — a distribution and adoption question now, not a discovery question.',
     },
   },
   LP4: {
+    status: 'new',
+    thisPeriod: {
+      summary: 'Two sources from UK & Ireland and Southeast US territories confirmed rheumatologists want a simplified, EUSTAR-consistent HRCT/PFT screening trigger for SSc-ILD referral, rather than center-specific protocols.',
+      novaSynthesis: 'The screening gap is concentrated outside EUSTAR-affiliated academic centers. A single consensus-aligned algorithm, co-authored with Tier 1 rheumatology KOLs, would resolve most of the variation MSLs are reporting.',
+      keyQuote: { text: 'We need a screening algorithm we can actually put in front of general rheumatologists, not just EUSTAR specialists.', msl: 'Sophie Bergman', territory: 'UK & Ireland', date: '2026-05-14' },
+      actionPill: { insight: 'AI4', taken: false, label: 'Screening algorithm scoping underway' },
+    },
+    cumulative: {
+      summary: 'LP4 was established in Q1 2026. Two insights generated across 2 periods, both pointing to the same non-EUSTAR-center screening gap. UK & Ireland and Continental Europe territories are the primary source of this signal.',
+      runningInsight: 'The question has narrowed from "is early referral a problem?" to "what specific trigger should general rheumatologists use?" — urgency increasing ahead of EULAR 2026.',
+    },
+  },
+  LP5: {
     status: 'none',
     thisPeriod: {
       summary: null,
       novaSynthesis: null,
       keyQuote: null,
       actionPill: null,
-      emptyReason: 'No new insights generated this period. LP4 was probed in 2 MSL interactions, but neither produced a substantive response — HCPs deferred to the last congress update. Only 1 historical insight exists for this question (Q3 2025).',
+      emptyReason: 'No new insights generated this period. LP5 was probed in 2 MSL interactions, but neither produced a substantive response — HCPs deferred to the prior cycle\'s congress content. 1 historical insight (AI5) exists for this question.',
     },
     cumulative: {
-      summary: 'Only 1 insight generated since LP4 was established in Q2 2025. The question remains strategically important but MSL activation against it has been low. Territory coverage is uneven — only SE and NE regions have logged interactions on this topic.',
-      runningInsight: 'The question has not yet generated enough intelligence to establish a trajectory. Directed MSL activation is the priority before the next period.',
+      summary: 'Only 1 insight generated since LP5 was established. Mechanistic confusion between inhaled antifibrotics and inhaled prostacyclins remains a live risk (et-1, growth rate 54%) but has not generated fresh MSL-sourced signal this period.',
+      runningInsight: 'The question has not yet generated enough intelligence to establish a clear trajectory. Directed MSL activation is the priority before the next period, especially ahead of ERS 2026.',
     },
   },
-  LP5: {
-    status: 'new',
+  LP6: {
+    status: 'urgent',
     thisPeriod: {
-      summary: 'Two MSL reports from NE and NW regions confirmed community paediatricians lack long-term aHUS management data. Both HCPs cited the absence of 3-year retention data in a community-appropriate format as the specific gap.',
-      novaSynthesis: 'The pediatric evidence gap is both a data gap and a communication gap. The 3-year data exists but is not accessible to community paediatricians in a usable format.',
-      keyQuote: { text: 'I\'d enrol patients if I could show families a 3-year outcome summary they could understand. The trial data is too complex for a consult.', msl: 'J. Morgan', territory: 'NE Region', date: '2026-06-08' },
-      actionPill: { insight: 'AI5', taken: false, label: 'Registry sub-analysis proposed' },
+      summary: 'Three sources this cycle confirm nerandomilast\'s approval is actively reshaping first-line IPF sequencing conversations — the fastest-growing emerging theme this cycle (et-2, growth rate 61%).',
+      novaSynthesis: 'This is a genuinely new mechanism, not an incremental oral improvement — the field response needed to be faster than a typical competitive update. The rapid-response briefing (A8) was produced within 3 weeks of the signal being flagged.',
+      keyQuote: { text: 'Now that there\'s a real new oral mechanism, why would I wait for an inhaled reformulation of an old one?', msl: 'Priya Chandrasekaran', territory: 'Midwest US', date: '2026-06-12' },
+      actionPill: { insight: 'AI6', taken: true, label: 'Rapid-response briefing deployed' },
     },
     cumulative: {
-      summary: 'LP5 was established in Q4 2025. Two insights generated across 2 periods, both pointing to the same communication gap. Community-paediatrician engagement has been lower than academic centre engagement.',
-      runningInsight: 'The question is shifting from "what is the evidence gap?" to "how do we bridge academic evidence to community practice?" — an education strategy question, not an evidence generation question.',
+      summary: 'LP6 was established immediately following nerandomilast\'s IPF approval (Oct 2025). Three insights generated in a single period reflect the speed of the competitive event, not a slow-building trend.',
+      runningInsight: 'The question is shifting from "how do we respond to nerandomilast\'s approval?" to "how do we maintain a standing competitive-response capability for the next oral mechanism?"',
     },
   },
 };
 
-const LP6_MOCK = {
-  id: 'LP6', name: 'Scientific exchange barriers', moRef: 'MO4',
-  kiq: 'What barriers exist to peer-to-peer scientific exchange on complement biology?',
-  kits: ['Peer exchange protocol', 'KOL advisory panel'],
+const LP7_MOCK = {
+  id: 'LP7', name: 'Patient-reported tolerability voice', moRef: 'MO3',
+  kiq: 'What tolerability signals are patients reporting directly through advocacy channels, independent of MSL relay?',
+  kits: ['Patient advocacy monitoring protocol'],
 };
 
 const STATUS_CONFIG = {
@@ -240,7 +253,7 @@ function InsightCard({ insight }) {
 function KIQMatrix() {
   const [openRow, setOpenRow] = useState(null);
 
-  const allLPs = [...LISTENING_PRIORITIES, LP6_MOCK];
+  const allLPs = [...LISTENING_PRIORITIES, LP7_MOCK];
 
   return (
     <section>
@@ -380,11 +393,12 @@ export default function NovaTab3InsightIntelligence() {
           <span className="text-[10px] text-violet-500 ml-1">AI-generated · on load</span>
         </div>
         <p className="text-sm text-auri-text leading-relaxed">
-          This period, <strong>4 of 6 KIQs</strong> generated new insights. LP2 (switch-patient confidence) is flagged
-          <strong> Urgent</strong> — national alignment regressed from 68 to 61 despite active interventions.
-          LP4 (NMOSD treatment paradigm) and LP6 (scientific exchange barriers) have generated
-          no intelligence this cycle; directed MSL activation is recommended for both.
-          The highest-confidence insight this period is <strong>AI4</strong> (91% confidence, LP1/LP2 intersection).
+          This period, <strong>5 of 7 KIQs</strong> generated new insights. LP3 (tolerability/adherence burden) and LP6
+          (nerandomilast competitive response) are both flagged <strong>Urgent</strong> — LP3 is the highest-recurrence
+          insight this cycle despite MO3's Gap coverage score, and LP6 reflects the speed of nerandomilast's approval.
+          LP5 (inhaled category differentiation) and LP7 (patient-reported tolerability voice) have generated
+          no fresh intelligence this cycle; directed MSL activation is recommended for both ahead of ERS 2026.
+          The highest-confidence insight this period is <strong>AI3</strong> (89% confidence, tolerability burden).
         </p>
       </div>
 

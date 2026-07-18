@@ -11,23 +11,25 @@ import {
 
 // ─── Mock data ─────────────────────────────────────────────────────────────
 
-const MSL_OPTIONS = ['J. Morgan — NE Region', 'S. Chen — MW Region', 'A. Patel — SE Region', 'L. Torres — SW Region', 'R. Kim — NW Region'];
+const MSL_OPTIONS = ['Maya Sorensen — Northeast US', 'Derek Okafor — Southeast US', 'Priya Chandrasekaran — Midwest US', 'Jordan Reyes — West US', 'Sophie Bergman — UK & Ireland', 'Lukas Richter — Continental Europe'];
 
-// LP6 is a mock gap row (mirrors NovaTab3InsightIntelligence's LP6_MOCK) — the
-// MO4 scientific-exchange listening priority has no ISP config entry because
-// it has never generated an insight.
-const LP6_MOCK = {
-  id: 'LP6', name: 'Scientific exchange barriers', moRef: 'MO4',
-  kiq: 'What barriers exist to peer-to-peer scientific exchange on complement biology?',
-  kits: ['Peer exchange protocol', 'KOL advisory panel'],
+// LP7 is a mock gap row (mirrors NovaTab3InsightIntelligence's LP7_MOCK) —
+// it mirrors Gap Radar's proposed new LP under MO3 (patient-reported
+// tolerability voice), which has no ISP config entry because it has never
+// generated an insight yet.
+const LP7_MOCK = {
+  id: 'LP7', name: 'Patient-reported tolerability voice', moRef: 'MO3',
+  kiq: 'What tolerability signals are patients reporting directly through advocacy channels, independent of MSL relay?',
+  kits: ['Patient advocacy monitoring protocol'],
 };
 
 const MSL_PERFORMANCE = [
-  { msl: 'J. Morgan', territory: 'NE Region', status: 'Excellent',    interactions: 24, target: 20, delta: '+4', qualityScore: 82, kitSignals: 3, kolsAtRisk: 1, note: 'High interaction quality. Strong pediatric evidence focus.' },
-  { msl: 'S. Chen',   territory: 'MW Region', status: 'On track',     interactions: 19, target: 20, delta: '−1', qualityScore: 76, kitSignals: 5, kolsAtRisk: 2, note: 'Switch messaging delivery improving month-on-month.' },
-  { msl: 'A. Patel',  territory: 'SE Region', status: 'Quality gap',  interactions: 21, target: 20, delta: '+1', qualityScore: 61, kitSignals: 2, kolsAtRisk: 3, note: 'Volume adequate, quality below target. KIT alignment coaching needed.' },
-  { msl: 'L. Torres', territory: 'SW Region', status: 'Volume gap',   interactions: 14, target: 20, delta: '−6', qualityScore: 79, kitSignals: 1, kolsAtRisk: 1, note: 'Quality strong but interactions below target. Coverage review needed.' },
-  { msl: 'R. Kim',    territory: 'NW Region', status: 'Needs support',interactions: 12, target: 20, delta: '−8', qualityScore: 58, kitSignals: 2, kolsAtRisk: 4, note: 'Both volume and quality below target. Escalated to director.' },
+  { msl: 'Maya Sorensen',        territory: 'Northeast US',       status: 'Excellent',     interactions: 44, target: 40, delta: '+4', qualityScore: 86, kitSignals: 4, kolsAtRisk: 1, note: 'High interaction quality. Strong MIST/CTD-ILD referral focus.' },
+  { msl: 'Derek Okafor',         territory: 'Southeast US',       status: 'Excellent',     interactions: 41, target: 39, delta: '+2', qualityScore: 83, kitSignals: 5, kolsAtRisk: 1, note: 'Tolerability-narrative conversations driving strong insight capture.' },
+  { msl: 'Priya Chandrasekaran', territory: 'Midwest US',         status: 'Quality gap',   interactions: 38, target: 39, delta: '−1', qualityScore: 64, kitSignals: 2, kolsAtRisk: 2, note: 'Volume adequate, quality below target. KIT alignment coaching needed.' },
+  { msl: 'Jordan Reyes',         territory: 'West US',            status: 'On track',      interactions: 35, target: 38, delta: '−3', qualityScore: 80, kitSignals: 3, kolsAtRisk: 1, note: 'Steady coverage across IPF and PPF accounts.' },
+  { msl: 'Sophie Bergman',       territory: 'UK & Ireland',       status: 'Excellent',     interactions: 29, target: 28, delta: '+1', qualityScore: 89, kitSignals: 4, kolsAtRisk: 0, note: 'Strong EULAR-adjacent rheumatology relationships ahead of congress.' },
+  { msl: 'Lukas Richter',        territory: 'Continental Europe', status: 'Volume gap',    interactions: 19, target: 26, delta: '−7', qualityScore: 76, kitSignals: 2, kolsAtRisk: 2, note: 'Quality solid but interactions below target. DACH/France territory expansion recommended.' },
 ];
 
 const MSL_STATUS_STYLE = {
@@ -45,9 +47,9 @@ const MSL_ROW_STYLE = {
 };
 
 const HCP_TOPICS = [
-  { topic: 'Ultomiris switch benefit',    hcpCount: 48, stages: [8, 12, 18, 7, 3],  avgStage: 2.9, trend: '+0.4', confirmed: 22 },
-  { topic: 'NMOSD long-term RWE',        hcpCount: 31, stages: [14,  9,  5, 3, 0],  avgStage: 2.0, trend: '+0.1', confirmed: 8  },
-  { topic: 'C5 inhibition in gMG',       hcpCount: 27, stages: [5,   8,  9, 4, 1],  avgStage: 2.7, trend: '+0.3', confirmed: 14 },
+  { topic: 'Tolerability burden vs. oral SoC', hcpCount: 52, stages: [6, 11, 19, 11, 5], avgStage: 3.1, trend: '+0.5', confirmed: 27 },
+  { topic: 'MIST / CTD-ILD referral pathway',  hcpCount: 34, stages: [12, 10, 7, 4, 1],  avgStage: 2.2, trend: '+0.2', confirmed: 9  },
+  { topic: 'SSc-ILD screening & referral',     hcpCount: 25, stages: [7, 8, 6, 3, 1],    avgStage: 2.3, trend: '+0.3', confirmed: 8  },
 ];
 
 const STAGE_LABELS = ['Unaware', 'Aware', 'Interested', 'Evaluating', 'Committed'];
@@ -61,64 +63,73 @@ const STAGE_LABELS = ['Unaware', 'Aware', 'Interested', 'Evaluating', 'Committed
 // messaging-alignment.js uses for the current-quarter numbers.
 
 const NATIONAL_METRICS = [
-  { label: 'Total MSL interactions', value: '90', sub: 'this cycle' },
-  { label: 'Avg quality score', value: '71', sub: 'target: 75' },
-  { label: 'Insight capture rate', value: '62%', sub: '+4% vs prior' },
-  { label: 'KOLs at risk', value: '11', sub: 'tier 1 / tier 2', alert: true },
+  { label: 'Total MSL interactions', value: '206', sub: 'this cycle' },
+  { label: 'Avg quality score', value: '80', sub: 'target: 78' },
+  { label: 'Insight capture rate', value: '68%', sub: '+6% vs prior' },
+  { label: 'KOLs at risk', value: '7', sub: 'tier 1 / tier 2', alert: true },
 ];
 
-const TERRITORY_LIST = ['NE Region', 'MW Region', 'SE Region', 'SW Region', 'NW Region'];
+const TERRITORY_LIST = ['Northeast US', 'Southeast US', 'Midwest US', 'West US', 'UK & Ireland', 'Continental Europe'];
+const TERRITORY_SHORT = ['NE', 'SE', 'MW', 'W', 'UK', 'EU'];
 
 // Per-territory HCP topics (scoped subset of national data)
 const TERRITORY_HCP_TOPICS = {
-  'NE Region': [
-    { topic: 'Ultomiris switch benefit', hcpCount: 14, stages: [2, 3, 5, 3, 1], avgStage: 3.1, trend: '+0.6', confirmed: 8 },
-    { topic: 'NMOSD long-term RWE',     hcpCount: 9,  stages: [4, 2, 2, 1, 0], avgStage: 2.1, trend: '+0.2', confirmed: 2 },
-    { topic: 'Pediatric evidence',       hcpCount: 6,  stages: [1, 2, 2, 1, 0], avgStage: 2.5, trend: '+0.4', confirmed: 3 },
+  'Northeast US': [
+    { topic: 'Tolerability burden vs. oral SoC', hcpCount: 15, stages: [2, 3, 5, 4, 1], avgStage: 3.0, trend: '+0.6', confirmed: 9 },
+    { topic: 'MIST / CTD-ILD referral pathway',  hcpCount: 10, stages: [3, 3, 2, 2, 0], avgStage: 2.3, trend: '+0.3', confirmed: 3 },
+    { topic: 'AURA-IPF trial awareness',          hcpCount: 6,  stages: [1, 2, 2, 1, 0], avgStage: 2.5, trend: '+0.2', confirmed: 2 },
   ],
-  'MW Region': [
-    { topic: 'Ultomiris switch benefit', hcpCount: 12, stages: [3, 4, 4, 1, 0], avgStage: 2.6, trend: '+0.3', confirmed: 5 },
-    { topic: 'NMOSD long-term RWE',     hcpCount: 8,  stages: [4, 2, 1, 1, 0], avgStage: 2.0, trend: '+0.1', confirmed: 2 },
-    { topic: 'C5 inhibition in gMG',    hcpCount: 7,  stages: [2, 2, 2, 1, 0], avgStage: 2.3, trend: '+0.2', confirmed: 3 },
+  'Southeast US': [
+    { topic: 'Tolerability burden vs. oral SoC', hcpCount: 13, stages: [1, 3, 5, 3, 1], avgStage: 3.1, trend: '+0.7', confirmed: 8 },
+    { topic: 'MIST / CTD-ILD referral pathway',  hcpCount: 8,  stages: [2, 3, 2, 1, 0], avgStage: 2.2, trend: '+0.2', confirmed: 2 },
+    { topic: 'Nerandomilast sequencing',          hcpCount: 7,  stages: [1, 2, 2, 2, 0], avgStage: 2.7, trend: '+0.4', confirmed: 3 },
   ],
-  'SE Region': [
-    { topic: 'C5 inhibition in gMG',    hcpCount: 11, stages: [1, 2, 4, 3, 1], avgStage: 3.2, trend: '+0.5', confirmed: 6 },
-    { topic: 'Ultomiris switch benefit', hcpCount: 9,  stages: [2, 3, 3, 1, 0], avgStage: 2.5, trend: '+0.2', confirmed: 4 },
-    { topic: 'NMOSD long-term RWE',     hcpCount: 6,  stages: [3, 2, 1, 0, 0], avgStage: 1.7, trend: '−0.1', confirmed: 1 },
+  'Midwest US': [
+    { topic: 'Tolerability burden vs. oral SoC', hcpCount: 10, stages: [2, 3, 3, 2, 0], avgStage: 2.5, trend: '+0.2', confirmed: 4 },
+    { topic: 'AURA-IPF trial awareness',          hcpCount: 9,  stages: [3, 3, 2, 1, 0], avgStage: 2.1, trend: '+0.1', confirmed: 2 },
+    { topic: 'Nerandomilast sequencing',          hcpCount: 6,  stages: [1, 2, 2, 1, 0], avgStage: 2.5, trend: '+0.3', confirmed: 2 },
   ],
-  'SW Region': [
-    { topic: 'Ultomiris switch benefit', hcpCount: 8,  stages: [1, 2, 3, 2, 0], avgStage: 2.8, trend: '+0.4', confirmed: 3 },
-    { topic: 'C5 inhibition in gMG',    hcpCount: 5,  stages: [1, 2, 1, 1, 0], avgStage: 2.4, trend: '+0.3', confirmed: 2 },
-    { topic: 'NMOSD long-term RWE',     hcpCount: 4,  stages: [2, 1, 1, 0, 0], avgStage: 1.8, trend: '0.0',  confirmed: 1 },
+  'West US': [
+    { topic: 'Tolerability burden vs. oral SoC', hcpCount: 9,  stages: [1, 3, 3, 2, 0], avgStage: 2.6, trend: '+0.3', confirmed: 3 },
+    { topic: 'MIST / CTD-ILD referral pathway',  hcpCount: 7,  stages: [2, 2, 2, 1, 0], avgStage: 2.3, trend: '+0.2', confirmed: 2 },
+    { topic: 'AURA-IPF trial awareness',          hcpCount: 5,  stages: [1, 2, 1, 1, 0], avgStage: 2.2, trend: '0.0',  confirmed: 1 },
   ],
-  'NW Region': [
-    { topic: 'Ultomiris switch benefit', hcpCount: 5,  stages: [2, 1, 1, 1, 0], avgStage: 2.2, trend: '−0.1', confirmed: 2 },
-    { topic: 'NMOSD long-term RWE',     hcpCount: 4,  stages: [2, 1, 1, 0, 0], avgStage: 1.8, trend: '0.0',  confirmed: 1 },
-    { topic: 'C5 inhibition in gMG',    hcpCount: 3,  stages: [1, 1, 1, 0, 0], avgStage: 2.0, trend: '−0.2', confirmed: 1 },
+  'UK & Ireland': [
+    { topic: 'SSc-ILD screening & referral',      hcpCount: 11, stages: [1, 2, 4, 3, 1], avgStage: 3.0, trend: '+0.5', confirmed: 6 },
+    { topic: 'MIST / CTD-ILD referral pathway',   hcpCount: 8,  stages: [2, 2, 2, 2, 0], avgStage: 2.5, trend: '+0.3', confirmed: 3 },
+    { topic: 'Tolerability burden vs. oral SoC',  hcpCount: 5,  stages: [1, 1, 2, 1, 0], avgStage: 2.4, trend: '+0.1', confirmed: 2 },
+  ],
+  'Continental Europe': [
+    { topic: 'SSc-ILD screening & referral',      hcpCount: 7,  stages: [2, 2, 2, 1, 0], avgStage: 2.3, trend: '+0.2', confirmed: 2 },
+    { topic: 'MIST / CTD-ILD referral pathway',   hcpCount: 5,  stages: [2, 1, 1, 1, 0], avgStage: 2.0, trend: '0.0',  confirmed: 1 },
+    { topic: 'Tolerability burden vs. oral SoC',  hcpCount: 4,  stages: [1, 1, 1, 1, 0], avgStage: 2.3, trend: '−0.1', confirmed: 1 },
   ],
 };
 
 const TERRITORY_KIT_COVERAGE = {
-  'NE Region': [true,  true,  true,  false, false],
-  'MW Region': [true,  true,  false, false, false],
-  'SE Region': [true,  true,  true,  false, false],
-  'SW Region': [true,  false, false, false, false],
-  'NW Region': [false, false, false, false, false],
+  'Northeast US':       [true,  true,  true,  false, true ],
+  'Southeast US':       [true,  true,  false, true,  false],
+  'Midwest US':         [true,  false, false, true,  false],
+  'West US':            [true,  false, false, false, true ],
+  'UK & Ireland':       [true,  false, true,  false, true ],
+  'Continental Europe': [false, false, true,  false, false],
 };
 
 const TERRITORY_BRIEFS = {
-  'NE Region': 'NE Region is the strongest-performing territory this cycle — 24 interactions, quality score 82. J. Morgan is driving KIT signal coverage across 3 topics. Pediatric evidence (LP5) is the standout theme: 3 MSL interactions captured this cycle alone. One tier-1 KOL has shown a strong positive alignment shift this quarter — see Scientific Alignment Shift below. No KOL engagement gaps.',
-  'MW Region': 'MW Region is on track with 19 interactions and quality score 76. Switch messaging delivery (MO2) is improving. 5 KIT signals captured — highest in any territory this cycle. Two tier-1 KOLs are at engagement risk (>45 days since last contact). Switch inertia remains the dominant theme: "if it\'s not broken" appeared in 3 separate field reports.',
-  'SE Region': 'SE Region shows a quality gap — 21 interactions (above target) but quality score of 61, below the 75 threshold. A. Patel has strong congress-sourced signal capture but KIT alignment in MSL interactions is inconsistent. Three KOLs at engagement risk. C5 in gMG is the strongest awareness topic with the highest avg stage nationally (3.2).',
-  'SW Region': 'SW Region is showing a volume gap — only 14 interactions against a target of 20. Quality score is strong at 79. One tier-1 KOL at risk. L. Torres has captured the highest per-interaction quality in the team but needs territory coverage expansion. Patient advocacy signals are emerging.',
-  'NW Region': 'NW Region requires immediate support — 12 interactions (60% of target) and quality score 58. R. Kim has 4 tier-1/2 KOLs with no substantive contact in the past 60 days. KIT coverage dots are below all other territories. Escalated to field director. Director brief and coaching plan recommended before next cycle.',
+  'Northeast US': 'Northeast US is the strongest-performing territory this cycle — 44 interactions, quality score 86. Maya Sorensen is driving KIT signal coverage across 4 topics, with MIST/CTD-ILD referral pathway work standing out. No KOL engagement gaps this cycle.',
+  'Southeast US': 'Southeast US is excellent — 41 interactions, quality score 83. Derek Okafor\'s tolerability-narrative conversations are the highest-signal activity nationally. One tier-1 KOL at engagement risk. Nerandomilast sequencing questions are rising fast in this territory.',
+  'Midwest US': 'Midwest US shows a quality gap — 38 interactions (near target) but quality score of 64, below the 78 threshold. Priya Chandrasekaran has solid congress-sourced signal capture but KIT alignment in MSL interactions is inconsistent. Two KOLs at engagement risk.',
+  'West US': 'West US is on track — 35 interactions, quality score 80. Jordan Reyes maintains steady coverage across IPF and PPF accounts. One tier-1 KOL at risk. AURA-IPF trial awareness is building steadily.',
+  'UK & Ireland': 'UK & Ireland is excellent — 29 interactions, quality score 89, the highest quality score nationally. Sophie Bergman\'s EULAR-adjacent rheumatology relationships are driving SSc-ILD screening & referral signal capture. No KOL engagement gaps.',
+  'Continental Europe': 'Continental Europe shows a volume gap — only 19 interactions against a target of 26. Quality score is solid at 76. Two KOLs at engagement risk. Lukas Richter has strong per-interaction quality but DACH/France territory coverage expansion is recommended ahead of EULAR 2026.',
 };
 
 const MO_FIELD_DATA = {
-  MO1: { interactions: 28, insights: 2, kols: 6,  impact: 'RWE data gap confirmed across 3 territories. Sub-analysis protocol in review.' },
-  MO2: { interactions: 41, insights: 3, kols: 14, impact: 'Switch-stability narrative deployed. Community uptake: 68% of targeted centres.' },
-  MO3: { interactions: 13, insights: 1, kols: 5,  impact: 'Guideline steering engagement initiated. Dossier scoping underway.' },
-  MO4: { interactions: 8,  insights: 0, kols: 2,  impact: 'No field insights generated against this MO this cycle.' },
+  MO1: { interactions: 62, insights: 2, kols: 8,  impact: 'MIST/CTD-ILD referral checklist deployed across US + UK/EU. Referral-conversation rate up 21% in tracked accounts.' },
+  MO2: { interactions: 38, insights: 1, kols: 6,  impact: 'AURA-IPF community-readiness materials in development. PK explainer drafted, pending independent-replication scoping.' },
+  MO3: { interactions: 71, insights: 1, kols: 10, impact: 'Tolerability/adherence conversation guide accepted and deploying. Highest-recurrence field signal this cycle (AI3).' },
+  MO4: { interactions: 24, insights: 1, kols: 6,  impact: 'EUSTAR-aligned SSc-ILD screening algorithm drafted with rheumatology KOLs; scoped for EULAR 2026 advisory review.' },
+  MO5: { interactions: 11, insights: 2, kols: 4,  impact: 'Nerandomilast rapid-response briefing produced. Mechanism-differentiation deck still in progress.' },
 };
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
@@ -186,7 +197,7 @@ function ExportBtn() {
 
 function FieldBrief({ scope }) {
   const briefs = {
-    national: 'National field performance is tracking at 71/100 quality score, 4 points below target. Switching messaging (MO2) shows the strongest field signal activity — 41 interactions and 3 insights captured this cycle. KOL engagement risk is elevated in the NW territory: 4 tier-1 KOLs have had no substantive contact in the past 60 days. The NMOSD sequencing question (LP4) continues to generate low interaction volumes — directed MSL activation recommended.',
+    national: 'National field performance is tracking at 80/100 quality score, 2 points above target. Tolerability/adherence messaging (MO3) shows the strongest field signal activity — 71 interactions this cycle, the highest-recurrence insight nationally (AI3). KOL engagement risk is elevated in Continental Europe: 2 tier-1/2 KOLs have had no substantive contact in the past several weeks. The nerandomilast competitive-response question (LP6) continues to generate rising interaction volumes — directed MSL activation recommended ahead of ERS 2026.',
     msl: 'Individual MSL brief — summarising KIT alignment, listening priority coverage, and HCP impact for the selected territory.',
   };
   return (
@@ -382,7 +393,7 @@ function NationalView() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">
-                        {['NE', 'MW', 'SE', 'SW', 'NW'].map((t, i) => (
+                        {TERRITORY_SHORT.map((t, i) => (
                           <div key={t} className={`w-7 h-7 rounded text-[9px] font-medium flex items-center justify-center ${i < 3 ? 'bg-auri-text text-auri-bg' : 'bg-auri-border text-auri-muted'}`}>{t}</div>
                         ))}
                       </div>
@@ -411,7 +422,7 @@ function NationalView() {
             </thead>
             <tbody>
               {(KOL_DATA || [])
-                .filter((k) => k.tier === 1 || k.tier === 2)
+                .filter((k) => k.engagementTier === 'Tier 1' || k.engagementTier === 'Tier 2')
                 .slice(0, 6)
                 .map((k) => {
                   const daysSince = Math.floor(Math.random() * 90) + 14;
@@ -420,7 +431,7 @@ function NationalView() {
                   return (
                     <tr key={k.id} className="border-t border-auri-border">
                       <td className="px-4 py-3 font-medium text-auri-text">{k.name}</td>
-                      <td className="px-4 py-3 text-auri-muted">Tier {k.tier}</td>
+                      <td className="px-4 py-3 text-auri-muted">{k.engagementTier}</td>
                       <td className="px-4 py-3 text-xs text-auri-muted">{k.institution || '—'}</td>
                       <td className="px-4 py-3 text-xs text-auri-muted">{daysSince}d ago</td>
                       <td className="px-4 py-3">
@@ -440,7 +451,7 @@ function NationalView() {
 // ─── Territory view (Phase 2 placeholder) ─────────────────────────────────
 
 function TerritoryView() {
-  const [territory, setTerritory] = useState('NE Region');
+  const [territory, setTerritory] = useState('Northeast US');
   const [openTopic, setOpenTopic] = useState(null);
 
   const msl = MSL_PERFORMANCE.find((m) => m.territory === territory) || MSL_PERFORMANCE[0];
@@ -672,7 +683,7 @@ function TerritoryView() {
             </thead>
             <tbody>
               {(KOL_DATA || [])
-                .filter((k) => k.tier <= 2)
+                .filter((k) => k.engagementTier === 'Tier 1' || k.engagementTier === 'Tier 2')
                 .slice(0, msl.kolsAtRisk + 2)
                 .map((k, idx) => {
                   const days = idx < msl.kolsAtRisk ? 60 + idx * 12 : 20 + idx * 5;
@@ -681,7 +692,7 @@ function TerritoryView() {
                   return (
                     <tr key={k.id} className="border-t border-auri-border">
                       <td className="px-4 py-3 font-medium text-auri-text">{k.name}</td>
-                      <td className="px-4 py-3 text-auri-muted">Tier {k.tier}</td>
+                      <td className="px-4 py-3 text-auri-muted">{k.engagementTier}</td>
                       <td className="px-4 py-3 text-xs text-auri-muted">{k.institution || '—'}</td>
                       <td className="px-4 py-3 text-xs text-auri-muted">{days}d ago</td>
                       <td className="px-4 py-3">
@@ -824,10 +835,10 @@ function MSLView({ selectedMSL }) {
 
       {/* Listening Priorities */}
       <section>
-        <SectionHeader icon={BookOpen} label="Listening Priorities & KITs" sub="ISP config · LP1–LP6" right={<ExportBtn />} />
+        <SectionHeader icon={BookOpen} label="Listening Priorities & KITs" sub="ISP config · LP1–LP7" right={<ExportBtn />} />
         <div className="space-y-2">
-          {[...LISTENING_PRIORITIES, LP6_MOCK].map((lp) => {
-            const isGap = lp.id === 'LP6';
+          {[...LISTENING_PRIORITIES, LP7_MOCK].map((lp) => {
+            const isGap = lp.id === 'LP7';
             const insightCount = INSIGHTS.filter((i) => i.lpRefs?.includes(lp.id)).length;
             return (
               <div key={lp.id} className={`rounded-xl border bg-auri-card p-4 ${isGap ? 'border-rose-200' : 'border-auri-border'}`}>
