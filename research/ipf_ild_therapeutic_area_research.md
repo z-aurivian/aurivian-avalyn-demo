@@ -1,0 +1,118 @@
+# IPF / Progressive Fibrosing ILD / CTD-ILD & SSc-ILD — Research Brief
+For internal sales-demo content (Avalyn Pharmaceuticals context). All figures below are sourced; conflicts and confidence levels are flagged explicitly. Do not use unflagged company claims as established medical fact in customer-facing material.
+
+---
+
+## 1. EPIDEMIOLOGY
+
+### IPF prevalence/incidence (US)
+- Most recent claims-based study (2017–2022): crude incidence 14.5–26.1/100,000 person-years (adjusted 9.8–18.4); crude prevalence 46.3–88.9/100,000 (adjusted 34.4–67.1). *Annals of the American Thoracic Society*, 2025 (article in press). https://www.atsjournals.org/doi/10.1513/AnnalsATS.202503-262OC
+- Classic systematic literature review (Nalysnyk et al., *Eur Respir Rev*, 2012): US prevalence 14.0–27.9/100,000 (narrow case definition) to 42.7–63.0/100,000 (broad definition); incidence 6.8–8.8 to 16.3–17.4/100,000/yr. Europe generally lower: prevalence 1.25–23.4/100,000. https://pmc.ncbi.nlm.nih.gov/articles/PMC9487229/
+- **Note:** IPF prevalence estimates vary 3–4x across studies depending on case-definition strictness (narrow ICD-code vs. broad) — this is a well-recognized methodological issue in the field, not a data error. For demo copy, cite a range (e.g., "roughly 30-90 per 100,000 in the US, depending on case definition") rather than a single point estimate, or pick one source and attribute it explicitly.
+
+### Progressive pulmonary fibrosis (PPF) / progressive fibrosing ILD
+- Among non-IPF fibrosing ILD patients, published progression rates range **13%–40%** depending on the underlying ILD diagnosis (iNSIP 32%, RA-ILD 40%, SSc-ILD 32%, fibrotic hypersensitivity pneumonitis 21%). "Epidemiology and Prognosis of Progressive Pulmonary Fibrosis: A Literature Review," 2023 (citing Wijsenbeek 2020, Olson 2021, Cottin 2022, Nasser 2021). https://pmc.ncbi.nlm.nih.gov/articles/PMC12373627/
+- **Primary US claims-data source** (Olson AL et al., large MarketScan database analysis, n=37.6M adults, 2012–2015): age/sex-adjusted **prevalence of chronic fibrosing ILD with progressive phenotype = 70.30 per 100,000** (95% CI 69.32–71.27); **adjusted incidence = 32.55 per 100,000 person-years** (95% CI 32.01–33.09), using the stricter definition (two diagnostic claims) that the authors say best matches clinic-based estimates. https://pmc.ncbi.nlm.nih.gov/articles/PMC8279991/ (2021) — **verified directly by re-fetching the primary paper.**
+- **Flagged conflict, resolved:** a secondary review (PMC12373627) attributes "28 per 100,000" in the US to this same Olson et al. 2021 study — that figure does not match the primary paper's reported 70.30/100,000. Use **70.30 per 100,000** (the verified primary-source figure) for the US PPF prevalence claim; do not use "28 per 100,000."
+- French PROGRESS study: prevalence 6.6–19.4/100,000; incidence 4.0–4.7 new cases/100,000/yr (Nasser et al. 2021), non-US comparator, considerably lower than US claims-based estimates.
+- Median survival following progression: 3.7 years (Nasser et al. 2021, cited in PMC12373627).
+
+### Systemic sclerosis (SSc) prevalence and % developing ILD
+- US SSc prevalence estimates range widely by study/era: 13.5–39.9 per 100,000 across multiple cohort studies (1989–2010); incidence 1.4–5.6 per 100,000/yr. "Epidemiology of systemic sclerosis and systemic sclerosis-associated interstitial lung disease," 2019 review. https://pmc.ncbi.nlm.nih.gov/articles/PMC6497473/
+- Orphanet estimates general-population SSc prevalence at roughly 1 in 6,500 adults. https://www.orpha.net/en/disease/detail/90291
+- % of SSc patients developing ILD: commonly cited range **30%–90%**, with **up to 60%** frequently cited as the "clinically identified ILD" figure and **up to 90%** for any interstitial abnormality on HRCT (i.e., subclinical + clinical combined). North American cohort-specific figures: ~52% (North America overall), 30% (Minnesota, 1980-2010), 43.0% (single-center 2004-14), 52.3% (Canadian registry 2004-10). Same PMC6497473 review. A separate 2021 review states 40%-60% ILD prevalence among SSc. https://pmc.ncbi.nlm.nih.gov/articles/PMC7943067/
+- **Note for demo copy:** because SSc-ILD prevalence-in-SSc figures span 30-90% depending on whether HRCT-detected (subclinical) or clinically-significant disease is counted, always specify which definition is being cited.
+
+### Age of onset
+- IPF: mean age at diagnosis ~66 years; predominantly diagnosed in the 6th-7th decade of life (ages 50-70). https://pmc.ncbi.nlm.nih.gov/articles/PMC12839371/
+- Systemic sclerosis: onset generally 30-50 years, peak reported at 40-50 in most cohorts (though a UK cohort found peak 55-69, and some sources note ~22.5% of cases onset after age 60). Women affected ~4-5x more often than men (~80% of diagnosed patients are women). https://academic.oup.com/rheumatology/article/59/11/3380/5824949 ; https://www.rarediseaseadvisor.com/disease-info-pages/systemic-sclerosis-epidemiology/
+
+### Prognosis / survival
+- IPF median survival from diagnosis: **commonly cited as 3-5 years** across the literature (older sources cite 2-3 years with 5-year survival 20-40%; more recent observational cohorts trend toward 4-5 years, plausibly reflecting earlier diagnosis and antifibrotic treatment). This range is consistent and widely repeated but I could not pin a single canonical ATS/ALA-branded citation in this pass — recommend citing a specific peer-reviewed source (e.g., a named natural-history cohort study) rather than an unattributed "3-5 years" statistic in final materials.
+- A frequently repeated comparison — "IPF 5-year survival (~20-40%) is worse than most cancers except lung, pancreatic, and esophageal cancer" — appears in secondary/aggregated sources but was **not independently confirmed against a primary ATS/ALA source in this research pass**. Treat as a commonly-used but not fully source-verified claim; verify before using in an external-facing deck.
+- SSc-ILD: ILD and pulmonary arterial hypertension are the two leading causes of death in systemic sclerosis, accounting for **33% and 28% of SSc deaths respectively**; SSc-ILD 10-year mortality up to **40%**, with 10-year survival cited in a range of **29%-69%** across cohorts. "Update on morbidity and mortality in systemic sclerosis-related interstitial lung disease," Volkmann & Fischer, 2021. https://pmc.ncbi.nlm.nih.gov/articles/PMC7943067/
+- A Stanford ILD-database cohort (2002-2009) reported SSc-ILD 1-/3-/5-year survival of 100%/90%/77% — notably better than the broader mortality ranges above, illustrating cohort-to-cohort variability (era, center, disease severity mix). https://pmc.ncbi.nlm.nih.gov/articles/PMC6497473/
+
+---
+
+## 2. UNMET NEED — ORAL ANTIFIBROTIC TOLERABILITY
+
+### Mechanisms
+- **Pirfenidone (Esbriet, Roche/Genentech):** exact mechanism "not fully established" per label; combined antifibrotic/anti-inflammatory action — reduces fibroblast proliferation and TGF-β/PDGF-driven collagen and extracellular matrix accumulation, and reduces pro-inflammatory cytokine production. (FDA label / DailyMed)
+- **Nintedanib (Ofev, Boehringer Ingelheim):** intracellular small-molecule multi-tyrosine-kinase inhibitor targeting PDGFR-α/β, FGFR1-3, VEGFR1-3 (plus CSF1R, FLT-3, Lck, Lyn, Src); blocks receptor autophosphorylation and downstream PI3K/Akt and MAPK signaling implicated in fibrotic remodeling. https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=da1c9f37-779e-4682-816f-93d0faa4cfc9 ; https://www.ncbi.nlm.nih.gov/books/NBK585049/
+
+### Pivotal efficacy data (FVC decline)
+- **ASCEND** (pirfenidone, NEJM 2014): mean FVC decline at week 52 = 235 mL (pirfenidone) vs. 428 mL (placebo), p<0.001; 16.5% had ≥10-point %-predicted FVC decline or death vs. 31.8% placebo. https://www.nejm.org/doi/pdf/10.1056/NEJMoa1402582
+- **CAPACITY** (pirfenidone, Lancet 2011) — 72-week endpoint (note: different timepoint than ASCEND/INPULSIS): Study 004 was positive (−8.0% vs. −12.4% %-predicted FVC change, treatment difference 4.4%); **Study 006 did not meet its primary FVC endpoint** — a genuinely mixed result that should not be presented as uniformly positive. https://www.sciencedirect.com/science/article/abs/pii/S0140673611604054
+- **INPULSIS-1/-2** (nintedanib, NEJM 2014): annual FVC decline reduced from −239.9 mL (placebo) to −114.7 mL (nintedanib) in INPULSIS-1 (difference 125.3 mL/yr), and similarly in INPULSIS-2 (difference 93.7 mL/yr, ~50% relative reduction). N=1,061 total. https://www.nejm.org/doi/full/10.1056/NEJMoa1402584
+
+### Tolerability / side-effect burden (FDA label figures, drug vs. placebo)
+**Pirfenidone** (DailyMed/Esbriet USPI): nausea 36% vs 16%; rash 30% vs 10%; diarrhea 26% vs 20%; dyspepsia 19% vs 7%; vomiting 13% vs 6%; **photosensitivity reaction 9% vs 1%** (majority within first 6 months); ALT/AST ≥3×ULN 3.7% vs 0.8%. https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=07ff87b3-0a88-15b4-e063-6294a90a72ab
+
+**Nintedanib** (DailyMed/OFEV USPI, IPF population): **diarrhea 62% vs 18%** (leading AE); nausea 24% vs 7%; vomiting 12% vs 3%; liver enzyme elevation 14% vs 3%; weight decrease 10% vs 3%. https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=da1c9f37-779e-4682-816f-93d0faa4cfc9
+- **In the SSc-ILD population specifically** (SENSCIS trial), diarrhea incidence was markedly higher: **76% (nintedanib) vs. 32% (placebo)** — notably worse tolerability signal than the IPF-label figure. Do not apply the IPF-population 62% figure to SSc-ILD messaging; use 76% for that population. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11896007/
+
+### Discontinuation rates due to adverse events
+- **Pirfenidone**, pooled pivotal trials (FDA label): 14.6% vs 9.6% (placebo) discontinued due to AE, most commonly rash/nausea. Real-world discontinuation rates vary substantially by geography: Greece 22.5%, Spain 23.1%, US ~13%, Taiwan 4% (range **~4%-23%** across published real-world cohorts).
+- **Nintedanib**, pooled pivotal trials (FDA label): 21% vs 15% (placebo) discontinued due to AE (diarrhea 5%, nausea 2%, decreased appetite 2%). Real-world cohorts: 16.2% (meta-analysis), 26.3% and 27.6% (individual cohorts), 20.6% in an SSc-ILD real-world cohort (range **~16%-28%**). One Japan post-marketing report reportedly found ~50% discontinuation within the first year — **this figure came from a search summary, not a directly verified primary text; flag as unconfirmed and re-check PubMed 36692681 before using.**
+- Both label figures and independent literature converge on the same underlying narrative: GI toxicity (diarrhea especially for nintedanib; nausea/rash/photosensitivity for pirfenidone) is the dominant driver of treatment discontinuation, and tolerability challenges are amplified further in the CTD-ILD/SSc-ILD population (e.g., nintedanib median treatment duration was 23 days in one CTD-ILD cohort vs. 218 days in non-CTD-ILD patients). https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11896007/ ; unmet-need review: https://pubmed.ncbi.nlm.nih.gov/40769405/
+
+---
+
+## 3. STANDARD OF CARE
+
+### IPF (ATS/ERS/JRS/ALAT 2022 guideline)
+- Conditionally recommends nintedanib and pirfenidone as approved pharmacologic agents, alongside non-pharmacologic management (supplemental oxygen, pulmonary rehabilitation, lung transplant referral). PPF is formally defined as ≥2 of 3 criteria (worsening symptoms, radiologic progression, physiologic decline) within one year in a non-IPF ILD with no alternative explanation. Am J Respir Crit Care Med, 2022. https://pubmed.ncbi.nlm.nih.gov/35486072/
+- For PPF specifically: **conditional recommendation for nintedanib; the guideline explicitly declines to recommend pirfenidone for PPF**, citing insufficient evidence (pending further research) — despite some literature suggesting a possible second-line role. Treat the guideline as authoritative over secondary reviews that describe pirfenidone as having broader "support" in PPF.
+
+### CTD-ILD / SSc-ILD
+- **Mycophenolate mofetil (MMF)** is the de facto first-line immunosuppressant for SSc-ILD per **Scleroderma Lung Study II (SLS-II)**: MMF (2 yrs) vs. oral cyclophosphamide (1 yr) — comparable efficacy (65% CYC vs. 72% MMF with stable/improved FVC at 24 months) but MMF better tolerated (less toxicity, fewer withdrawals), which underlies its current clinical preference. Lancet Respir Med, 2016. https://pmc.ncbi.nlm.nih.gov/articles/PMC5014629/
+- **RECITAL trial** (rituximab vs. IV cyclophosphamide, CTD-ILD incl. SSc): rituximab not superior in efficacy (both arms improved FVC at 24 weeks) but had fewer adverse events; in SSc-ILD specifically lung function stabilized but did not improve. Lancet Respir Med, 2022. https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(22)00359-9/fulltext
+- **Tocilizumab (Actemra)** — FDA-approved **March 4, 2021** for SSc-ILD (first biologic approved for this indication), based on focuSSced: missed its primary skin-fibrosis (mRSS) endpoint but showed a significant lung-function-preservation secondary endpoint (ppFVC decline 0.07% vs −6.4%; mean FVC difference 241 mL vs placebo). https://www.gene.com/media/press-releases/14897/2021-03-04/genentechs-actemra-becomes-the-first-bio
+- **EULAR 2023 update** recommends MMF and/or cyclophosphamide for SSc-ILD, plus nintedanib (alone or with MMF), rituximab, and tocilizumab as options. Ann Rheum Dis, 2024. https://ard.eular.org/article/S0003-4967(24)00584-3/fulltext
+- **Nintedanib SSc-ILD approval:** FDA approved **September 2019** based on **SENSCIS** (n=576) — adjusted annual FVC decline −52.4 mL/yr (nintedanib) vs −93.3 mL/yr (placebo) — the first and only therapy at that time shown to slow SSc-ILD lung-function decline. Japan MHLW followed December 2019, EMA April 2020. https://www.prnewswire.com/news-releases/fda-approves-ofev-as-the-first-and-only-therapy-to-slow-the-rate-of-decline-in-pulmonary-function-in-patients-with-systemic-sclerosis-associated-ild-300913558.html
+- **Nintedanib PPF/chronic fibrosing ILD approval:** FDA approved **March 9, 2020** based on **INBUILD** (n=663) — 57% relative reduction in annual FVC decline vs placebo — the first FDA approval of any drug for progressive fibrosing ILD generally (not IPF-specific). https://www.boehringer-ingelheim.com/us/media/press-releases/fda-approves-ofev-first-treatment-chronic-fibrosing-ilds-progressive-phenotype
+- **Pirfenidone has no FDA approval in SSc-ILD or PPF.** The only SSc-ILD data is the small (n=63), open-label, non-placebo-controlled **LOTUSS** Phase 2 safety/tolerability study (PubMed: https://pubmed.ncbi.nlm.nih.gov/27370878/), and **SLS III** (pirfenidone + MMF combination), which was **stopped early by sponsor decision before full enrollment** rather than for an efficacy/safety failure (ClinicalTrials.gov NCT03221257).
+- Gaps noted in recent review literature: optimal timing/duration of antifibrotic therapy and antifibrotic+immunosuppressant combination strategies in PPF remain open questions; real-world uptake of antifibrotics in PPF-criteria-meeting patients is inconsistent, suggesting undertreatment. https://pubmed.ncbi.nlm.nih.gov/39039699/ ; https://www.resmedjournal.com/article/S0954-6111(25)00410-X/fulltext
+
+---
+
+## 4. RATIONALE FOR INHALED DELIVERY
+
+### General pharmacology rationale
+- Inhaled/pulmonary-targeted delivery offers direct, non-invasive access to fibrotic lung tissue with high local delivery efficiency and (in principle) lower systemic drug exposure/toxicity than oral dosing at an equivalent lung effect. Review literature (peer-reviewed): https://pmc.ncbi.nlm.nih.gov/articles/PMC10329312/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10787600/
+- The lung has comparatively low first-pass/biometabolic enzyme activity relative to the liver, so pulmonary-delivered drugs avoid hepatic first-pass metabolism, which can improve local bioavailability — a mechanistic rationale relevant given that both approved oral antifibrotics carry hepatotoxicity/liver-enzyme-elevation risk.
+- A recognized engineering tradeoff: aerosol particle size (~1-5 µm optimal aerodynamic diameter) must be tuned for deep-lung deposition — too small and particles are exhaled, too large/polydisperse and they trigger cough or deposit in the upper airway. Peer-reviewed aerosol delivery literature: https://pmc.ncbi.nlm.nih.gov/articles/PMC7133424/
+
+### Peer-reviewed data specific to inhaled pirfenidone (AP01 / Avalyn's lead candidate) — **verified directly**
+- **ATLAS trial** (West A, et al., *Thorax*, 2023): Phase 1b, randomized, open-label, dose-response, 25 sites/6 countries, **N=91** (46 on 50 mg once-daily; 45 on 100 mg twice-daily), enrolling IPF patients "intolerant, unwilling or ineligible for oral pirfenidone or nintedanib." **No placebo arm.**
+  - 100 mg BID group: FVC essentially stable — +0.6% predicted (+10 mL) at week 24, −0.4% predicted (−34 mL) at week 48.
+  - 50 mg QD group showed continued decline: −2.5% predicted (−88 mL) at week 24, −4.9% predicted (−188 mL) at week 48 — i.e., a genuine dose-response signal, not uniform stabilization at all doses.
+  - Most common treatment-related AEs, all mild-moderate: cough 15.4%, rash 12.1%, nausea 8.8% — qualitatively lower/different profile than oral pirfenidone's GI/photosensitivity signature, but this is a **cross-study, non-randomized comparison** (no head-to-head placebo or active comparator arm), so any "better tolerated than oral" claim should be phrased as a preliminary/suggestive signal, not a proven comparative result.
+  - PubMed: https://pubmed.ncbi.nlm.nih.gov/36948586/ ; full text (Avalyn-hosted PDF): https://www.avalynpharma.com/wp-content/uploads/2023/03/west-et-al-2023-ph1b-atlas-ap01-inhaled-pirfenidone-published-thorax.pdf
+
+### Avalyn Pharmaceuticals — company-stated rationale and pipeline (flagged as company claims unless otherwise noted)
+- **AP01 (inhaled pirfenidone, PARI eRapid Nebulizer System):** Company rationale — oral pirfenidone's dose is often reduced to manage side effects, which compromises efficacy; AP01 targets the lung directly with a smaller dose to preserve efficacy while cutting systemic exposure. Now in **Phase 2b "MIST" trial** for progressive pulmonary fibrosis (target enrollment of ~300 exceeded; 375 patients enrolled as of June 2026 per company release). GlobeNewswire (trial initiation, Sept 2024): https://www.globenewswire.com/news-release/2024/09/03/2939633/ ; BioSpace (enrollment complete, June 2026): https://www.biospace.com/press-releases/avalyn-completes-target-enrollment-in-phase-2b-mist-trial-of-ap01-inhaled-pirfenidone-for-patients-with-progressive-pulmonary-fibrosis — **[company press release]**
+- **AP02 (inhaled nintedanib, PARI eFlow nebulizer):** Company rationale — oral nintedanib's diarrhea, hyperbilirubinemia, and drug-induced-liver-injury risk motivates a lung-targeted reformulation to "maximize effect on diseased lung tissue while minimizing exposure to other tissues." Phase 1 (SAD/MAD, healthy volunteers + IPF patients) reportedly completed with favorable safety/tolerability and higher lung/lower systemic exposure vs. oral dosing (company claim); advancing into **Phase 2 "AURA-IPF"** trial (first patient dosed ~Q1 2026 per company release; data expected late 2027). GlobeNewswire: https://www.globenewswire.com/news-release/2025/04/01/3053293/ ; https://www.globenewswire.com/news-release/2026/03/23/3260821/ — **[company press release]**. A Phase 1 PK/safety conference abstract was also presented at ATS 2025 (higher evidence tier than a press release, but not a full peer-reviewed manuscript): https://www.atsjournals.org/doi/abs/10.1164/ajrccm.2025.211.Abstracts.A2915
+- **AP03:** fixed-dose combination of inhaled pirfenidone + nintedanib, preclinical stage, rationale being that oral pirfenidone+nintedanib combination is limited by additive systemic toxicity — an inhaled combination could sidestep that. **[company claim, no clinical data yet]**
+- **Caution flag:** Some PK figures circulating (e.g., "50-fold lower plasma AUC at equivalent lung concentration," "18-fold higher lung Cmax vs. oral") trace back to **patent filings**, not a peer-reviewed pharmacokinetic study. Patent claims are not independently validated clinical/PK data — if used in a demo, they must be labeled as patent-sourced, or re-derived from the peer-reviewed Thorax paper / a company scientific poster with proper attribution.
+- Company-stated overall positioning: existing oral antifibrotics "slow disease progression" but carry side effects that limit compliance; Avalyn's inhaled approach aims to "enhance efficacy and avoid side effects associated with systemic drug delivery" by delivering treatment directly to lung tissue. Avalyn Pharma website: https://www.avalynpharma.com/about/ ; https://www.avalynpharma.com/pipeline/ — **[company claim]**
+- **Independent (non-company) framing:** BioPharma Dive, covering Avalyn's 2026 IPO, frames existing oral drugs (Esbriet, Ofev) as drugs that "don't stop the disease altogether" and have real tolerability limitations — described as the market opportunity Avalyn is pursuing. This is journalistic framing, not a clinical efficacy claim. https://www.biopharmadive.com/news/avalyn-biotech-ipo-price-pulmonary-fibrosis-esbriet-ofev/818851/ (2026)
+- **Company/financial context (useful background, verify before external use):** Avalyn is reported to have completed an IPO in 2026 (closed May 1, 2026; ~$345M raised including overallotment; Nasdaq ticker AVLN), following a $175M Series C (2023) and $35.5M Series B (2020). Sources: SEC 8-K https://www.sec.gov/Archives/edgar/data/0001540171/000119312526254581/ck0001540171-ex99_1.htm ; GlobeNewswire (Series C) https://www.globenewswire.com/news-release/2023/09/27/2750197/ ; BusinessWire (Series B) https://www.businesswire.com/news/home/20200427005818/en/
+
+### Broader competitive/category context
+- Inhaled treprostinil (a prostacyclin analog — mechanistically unrelated to pirfenidone/nintedanib) reported positive Phase 3 IPF data (TETON program) in NEJM 2026 — relevant as category validation that inhaled therapy in IPF can produce a positive Phase 3 readout, but it is a different drug class, not a pirfenidone/nintedanib reformulation. https://www.nejm.org/doi/full/10.1056/NEJMoa2512911
+- LTI-03 (inhaled peptide) has only preprint (non-peer-reviewed) dose-escalation data as of this research. https://www.medrxiv.org/content/10.1101/2025.10.28.25338981.full.pdf
+
+---
+
+## SUMMARY OF FLAGGED ITEMS (do not use without further verification)
+
+1. IPF prevalence: cite a range and named source, not one point estimate — figures vary 3-4x by case definition.
+2. PPF US prevalence: use the verified primary figure of **70.30 per 100,000** (Olson et al. 2021) — a secondary source incorrectly cites "28 per 100,000" for the same study.
+3. "IPF 5-year survival worse than most cancers" — a commonly repeated claim, not independently pinned to a primary ATS/ALA source in this pass.
+4. Japan nintedanib "~50% discontinuation within 1 year" — unverified against primary text (PubMed 36692681); do not use until confirmed.
+5. AP01/AP02 patent-derived PK figures (50-fold/18-fold exposure ratios) — patent claims, not peer-reviewed PK data; label accordingly if used.
+6. AP01 ATLAS trial had **no placebo arm** — "better tolerated than oral pirfenidone" is a cross-study comparison, not a head-to-head result; phrase as preliminary.
+7. Avalyn's Orphan Drug Designation (2014, for AP01's predecessor) — sourced only from an aggregated web search, not a primary FDA/company record; verify against the FDA Orphan Drug database before use.
+8. NCT06329401 (MIST trial) — reported via secondary sources; recommend a direct ClinicalTrials.gov confirmation before citing the identifier in materials.
